@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from unittest import TestCase
 
 import unittest
@@ -36,25 +37,38 @@ class NewVisitorTest(TestCase):
 
         # Under the header, there are 3 input boxes.
         #  On the left, the longest input box is a textfield type to write book’s title down.
-        input_new_book_box = self.browser.find_element_by_id('new_book')
+        input_new_book_box = self.browser.find_element_by_id('id_new_book')
         self.assertEqual(input_new_book_box.get_attribute('placeholder'), 'Book\'s title')
 
         # Next to title input box there are two square digits fields.
         # On first of them, there is text “Your current page”
         # and on the second one – “Book total page number”.
-        input_current_page_box = self.browser.find_element_by_id('current_page')
+        input_current_page_box = self.browser.find_element_by_id('id_current_page')
         self.assertEqual(input_current_page_box.get_attribute('placeholder'), 'Current page')
 
-        input_total_pages_box = self.browser.find_element_by_id('total_pages')
+        input_total_pages_box = self.browser.find_element_by_id('id_total_pages')
         self.assertEqual(input_total_pages_box.get_attribute('placeholder'), 'Total pages in a book')
 
         # Below the input boxes, there is a button “Save and see a chart”.
         button_save_and_see_chart = self.browser.find_element_by_tag_name('button')
-        button_save_and_see_chart.click()
 
-        # After pressing it / and after pressing ENTER key, the user is redirecting to another site.
+        # The visitor is typying values in all three input boxes
+        input_new_book_box.send_keys('The Power of Habit')
+        input_current_page_box.send_keys(129)
+        input_total_pages_box.send_keys(371)
 
-        # On that site, the user is able to see graph showing present progress.
+        # After pressing ENTER keyis redirecting to another site.
+        input_total_pages_box.send_keys(Keys.ENTER)
+
+
+
+        # After pressing button the user is redirecting to another site.
+
+        # On that site, the user is able to see table of last entered title
+        # and graph showing present progress.
+        table = self.browser.find_element_by_id('id_book_table')
+        row = table.find_elements_by_id('tr')
+        self.assertTrue(any(row.text == 'The Power of Habit' for row in rows))
 
         # Below there is a text “Please enter another book’s title” with analogous input boxes.
 
