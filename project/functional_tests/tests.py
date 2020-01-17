@@ -22,12 +22,17 @@ class NewVisitorTest(TestCase):
         self.browser.get('http://localhost:8000')
         self.assertIn('Reading tracker', self.browser.title)
 
-        # The visitor saw a header “Please enter a book’s title
+        # The visitor realized a header "Your books reading process"
+        expected_header = "Your books reading process"
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertEqual(expected_header, header_text)
+
+        # The visitor saw a text “Please enter a book’s title
         # that you’d like to track, page number where you’re currently on
         # and total page numbers of the book.”
-        correct_header_text = "Please enter a book’s title that you’d like to track, page number where you’re currently on and total page numbers of the book."
-        header_text = self.browser.find_element_by_tag_name('h3').text
-        self.assertEqual(correct_header_text, header_text)
+        expected_instruction = "Please enter a book’s title that you’d like to track, page number where you’re currently on and total page numbers of the book."
+        instruction_text = self.browser.find_element_by_tag_name('h3').text
+        self.assertEqual(expected_instruction, instruction_text)
 
         # Under the header, there are 3 input boxes.
         #  On the left, the longest input box is a textfield type to write book’s title down.
