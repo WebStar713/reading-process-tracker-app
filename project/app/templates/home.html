@@ -9,9 +9,13 @@
         <h3>Please enter a book’s title that you’d like to track,
             page number where you’re currently on
             and total page numbers of the book.</h3>
-        <input id="id_new_book" placeholder="Book's title" />
-        <input id="id_current_page" placeholder="Current page" />
-        <input id="id_total_pages" placeholder="Total pages in a book" />
+        <form method="POST">
+            <input name="title" id="id_new_book" placeholder="Book's title" />
+            <input name="current_page" id="id_current_page" placeholder="Current page" />
+            <input name="total_pages" id="id_total_pages" placeholder="Total pages in a book" />
+        </form>
         <button type="button">Save and see progress chart</button>
+        <table id="id_book_table">
+        </table>
     </body>
 </html>
