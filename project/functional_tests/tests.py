@@ -49,6 +49,8 @@ class NewVisitorTest(TestCase):
         self.assertEqual(input_total_pages_box.get_attribute('placeholder'), 'Total pages in a book')
 
         # Below the input boxes, there is a button “Save and see a chart”.
+        button_save_and_see_chart = self.browser.find_element_by_tag_name('button')
+        button_save_and_see_chart.click()
 
         # After pressing it / and after pressing ENTER key, the user is redirecting to another site.
 
