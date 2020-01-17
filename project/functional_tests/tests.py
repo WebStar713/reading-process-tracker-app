@@ -65,7 +65,7 @@ class NewVisitorTest(TestCase):
 
         # On that site, the user is able to see table of last entered title
         table = self.browser.find_element_by_id('id_book_table')
-        row = table.find_elements_by_id('tr')
+        rows = table.find_elements_by_id('tr')
         self.assertTrue(any(row.text == 'The Power of Habit' for row in rows))
 
         # ... and graph showing present progress.
