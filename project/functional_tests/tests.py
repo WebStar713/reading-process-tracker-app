@@ -14,24 +14,34 @@ class NewVisitorTest(TestCase):
 
         self.browser.quit()
 
-    # After going to the website, the visitor realized that title of website is “Reading books Tracker”.
+
     def test_can_start_test(self):
 
+        # After going to the website, the visitor realized that title of website
+        # is “Reading books Tracker”.
         self.browser.get('http://localhost:8000')
         self.assertIn('Reading tracker', self.browser.title)
 
-
-
-
-
-
-        #  The visitor saw a header “Please enter a book’s title that you’d like to track, page number where you’re currently on and total page numbers of the book.”
+        # The visitor saw a header “Please enter a book’s title
+        # that you’d like to track, page number where you’re currently on
+        # and total page numbers of the book.”
+        correct_header_text = "Please enter a book’s title that you’d like to track, page number where you’re currently on and total page numbers of the book."
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertEqual(correct_header_text, header_text)
 
         # Under the header, there are 3 input boxes.
-
         #  On the left, the longest input box is a textfield type to write book’s title down.
+        input_new_book_box = self.browser.find_element_by_id('new book')
+        self.assertEqual(input_new_book_box.get_attribute('placeholder'), 'Book\'s title')
 
-        # Next to title input box there are two square digits fields. On first of them, there is text “Your current page” and on the second one – “Book total page number”.
+        # Next to title input box there are two square digits fields.
+        # On first of them, there is text “Your current page”
+        # and on the second one – “Book total page number”.
+        input_current_page_box = self.browser.find_element_by_id('current page')
+        self.assertEqual(input_current_page_box.get_attribute('placeholder'), 'Current page')
+
+        input_total_pages_box = self.browser.find_element_by_id('total pages')
+        self.assertEqual(input_total_pages_box.get_attribute('placeholder'), 'Total pages in a book')
 
         # Below the input boxes, there is a button “Save and see a chart”.
 
