@@ -31,13 +31,13 @@ class NewVisitorTest(TestCase):
 
         # Under the header, there are 3 input boxes.
         #  On the left, the longest input box is a textfield type to write book’s title down.
-        input_new_book_box = self.browser.find_element_by_id('new book')
+        input_new_book_box = self.browser.find_element_by_id('new_book')
         self.assertEqual(input_new_book_box.get_attribute('placeholder'), 'Book\'s title')
 
         # Next to title input box there are two square digits fields.
         # On first of them, there is text “Your current page”
         # and on the second one – “Book total page number”.
-        input_current_page_box = self.browser.find_element_by_id('current page')
+        input_current_page_box = self.browser.find_element_by_id('current_page')
         self.assertEqual(input_current_page_box.get_attribute('placeholder'), 'Current page')
 
         input_total_pages_box = self.browser.find_element_by_id('total pages')
