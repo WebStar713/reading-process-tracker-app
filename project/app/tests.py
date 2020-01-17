@@ -12,5 +12,11 @@ class HomePageTest(TestCase):
         self.assertTemplateUsed(response, 'home.html')
 
     def test_home_page_saves_POST_request(self):
-        response = self.client.post('/', data={'title': 'Some book'})
+        response = self.client.post('/', data={
+                            'title': 'Some book',
+                            'current_page': '125',
+                            'total_pages': '317',
+                            })
         self.assertIn('Some book', response.content.decode())
+        self.assertIn('125', response.content.decode())
+        self.assertIn('317', response.content.decode())
