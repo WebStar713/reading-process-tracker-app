@@ -25,7 +25,7 @@ class NewVisitorTest(TestCase):
         self.assertIn('Reading tracker', self.browser.title)
 
         # The visitor realized a header "Your books reading process"
-        expected_header = "Your books reading process"
+        expected_header = "Your books reading progress"
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertEqual(expected_header, header_text)
 
