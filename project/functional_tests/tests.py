@@ -57,18 +57,18 @@ class NewVisitorTest(TestCase):
         input_current_page_box.send_keys(129)
         input_total_pages_box.send_keys(371)
 
-        # After pressing ENTER keyis redirecting to another site.
+        # After pressing ENTER the visitor realized table with his book's title.
+        # TODO: After pressing ENTER key is redirecting to another site.)
+        # TODO: After pressing button the user is redirecting to another site.
         input_total_pages_box.send_keys(Keys.ENTER)
 
 
-
-        # After pressing button the user is redirecting to another site.
-
         # On that site, the user is able to see table of last entered title
-        # and graph showing present progress.
         table = self.browser.find_element_by_id('id_book_table')
         row = table.find_elements_by_id('tr')
         self.assertTrue(any(row.text == 'The Power of Habit' for row in rows))
+
+        # ... and graph showing present progress.
 
         # Below there is a text “Please enter another book’s title” with analogous input boxes.
 
