@@ -2,4 +2,4 @@ venv/
 db.sqlite3__pycache__
 *.pyc
 .DS_Store
-db.sqlite3
+project/db.sqlite3
