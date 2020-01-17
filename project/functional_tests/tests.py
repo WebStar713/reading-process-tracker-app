@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from unittest import TestCase
 
 import unittest
+import time
 
 class NewVisitorTest(TestCase):
 
@@ -31,7 +32,7 @@ class NewVisitorTest(TestCase):
         # The visitor saw a text “Please enter a book’s title
         # that you’d like to track, page number where you’re currently on
         # and total page numbers of the book.”
-        expected_instruction = "Please enter a book’s title that you’d like to track, page number where you’re currently on and total page numbers of the book."
+        expected_instruction = "Please type a book’s title that you’d like to track, page number where you’re currently on and total page numbers of the book."
         instruction_text = self.browser.find_element_by_tag_name('h3').text
         self.assertEqual(expected_instruction, instruction_text)
 
@@ -50,26 +51,21 @@ class NewVisitorTest(TestCase):
         self.assertEqual(input_total_pages_box.get_attribute('placeholder'), 'Total pages in a book')
 
         # Below the input boxes, there is a button “Save and see a chart”.
-        button_save_and_see_chart = self.browser.find_element_by_tag_name('button')
+        button_save_and_see_chart = self.browser.find_element_by_css_selector('.button_main')
 
         # The visitor is typying values in all three input boxes
+        # After pressing button the user is redirecting to another site.
         input_new_book_box.send_keys('The Power of Habit')
-        input_current_page_box.send_keys(129)
-        input_total_pages_box.send_keys(371)
-
-        # After pressing ENTER the visitor realized table with his book's title.
-        # TODO: After pressing ENTER key is redirecting to another site.)
-        # TODO: After pressing button the user is redirecting to another site.
-        input_new_book_box.send_keys(Keys.ENTER)
-        #input_current_page_box.send_keys(Keys.ENTER)
-        #input_total_pages_box.send_keys(Keys.ENTER)
-
+        input_current_page_box.send_keys('129')
+        input_total_pages_box.send_keys('371')
+        button_save_and_see_chart.click()
 
         # On that site, the user is able to see table of last entered title
         table = self.browser.find_element_by_id('id_book_table')
-        rows = table.find_elements_by_id('tr')
-        self.assertTrue(any(row.text == 'The Power of Habit' for row in rows),
-        "New title is not in a table -- this title is: \n%s" % (table.text))
+        columns = table.find_elements_by_tag_name('td')
+        self.assertIn('The Power of Habit', [column.text for column in columns])
+        self.assertIn('129', [column.text for column in columns])
+        self.assertIn('371', [column.text for column in columns])
 
         # ... and graph showing present progress.
 
