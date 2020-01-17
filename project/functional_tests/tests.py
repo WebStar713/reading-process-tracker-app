@@ -40,7 +40,7 @@ class NewVisitorTest(TestCase):
         input_current_page_box = self.browser.find_element_by_id('current_page')
         self.assertEqual(input_current_page_box.get_attribute('placeholder'), 'Current page')
 
-        input_total_pages_box = self.browser.find_element_by_id('total pages')
+        input_total_pages_box = self.browser.find_element_by_id('total_pages')
         self.assertEqual(input_total_pages_box.get_attribute('placeholder'), 'Total pages in a book')
 
         # Below the input boxes, there is a button “Save and see a chart”.
