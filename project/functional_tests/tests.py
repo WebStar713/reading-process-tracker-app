@@ -61,8 +61,8 @@ class NewVisitorTest(TestCase):
         # TODO: After pressing ENTER key is redirecting to another site.)
         # TODO: After pressing button the user is redirecting to another site.
         input_new_book_box.send_keys(Keys.ENTER)
-        input_current_page_box.send_keys(Keys.ENTER)
-        input_total_pages_box.send_keys(Keys.ENTER)
+        #input_current_page_box.send_keys(Keys.ENTER)
+        #input_total_pages_box.send_keys(Keys.ENTER)
 
 
         # On that site, the user is able to see table of last entered title
