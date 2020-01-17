@@ -6,18 +6,18 @@
         <h1>Your books reading process</h1>
     </head>
     <body>
-        <h3>Please enter a book’s title that you’d like to track,
+        <h3>Please type a book’s title that you’d like to track,
             page number where you’re currently on
             and total page numbers of the book.</h3>
         <form method="POST">
-            <input name="title" id="id_new_book" placeholder="Book's title" />
             {% csrf_token %}
+            <input name="title" id="id_new_book" placeholder="Book's title" />
+            <input name="current_page" id="id_current_page" placeholder="Current page" />
+            <input name="total_pages" id="id_total_pages" placeholder="Total pages in a book" />
+            <input type="submit" class="button button_main" value="Save and see progress chart">
         </form>
-        <input name="current_page" id="id_current_page" placeholder="Current page" />
-        <input name="total_pages" id="id_total_pages" placeholder="Total pages in a book" />
-        <button type="button">Save and see progress chart</button>
         <table id="id_book_table">
-            <tr><td>{{ new_title }}</td></tr>
+            <tr><td>{{ new_title }}</td><td>{{ new_current_page }}</td><td>{{ new_total_pages }}</td></tr>
         </table>
     </body>
 </html>
