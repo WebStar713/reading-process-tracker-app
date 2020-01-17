@@ -1,4 +1,4 @@
 from django.shortcuts import render
 
-def homePage():
+def homePage(request):
     pass
