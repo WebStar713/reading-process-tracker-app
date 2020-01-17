@@ -26,7 +26,7 @@ class NewVisitorTest(TestCase):
         # that you’d like to track, page number where you’re currently on
         # and total page numbers of the book.”
         correct_header_text = "Please enter a book’s title that you’d like to track, page number where you’re currently on and total page numbers of the book."
-        header_text = self.browser.find_element_by_tag_name('h1').text
+        header_text = self.browser.find_element_by_tag_name('h3').text
         self.assertEqual(correct_header_text, header_text)
 
         # Under the header, there are 3 input boxes.
