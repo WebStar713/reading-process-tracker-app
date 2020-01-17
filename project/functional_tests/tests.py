@@ -67,6 +67,29 @@ class NewVisitorTest(TestCase):
         self.assertIn('129', [column.text for column in columns])
         self.assertIn('371', [column.text for column in columns])
 
+        # Quick check if visitor is able to post second books details
+        input_new_book_box = self.browser.find_element_by_id('id_new_book')
+        input_current_page_box = self.browser.find_element_by_id('id_current_page')
+        input_total_pages_box = self.browser.find_element_by_id('id_total_pages')
+        button_save_and_see_chart = self.browser.find_element_by_css_selector('.button_main')
+
+        input_new_book_box.send_keys('Factfulness')
+        input_current_page_box.send_keys('0')
+        input_total_pages_box.send_keys('341')
+        button_save_and_see_chart.click()
+
+        table = self.browser.find_element_by_id('id_book_table')
+        columns = table.find_elements_by_tag_name('td')
+        self.assertIn('Factfulness', [column.text for column in columns])
+        self.assertIn('0', [column.text for column in columns])
+        self.assertIn('341', [column.text for column in columns])
+
+        # Check if details for both books saved
+        self.assertIn('The Power of Habit', [column.text for column in columns])
+        self.assertIn('129', [column.text for column in columns])
+        self.assertIn('371', [column.text for column in columns])
+
+
         # ... and graph showing present progress.
 
         # Below there is a text “Please enter another book’s title” with analogous input boxes.
