@@ -15,8 +15,8 @@ class HomePageTest(TestCase):
     def test_home_page_saves_POST_request(self):
         response = self.client.post('/', data={
                             'title': 'Some book',
-                            'current_page': '125',
-                            'total_pages': '317',
+                            'current_page': 125,
+                            'total_pages': 317,
                             })
         self.assertIn('Some book', response.content.decode())
         self.assertIn('125', response.content.decode())
@@ -25,20 +25,20 @@ class HomePageTest(TestCase):
         self.assertEqual(Book.objects.count(), 1)
         new_book = Book.objects.first()
         self.assertEqual(new_book.title, 'Some book')
-        self.assertEqual(new_book.current_page, '125')
-        self.assertEqual(new_book.total_pages, '317')
+        self.assertEqual(new_book.current_page, 125)
+        self.assertEqual(new_book.total_pages, 317)
 
     def test_saves_and_retrieves_lots_books_details(self):
         first_book = Book()
         first_book.title = 'Title of first book'
-        first_book.current_page = '12'
-        first_book.total_pages = '300'
+        first_book.current_page = 12
+        first_book.total_pages = 300
         first_book.save()
 
         second_book = Book()
         second_book.title = 'Title of second book'
-        second_book.current_page = '70'
-        second_book.total_pages = '566'
+        second_book.current_page = 70
+        second_book.total_pages = 566
         second_book.save()
 
         saved_books = Book.objects.all()
