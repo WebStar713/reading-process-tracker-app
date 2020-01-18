@@ -22,6 +22,12 @@ class HomePageTest(TestCase):
         self.assertIn('125', response.content.decode())
         self.assertIn('317', response.content.decode())
 
+        self.assertEqual(Book.objects.count(), 1)
+        new_book = Book.objects.first()
+        self.assertEqual(new_book.title, 'Some book')
+        self.assertEqual(new_book.current_page, '125')
+        self.assertEqual(new_book.total_pages, '317')
+
     def test_saves_and_retrieves_lots_books_details(self):
         first_book = Book()
         first_book.title = 'Title of first book'
