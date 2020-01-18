@@ -14,10 +14,10 @@ class NewVisitorTest(TestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def check_for_columns_in_book_table(self, test_book, test_current_page, test_total_pages):
+    def check_for_columns_in_book_table(self, test_title, test_current_page, test_total_pages):
         table = self.browser.find_element_by_id('id_book_table')
         columns = table.find_elements_by_tag_name('td')
-        self.assertIn(test_book, [column.text for column in columns])
+        self.assertIn(test_title, [column.text for column in columns])
         self.assertIn(str(test_current_page), [column.text for column in columns])
         self.assertIn(str(test_total_pages), [column.text for column in columns])
 
