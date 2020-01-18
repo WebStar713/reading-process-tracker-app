@@ -18,9 +18,6 @@ class HomePageTest(TestCase):
                             'current_page': 125,
                             'total_pages': 317,
                             })
-        self.assertIn('Some book', response.content.decode())
-        self.assertIn('125', response.content.decode())
-        self.assertIn('317', response.content.decode())
 
         self.assertEqual(Book.objects.count(), 1)
         new_book = Book.objects.first()
