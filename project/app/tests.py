@@ -48,3 +48,7 @@ class HomePageTest(TestCase):
         second_saved_book = saved_books[1]
         self.assertEqual(first_saved_book.title, 'Title of first book')
         self.assertEqual(second_saved_book.title, 'Title of second book')
+
+    def test_home_page_only_saves_object_when_necessary(self):
+        self.client.get('/')
+        self.assertEqual(Book.objects.count(), 0)
