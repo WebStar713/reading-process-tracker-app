@@ -28,6 +28,9 @@ class HomePageTest(TestCase):
         self.assertEqual(new_book.current_page, 125)
         self.assertEqual(new_book.total_pages, 317)
 
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/')
+
     def test_saves_and_retrieves_lots_books_details(self):
         first_book = Book()
         first_book.title = 'Title of first book'
