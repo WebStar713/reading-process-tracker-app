@@ -8,17 +8,20 @@ import time
 class NewVisitorTest(TestCase):
 
     def setUp(self):
-
         self.browser = webdriver.Chrome()
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
-
         self.browser.quit()
 
+    def check_for_columns_in_book_table(self, test_book, test_current_page, test_total_pages):
+        table = self.browser.find_element_by_id('id_book_table')
+        columns = table.find_elements_by_tag_name('td')
+        self.assertIn(test_book, [column.text for column in columns])
+        self.assertIn(test_current_page, [column.text for column in columns])
+        self.assertIn(test_total_pages, [column.text for column in columns])
 
     def test_can_start_test(self):
-
         # After going to the website, the visitor realized that title of website
         # is “Reading books Tracker”.
         self.browser.get('http://localhost:8000')
@@ -61,11 +64,7 @@ class NewVisitorTest(TestCase):
         button_save_and_see_chart.click()
 
         # On that site, the user is able to see table of last entered title
-        table = self.browser.find_element_by_id('id_book_table')
-        columns = table.find_elements_by_tag_name('td')
-        self.assertIn('The Power of Habit', [column.text for column in columns])
-        self.assertIn('129', [column.text for column in columns])
-        self.assertIn('371', [column.text for column in columns])
+        self.check_for_columns_in_book_table('The Power of Habit', '129', '371')
 
         # Quick check if visitor is able to post second books details
         input_new_book_box = self.browser.find_element_by_id('id_new_book')
@@ -78,16 +77,10 @@ class NewVisitorTest(TestCase):
         input_total_pages_box.send_keys('341')
         button_save_and_see_chart.click()
 
-        table = self.browser.find_element_by_id('id_book_table')
-        columns = table.find_elements_by_tag_name('td')
-        self.assertIn('Factfulness', [column.text for column in columns])
-        self.assertIn('0', [column.text for column in columns])
-        self.assertIn('341', [column.text for column in columns])
+        self.check_for_columns_in_book_table('Factfulness', '0', '341')
 
         # Check if details for both books saved
-        self.assertIn('The Power of Habit', [column.text for column in columns])
-        self.assertIn('129', [column.text for column in columns])
-        self.assertIn('371', [column.text for column in columns])
+        self.check_for_columns_in_book_table('The Power of Habit', '129', '371')
 
 
         # ... and graph showing present progress.
