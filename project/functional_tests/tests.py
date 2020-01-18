@@ -18,8 +18,8 @@ class NewVisitorTest(TestCase):
         table = self.browser.find_element_by_id('id_book_table')
         columns = table.find_elements_by_tag_name('td')
         self.assertIn(test_book, [column.text for column in columns])
-        self.assertIn(test_current_page, [column.text for column in columns])
-        self.assertIn(test_total_pages, [column.text for column in columns])
+        self.assertIn(str(test_current_page), [column.text for column in columns])
+        self.assertIn(str(test_total_pages), [column.text for column in columns])
 
     def test_can_start_test(self):
         # After going to the website, the visitor realized that title of website
@@ -59,12 +59,12 @@ class NewVisitorTest(TestCase):
         # The visitor is typying values in all three input boxes
         # After pressing button the user is redirecting to another site.
         input_new_book_box.send_keys('The Power of Habit')
-        input_current_page_box.send_keys('129')
-        input_total_pages_box.send_keys('371')
+        input_current_page_box.send_keys(129)
+        input_total_pages_box.send_keys(371)
         button_save_and_see_chart.click()
 
         # On that site, the user is able to see table of last entered title
-        self.check_for_columns_in_book_table('The Power of Habit', '129', '371')
+        self.check_for_columns_in_book_table('The Power of Habit', 129, 371)
 
         # Quick check if visitor is able to post second books details
         input_new_book_box = self.browser.find_element_by_id('id_new_book')
@@ -73,14 +73,14 @@ class NewVisitorTest(TestCase):
         button_save_and_see_chart = self.browser.find_element_by_css_selector('.button_main')
 
         input_new_book_box.send_keys('Factfulness')
-        input_current_page_box.send_keys('0')
-        input_total_pages_box.send_keys('341')
+        input_current_page_box.send_keys(0)
+        input_total_pages_box.send_keys(341)
         button_save_and_see_chart.click()
 
-        self.check_for_columns_in_book_table('Factfulness', '0', '341')
+        self.check_for_columns_in_book_table('Factfulness', 0, 341)
 
         # Check if details for both books saved
-        self.check_for_columns_in_book_table('The Power of Habit', '129', '371')
+        self.check_for_columns_in_book_table('The Power of Habit', 129, 371)
 
 
         # ... and graph showing present progress.
