@@ -69,5 +69,5 @@ class HomePageTest(TestCase):
                             current_page = 2,
                             total_pages = 222,)
         response = self.client.get('/')
-        self.assertEqual('Title1', response.content.decode())
-        self.assertEqual('Title2', response.content.decode())
+        self.assertIn('Title1', response.content.decode())
+        self.assertIn('Title2', response.content.decode())
