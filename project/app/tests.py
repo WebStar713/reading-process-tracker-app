@@ -60,3 +60,14 @@ class HomePageTest(TestCase):
     def test_home_page_only_saves_object_when_necessary(self):
         self.client.get('/')
         self.assertEqual(Book.objects.count(), 0)
+
+    def test_home_page_displays_all_books_details(self):
+        Book.objects.create(title = 'Title1',
+                            current_page = 1,
+                            total_pages = 111,)
+        Book.objects.create(title = 'Title2',
+                            current_page = 2,
+                            total_pages = 222,)
+        self.client.get('/')
+        self.assertEqual('Title1', response.content.decode())
+        self.assertEqual('Title2', response.content.decode())
