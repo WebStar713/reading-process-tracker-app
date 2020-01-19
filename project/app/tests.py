@@ -68,6 +68,6 @@ class HomePageTest(TestCase):
         Book.objects.create(title = 'Title2',
                             current_page = 2,
                             total_pages = 222,)
-        self.client.get('/')
+        response = self.client.get('/')
         self.assertEqual('Title1', response.content.decode())
         self.assertEqual('Title2', response.content.decode())
