@@ -5,23 +5,23 @@ def homePage(request):
 
             #### BELOW WORKS TOO ####
 
-    if request.method == 'POST':
-        new_title = request.POST['title']
-        new_current_page = request.POST['current_page']
-        new_total_pages = request.POST['total_pages']
-
-        Book.objects.create(title = new_title,
-                            current_page = new_current_page,
-                            total_pages = new_total_pages,)
-    else:
-        new_title = ''
-        new_current_page = 0
-        new_total_pages = 0
-
-    return render(request, 'home.html', {'new_title' : new_title,
-                                         'new_current_page' : new_current_page,
-                                         'new_total_pages' : new_total_pages,
-                                        })
+    # if request.method == 'POST':
+    #     new_title = request.POST['title']
+    #     new_current_page = request.POST['current_page']
+    #     new_total_pages = request.POST['total_pages']
+    #
+    #     Book.objects.create(title = new_title,
+    #                         current_page = new_current_page,
+    #                         total_pages = new_total_pages,)
+    # else:
+    #     new_title = ''
+    #     new_current_page = 0
+    #     new_total_pages = 0
+    #
+    # return render(request, 'home.html', {'new_title' : new_title,
+    #                                      'new_current_page' : new_current_page,
+    #                                      'new_total_pages' : new_total_pages,
+    #                                     })
 
             #### BELOW WORKS ####
 
@@ -42,11 +42,12 @@ def homePage(request):
 
 
 
-    # if request.method == 'POST':
-    #     Book.objects.create(title = request.POST['title'],
-    #                         current_page = request.POST['current_page'],
-    #                         total_pages = request.POST['total_pages'],
-    #                         )
-    #     return redirect('/')
-    #
-    # return render(request, 'home.html')
+    if request.method == 'POST':
+        Book.objects.create(title = request.POST['title'],
+                            current_page = request.POST['current_page'],
+                            total_pages = request.POST['total_pages'],
+                            )
+        return redirect('/')
+
+    books = Book.objects.all()
+    return render(request, 'home.html', {'books': books})
