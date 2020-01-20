@@ -47,7 +47,7 @@ def homePage(request):
                             current_page = request.POST['current_page'],
                             total_pages = request.POST['total_pages'],
                             )
-        return redirect('/')
+        return redirect('/lists/first-list')
 
     books = Book.objects.all()
     return render(request, 'home.html', {'books': books})
