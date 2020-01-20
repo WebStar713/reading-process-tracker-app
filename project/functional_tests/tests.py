@@ -91,7 +91,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.quit()
 
         # New user starts using the website
-    def test_can_single_user_can_start_test(self):
+    def test_can_multiple_user_can_start_test(self):
         self.browser = webdriver.Chrome()
 
         # New user cannot see any lists of previous user
