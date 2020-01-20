@@ -21,7 +21,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn(str(test_current_page), [column.text for column in columns])
         self.assertIn(str(test_total_pages), [column.text for column in columns])
 
-    def test_can_start_test(self):
+    def test_can_single_user_can_start_test(self):
         # After going to the website, the visitor realized that title of website
         # is “Reading books Tracker”.
         self.browser.get(self.live_server_url)
@@ -63,6 +63,11 @@ class NewVisitorTest(LiveServerTestCase):
         input_total_pages_box.send_keys(371)
         button_save_and_see_chart.click()
 
+        # After typing book detail and clicking on a button the user is receiving
+        # an unique URL address for now new-generated list of books
+        books_list_url = self.browser.current_url
+        self.assertRegex(books_list_url, '/lists/.+')
+
         # On that site, the user is able to see table of last entered title
         self.check_for_columns_in_book_table('The Power of Habit', 129, 371)
 
@@ -77,11 +82,45 @@ class NewVisitorTest(LiveServerTestCase):
         input_total_pages_box.send_keys(341)
         button_save_and_see_chart.click()
 
+
         self.check_for_columns_in_book_table('Factfulness', 0, 341)
 
-        # Check if details for both books saved
+        # Check if details for both books haved been saved
         self.check_for_columns_in_book_table('The Power of Habit', 129, 371)
 
+        self.browser.quit()
+
+        # New user starts using the website
+    def test_can_single_user_can_start_test(self):
+        self.browser = webdriver.Chrome()
+
+        # New user cannot see any lists of previous user
+        self.browser.get(self.live_server_url)
+        previous_user_page_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('The Power of Habit', previous_user_page_text)
+        self.assertNotIn('Factfulness', previous_user_page_text)
+
+        # New user is creating his own list of books
+        input_new_book_box = self.browser.find_element_by_id('id_new_book')
+        input_current_page_box = self.browser.find_element_by_id('id_current_page')
+        input_total_pages_box = self.browser.find_element_by_id('id_total_pages')
+        button_save_and_see_chart = self.browser.find_element_by_css_selector('.button_main')
+
+        input_new_book_box.send_keys('You Look Like a Thing and I Love You')
+        input_current_page_box.send_keys(1)
+        input_total_pages_box.send_keys(272)
+        button_save_and_see_chart.click()
+
+        # New user is receiving an unique URL address for his list
+        books_of_new_user_list_url = self.browser.current_url
+        self.assertRegex(books_of_new_user_list_url, '/lists/.+')
+        self.assertNotEqual(books_list_url, books_of_new_user_list_url)
+
+        # We check again if there is not a list of previous user
+        previous_user_page_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('The Power of Habit', previous_user_page_text)
+        # but we check if there is a list of new user
+        self.assertIn('You Look Like a Thing and I Love You', previous_user_page_text)
 
         # ... and graph showing present progress.
 
