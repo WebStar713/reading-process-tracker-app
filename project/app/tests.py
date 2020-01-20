@@ -34,7 +34,7 @@ class HomePageTest(TestCase):
                             })
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/')
+        self.assertEqual(response['location'], '/lists/first-list')
 
     def test_saves_and_retrieves_lots_books_details(self):
         first_book = Book()
