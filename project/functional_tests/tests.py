@@ -1,11 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from unittest import TestCase
+from django.test import LiveServerTestCase
 
 import unittest
 import time
 
-class NewVisitorTest(TestCase):
+class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Chrome()
@@ -24,7 +24,7 @@ class NewVisitorTest(TestCase):
     def test_can_start_test(self):
         # After going to the website, the visitor realized that title of website
         # is “Reading books Tracker”.
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
         self.assertIn('Reading tracker', self.browser.title)
 
         # The visitor realized a header "Your books reading process"
@@ -97,5 +97,3 @@ class NewVisitorTest(TestCase):
 
            # On the charts the user is able to see all his books with reading progress assigned to them.
         #self.fail('End!')
-if __name__ == "__main__":
-    unittest.main()
