@@ -55,7 +55,7 @@ class ListViewTest(TestCase):
 
 
 
-class ListAndBookModelTest(TestCase):
+class ListfOfBooksAndBookModelTest(TestCase):
 
     def test_saves_and_retrieves_lots_books_details(self):
         list_of_books = ListfOfBooks()
@@ -75,7 +75,7 @@ class ListAndBookModelTest(TestCase):
         second_book.list = list_of_books
         second_book.save()
 
-        saved_list_of_books = ListfOfBooks.object.first()
+        saved_list_of_books = ListfOfBooks.objects.first()
         self.assertEqual(saved_list_of_books, list_of_books)
 
         saved_books = Book.objects.all()
