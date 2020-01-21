@@ -16,10 +16,5 @@
             <input name="total_pages" id="id_total_pages" placeholder="Total pages in a book" />
             <input type="submit" class="button button_main" value="Save and see progress chart">
         </form>
-        <table id="id_book_table">
-            {% for book in books %}
-                <tr><td>{{ book.title }}</td><td>{{ book.current_page }}</td><td>{{ book.total_pages }}</td></tr>
-            {% endfor %}
-        </table>
     </body>
 </html>
