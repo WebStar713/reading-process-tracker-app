@@ -19,19 +19,33 @@ class ListViewTest(TestCase):
         response = self.client.get('/lists/%d/' % (list_of_books.id,))
         self.assertTemplateUsed(response, 'list.html')
 
-    def test_displays_all_books_details(self):
-        list_of_books = ListfOfBooks.objects.create()
+    def test_displays_only_books_for_that_list(self):
+        correct_list_of_books = ListfOfBooks.objects.create()
         Book.objects.create(title = 'Title1',
                             current_page = 1,
                             total_pages = 111,
-                            list_of_books = list_of_books)
+                            list_of_books = correct_list_of_books)
         Book.objects.create(title = 'Title2',
                             current_page = 2,
                             total_pages = 222,
-                            list_of_books = list_of_books)
-        response = self.client.get('/lists/first-list/')
+                            list_of_books = correct_list_of_books)
+
+        other_list_of_books = ListfOfBooks.objects.create()
+        Book.objects.create(title = 'Other Title1',
+                            current_page = 3,
+                            total_pages = 333,
+                            list_of_books = other_list_of_books)
+        Book.objects.create(title = 'Other Title2',
+                            current_page = 4,
+                            total_pages = 444,
+                            list_of_books = other_list_of_books)
+
+        response = self.client.get('/lists/%d/' % (correct_list_of_books.id,))
+
         self.assertContains(response, 'Title1')
         self.assertContains(response, 'Title2')
+        self.assertNotContains(response, 'Other Title1')
+        self.assertNotContains(response, 'Other Title2')
 
     def test_saving_POST_request(self):
         response = self.client.post('/lists/new', data={
