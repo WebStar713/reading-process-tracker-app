@@ -14,4 +14,4 @@ def homePage(request):
 
 def viewList(request):
     books = Book.objects.all()
-    return render(request, 'home.html', {'books': books})
+    return render(request, 'list.html', {'books': books})
