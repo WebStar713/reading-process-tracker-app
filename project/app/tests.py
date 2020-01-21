@@ -68,8 +68,8 @@ class ListViewTest(TestCase):
                             'total_pages': 317,
                             })
 
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/lists/first-list/')
+        new_list_of_books = ListfOfBooks.objects.first()
+        self.assertRedirects(response, '/lists/%d/' % (new_list_of_books.id,))
 
 
 
