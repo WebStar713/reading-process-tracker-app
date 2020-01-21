@@ -90,6 +90,8 @@ class NewVisitorTest(LiveServerTestCase):
 
         self.browser.quit()
 
+        return books_list_url
+
         # New user starts using the website
     def test_can_multiple_user_can_start_test(self):
         self.browser = webdriver.Chrome()
@@ -113,6 +115,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         # New user is receiving an unique URL address for his list
         books_of_new_user_list_url = self.browser.current_url
+        books_list_url = self.test_can_single_user_can_start_test()
         self.assertRegex(books_of_new_user_list_url, '/lists/.+')
         self.assertNotEqual(books_list_url, books_of_new_user_list_url)
 
