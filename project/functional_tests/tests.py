@@ -142,14 +142,5 @@ class NewVisitorTest(LiveServerTestCase):
         # ... and graph showing present progress.
         button_add_book = self.browser.find_element_by_css_selector('.button_chart')
 
-        # Below there is a text “Please enter another book’s title” with analogous input boxes.
-
-        # Below them, there are 2 buttons “Save and enter the next one” and “Save and see your cumulated chart”.
-
-        #  After selecting “Save and enter the next one” 3 input boxes appeared.
-
-            # Below them, there are 2 buttons “Save and enter the next one” and ““Save and see your cumulated chart” and so on…
-
-        # After selecting “Save and see your charts” the website refreshed itself and showed chart.
-
-           # On the charts the user is able to see all his books with reading progress assigned to them.
+        # On the charts the user is able to see all his books with reading progress assigned to them.
+        
