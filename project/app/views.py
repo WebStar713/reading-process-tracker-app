@@ -12,10 +12,12 @@ def viewList(request, list_of_books_id):
     data = []
 
     list_of_books_set_for_chart = Book.objects.filter(list_of_books=list_of_books)
+
     for book in list_of_books_set_for_chart:
         labels.append(book.title)
         percentage = round(book.current_page / book.total_pages * 100, 2)
         data.append(percentage)
+    
 
 
     return render(request, 'list.html', {'labels': labels,
