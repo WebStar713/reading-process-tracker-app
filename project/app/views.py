@@ -4,7 +4,7 @@ from app.models import Book, ListfOfBooks
 def homePage(request):
     return render(request, 'home.html')
 
-def viewList(request):
+def viewList(request, list_of_books_id):
     books = Book.objects.all()
     return render(request, 'list.html', {'books': books})
 
