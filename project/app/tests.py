@@ -15,7 +15,8 @@ class HomePageTest(TestCase):
 
 class ListViewTest(TestCase):
     def test_uses_list_template(self):
-        response = self.client.get('/lists/first-list/')
+        list_of_books = ListfOfBooks.objects.create()
+        response = self.client.get('/lists/%d/' % (list_of_books.id,))
         self.assertTemplateUsed(response, 'list.html')
 
     def test_displays_all_books_details(self):
