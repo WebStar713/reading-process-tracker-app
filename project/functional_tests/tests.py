@@ -140,6 +140,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('You Look Like a Thing and I Love You', previous_user_page_text)
 
         # ... and graph showing present progress.
+        button_add_book = self.browser.find_element_by_css_selector('.button_chart')
 
         # Below there is a text “Please enter another book’s title” with analogous input boxes.
 
