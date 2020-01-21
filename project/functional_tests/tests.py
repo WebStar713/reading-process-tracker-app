@@ -88,12 +88,27 @@ class NewVisitorTest(LiveServerTestCase):
         # Check if details for both books haved been saved
         self.check_for_columns_in_book_table('The Power of Habit', 129, 371)
 
+
+    def test_can_multiple_user_can_start_test(self):
+        self.browser.get(self.live_server_url)
+        input_new_book_box = self.browser.find_element_by_id('id_new_book')
+        input_current_page_box = self.browser.find_element_by_id('id_current_page')
+        input_total_pages_box = self.browser.find_element_by_id('id_total_pages')
+        button_save_and_see_chart = self.browser.find_element_by_css_selector('.button_main')
+
+        input_new_book_box.send_keys('The Power of Habit')
+        input_current_page_box.send_keys(129)
+        input_total_pages_box.send_keys(371)
+        button_save_and_see_chart.click()
+        self.check_for_columns_in_book_table('The Power of Habit', 129, 371)
+
+
+        books_list_url = self.browser.current_url
+        self.assertRegex(books_list_url, '/lists/.+')
+
         self.browser.quit()
 
-        return books_list_url
-
         # New user starts using the website
-    def test_can_multiple_user_can_start_test(self):
         self.browser = webdriver.Chrome()
 
         # New user cannot see any lists of previous user
@@ -115,7 +130,6 @@ class NewVisitorTest(LiveServerTestCase):
 
         # New user is receiving an unique URL address for his list
         books_of_new_user_list_url = self.browser.current_url
-        books_list_url = self.test_can_single_user_can_start_test()
         self.assertRegex(books_of_new_user_list_url, '/lists/.+')
         self.assertNotEqual(books_list_url, books_of_new_user_list_url)
 
@@ -138,4 +152,4 @@ class NewVisitorTest(LiveServerTestCase):
         # After selecting “Save and see your charts” the website refreshed itself and showed chart.
 
            # On the charts the user is able to see all his books with reading progress assigned to them.
-        #self.fail('End!')
+    
