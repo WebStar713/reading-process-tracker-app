@@ -9,7 +9,7 @@ def viewList(request):
     return render(request, 'list.html', {'books': books})
 
 def newList(request):
-    list_of_books = ListfOfBooks()
+    list_of_books = ListfOfBooks.objects.create()
     Book.objects.create(title = request.POST['title'],
                         current_page = request.POST['current_page'],
                         total_pages = request.POST['total_pages'],
