@@ -9,7 +9,7 @@
         <h3>Please type a book’s title that you’d like to track,
             page number where you’re currently on
             and total page numbers of the book.</h3>
-        <form method="POST">
+        <form method="POST" action="/lists/new">
             {% csrf_token %}
             <input name="title" id="id_new_book" placeholder="Book's title" />
             <input name="current_page" id="id_current_page" placeholder="Current page" />
