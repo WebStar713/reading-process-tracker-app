@@ -16,4 +16,4 @@ def newList(request):
                         total_pages = request.POST['total_pages'],
                         list_of_books = list_of_books
                         )
-    return redirect('/lists/first-list/')
+    return redirect('/lists/%d/' % (list_of_books.id,))
