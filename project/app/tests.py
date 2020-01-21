@@ -72,6 +72,10 @@ class ListViewTest(TestCase):
         self.assertRedirects(response, '/lists/%d/' % (new_list_of_books.id,))
 
 
+    def test_passes_correct_list_of_books_to_template(self):
+        correct_list_of_books = ListfOfBooks.objects.create()
+        response = self.client.get('/lists/%d/' % (correct_list_of_books.id,))
+        self.assertEqual(response.context['list_of_books'], correct_list_of_books)
 
 class ListfOfBooksAndBookModelTest(TestCase):
 
