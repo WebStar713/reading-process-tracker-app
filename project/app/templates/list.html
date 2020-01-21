@@ -21,8 +21,38 @@
                 <tr><td>{{ book.title }}</td><td>{{ book.current_page }}</td><td>{{ book.total_pages }}</td></tr>
             {% endfor %}
         </table>
-        <form>
-            <input type="submit" class="button button_chart" value="Generate progress chart">
-        </form>
+        <div id="container" style="width: 75%;">
+          <canvas id="bar-chart" width="800" height="450"></canvas>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+      <script>
+        new Chart(document.getElementById("bar-chart"), {
+          type: 'horizontalBar',
+          data: {
+            labels: {{ labels|safe }},
+            datasets: [{
+                data: {{ data|safe }},
+                label: "in percentage",
+                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+              }]
+          },
+          options: {
+              legend: { display: false},
+              title: { display: true, text: 'Your progress of reading the books'},
+              scales: {
+                  xAxes: [{
+                      ticks: {
+                          beginAtZero:true,
+                          min: 0,
+                          max: 100,
+                          stepSize: 5,
+                      }
+                  }]
+              }
+          }
+      });
+      </script>
     </body>
 </html>
