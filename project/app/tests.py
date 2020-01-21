@@ -22,10 +22,12 @@ class ListViewTest(TestCase):
         list_of_books = ListfOfBooks.objects.create()
         Book.objects.create(title = 'Title1',
                             current_page = 1,
-                            total_pages = 111,)
+                            total_pages = 111,
+                            list_of_books = list_of_books)
         Book.objects.create(title = 'Title2',
                             current_page = 2,
-                            total_pages = 222,)
+                            total_pages = 222,
+                            list_of_books = list_of_books)
         response = self.client.get('/lists/first-list/')
         self.assertContains(response, 'Title1')
         self.assertContains(response, 'Title2')
