@@ -54,14 +54,14 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertEqual(input_total_pages_box.get_attribute('placeholder'), 'Total pages in a book')
 
         # Below the input boxes, there is a button “Save and see a chart”.
-        button_save_and_see_chart = self.browser.find_element_by_css_selector('.button_main')
+        button_add_book = self.browser.find_element_by_css_selector('.button_main')
 
         # The visitor is typying values in all three input boxes
         # After pressing button the user is redirecting to another site.
         input_new_book_box.send_keys('The Power of Habit')
         input_current_page_box.send_keys(129)
         input_total_pages_box.send_keys(371)
-        button_save_and_see_chart.click()
+        button_add_book.click()
 
         # After typing book detail and clicking on a button the user is receiving
         # an unique URL address for now new-generated list of books
@@ -75,12 +75,12 @@ class NewVisitorTest(LiveServerTestCase):
         input_new_book_box = self.browser.find_element_by_id('id_new_book')
         input_current_page_box = self.browser.find_element_by_id('id_current_page')
         input_total_pages_box = self.browser.find_element_by_id('id_total_pages')
-        button_save_and_see_chart = self.browser.find_element_by_css_selector('.button_main')
+        button_add_book = self.browser.find_element_by_css_selector('.button_main')
 
         input_new_book_box.send_keys('Factfulness')
         input_current_page_box.send_keys(0)
         input_total_pages_box.send_keys(341)
-        button_save_and_see_chart.click()
+        button_add_book.click()
 
 
         self.check_for_columns_in_book_table('Factfulness', 0, 341)
@@ -94,12 +94,12 @@ class NewVisitorTest(LiveServerTestCase):
         input_new_book_box = self.browser.find_element_by_id('id_new_book')
         input_current_page_box = self.browser.find_element_by_id('id_current_page')
         input_total_pages_box = self.browser.find_element_by_id('id_total_pages')
-        button_save_and_see_chart = self.browser.find_element_by_css_selector('.button_main')
+        button_add_book = self.browser.find_element_by_css_selector('.button_main')
 
         input_new_book_box.send_keys('The Power of Habit')
         input_current_page_box.send_keys(129)
         input_total_pages_box.send_keys(371)
-        button_save_and_see_chart.click()
+        button_add_book.click()
         self.check_for_columns_in_book_table('The Power of Habit', 129, 371)
 
 
@@ -121,12 +121,12 @@ class NewVisitorTest(LiveServerTestCase):
         input_new_book_box = self.browser.find_element_by_id('id_new_book')
         input_current_page_box = self.browser.find_element_by_id('id_current_page')
         input_total_pages_box = self.browser.find_element_by_id('id_total_pages')
-        button_save_and_see_chart = self.browser.find_element_by_css_selector('.button_main')
+        button_add_book = self.browser.find_element_by_css_selector('.button_main')
 
         input_new_book_box.send_keys('You Look Like a Thing and I Love You')
         input_current_page_box.send_keys(1)
         input_total_pages_box.send_keys(272)
-        button_save_and_see_chart.click()
+        button_add_book.click()
 
         # New user is receiving an unique URL address for his list
         books_of_new_user_list_url = self.browser.current_url
@@ -152,4 +152,3 @@ class NewVisitorTest(LiveServerTestCase):
         # After selecting “Save and see your charts” the website refreshed itself and showed chart.
 
            # On the charts the user is able to see all his books with reading progress assigned to them.
-    
