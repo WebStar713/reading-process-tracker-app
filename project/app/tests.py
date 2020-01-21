@@ -4,7 +4,7 @@ from django.http import HttpRequest
 from django.template.loader import render_to_string
 
 from app.views import homePage
-from app.models import Book, List
+from app.models import Book, ListfOfBooks
 
 class HomePageTest(TestCase):
 
