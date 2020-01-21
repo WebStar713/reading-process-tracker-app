@@ -16,7 +16,7 @@ def newList(request):
                         total_pages = request.POST['total_pages'],
                         list_of_books = list_of_books
                         )
-    return redirect('/lists/%d/' % (list_of_books.id,))
+    return redirect(f'/lists/{list_of_books.id}/')
 
 def addBook(request, list_of_books_id):
     list_of_books = ListfOfBooks.objects.get(id=list_of_books_id)
@@ -25,4 +25,4 @@ def addBook(request, list_of_books_id):
                         total_pages = request.POST['total_pages'],
                         list_of_books = list_of_books
                         )
-    return redirect('/lists/%d/' % (list_of_books.id,))
+    return redirect(f'/lists/{list_of_books.id}/')
