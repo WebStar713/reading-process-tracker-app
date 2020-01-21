@@ -140,6 +140,9 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('You Look Like a Thing and I Love You', previous_user_page_text)
 
         # ... and graph showing present progress.
+        chart = self.browser.find_element_by_id('bar-chart')
+        self.assertTrue(chart)
+
 
 
         # On the charts the user is able to see all his books with reading progress assigned to them.
