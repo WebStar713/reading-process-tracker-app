@@ -71,3 +71,15 @@ class HomePageTest(TestCase):
         response = self.client.get('/')
         self.assertIn('Title1', response.content.decode())
         self.assertIn('Title2', response.content.decode())
+
+class ListViewTest(TestCase):
+    def test_displays_all_books_details(self):
+        Book.objects.create(title = 'Title1',
+                            current_page = 1,
+                            total_pages = 111,)
+        Book.objects.create(title = 'Title2',
+                            current_page = 2,
+                            total_pages = 222,)
+        response = self.client.get('/lists/first-list')
+        self.assertContains(response, 'Title1')
+        self.assertContains(response, 'Title2')
