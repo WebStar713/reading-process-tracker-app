@@ -5,7 +5,8 @@ def homePage(request):
     return render(request, 'home.html')
 
 def viewList(request, list_of_books_id):
-    books = Book.objects.all()
+    list_of_books = ListfOfBooks.objects.create(id=list_of_books_id)
+    books = Book.objects.filter(list_of_books=list_of_books)
     return render(request, 'list.html', {'books': books})
 
 def newList(request):
