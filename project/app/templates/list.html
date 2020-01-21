@@ -17,7 +17,7 @@
             <input type="submit" class="button button_main" value="Save and see progress chart">
         </form>
         <table id="id_book_table">
-            {% for book in books %}
+            {% for book in list_of_books.book_set.all %}
                 <tr><td>{{ book.title }}</td><td>{{ book.current_page }}</td><td>{{ book.total_pages }}</td></tr>
             {% endfor %}
         </table>
