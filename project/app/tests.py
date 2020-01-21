@@ -69,7 +69,7 @@ class ListViewTest(TestCase):
                             })
 
         new_list_of_books = ListfOfBooks.objects.first()
-        self.assertRedirects(response, '/lists/%d/' % (new_list_of_books.id,))
+        self.assertRedirects(response, f'/lists/{new_list_of_books.id}/')
 
 
     def test_passes_correct_list_of_books_to_template(self):
@@ -134,4 +134,4 @@ class NewBookTest(TestCase):
                               'current_page': 100,
                               'total_pages': 312,})
 
-        self.assertRedirects(response, '/lists/%d/' % (correct_list_of_books.id,))
+        self.assertRedirects(response, f'/lists/{correct_list_of_books.id}/')
