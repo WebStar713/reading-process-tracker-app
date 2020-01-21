@@ -19,7 +19,7 @@ class ListViewTest(TestCase):
         self.assertTemplateUsed(response, 'list.html')
 
     def test_displays_all_books_details(self):
-        list_of_books = ListfOfBooks()
+        list_of_books = ListfOfBooks.objects.create()
         Book.objects.create(title = 'Title1',
                             current_page = 1,
                             total_pages = 111,)
