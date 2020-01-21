@@ -9,8 +9,7 @@ def homePage(request):
                             )
         return redirect('/lists/first-list/')
 
-    books = Book.objects.all()
-    return render(request, 'home.html', {'books': books})
+    return render(request, 'home.html')
 
 def viewList(request):
     books = Book.objects.all()
