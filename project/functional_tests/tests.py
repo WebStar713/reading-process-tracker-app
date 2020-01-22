@@ -34,8 +34,8 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # The visitor saw a text “Please enter a book’s title
         # that you’d like to track, page number where you’re currently on
         # and total page numbers of the book.”
-        expected_instruction = "Please type a book’s title that you’d like to track, page number where you’re currently on and total page numbers of the book."
-        instruction_text = self.browser.find_element_by_tag_name('h3').text
+        expected_instruction = "Please type details of the book of which progress you'd like to track."
+        instruction_text = self.browser.find_element_by_tag_name('h4').text
         self.assertEqual(expected_instruction, instruction_text)
 
         # Under the header, there are 3 input boxes.
@@ -50,7 +50,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.assertEqual(input_current_page_box.get_attribute('placeholder'), 'Current page')
 
         input_total_pages_box = self.browser.find_element_by_id('id_total_pages')
-        self.assertEqual(input_total_pages_box.get_attribute('placeholder'), 'Total pages in a book')
+        self.assertEqual(input_total_pages_box.get_attribute('placeholder'), 'Total number of pages')
 
         # Below the input boxes, there is a button “Save and see a chart”.
         button_add_book = self.browser.find_element_by_css_selector('.button_main')
