@@ -138,13 +138,14 @@ class NewBookTest(TestCase):
         self.assertRedirects(response, f'/lists/{correct_list_of_books.id}/')
 
 class LoginTest(TestCase):
-    def test_login_form_can_save_POST_request(self):
-        response = self.client.post('/', data={
-                            'username': 'UsernameTest1',
-                            'password': 'passwordtest1',
-                            })
 
-        self.assertEqual(LoginForm.objects.count(), 1)
-        new_login = LoginForm.objects.first()
-        self.assertEqual(new_login.username, 'UsernameTest1')
-        self.assertEqual(new_login.password, 'passwordtest1')
+    def test_login_form_can_save_POST_request(self):
+        form = LoginForm({
+            'username': 'UsernameTest1',
+            'password': 'passwordtest1',
+        })
+        
+        self.assertTrue(form.is_valid())
+        saved_form = form.save()
+        self.assertEqual(saved_form.username, 'UsernameTest1')
+        self.assertEqual(saved_form.password, 'passwordtest1')
