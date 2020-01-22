@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css" media="screen">
         <title>Reading tracker</title>
-        <h1>Your books reading progress</h1>
+        <div class="jumbotron">
+            <div class="text-center">
+                <h1>Your books reading progress</h1>
+            </div>
+        </div>
     </head>
     <body>
     <div class="container">
+
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="text-center">
-                    <h3>{% block header_text %} {% endblock %}</h3>
-                    <form method="POST" action="{% block form_action %} {% endblock %}">
-                        {% csrf_token %}
-                            <input name="title" id="id_new_book"
-                                placeholder="Book's title" />
-                            <input name="current_page" id="id_current_page"
-                                placeholder="Current page" />
-                            <input name="total_pages" id="id_total_pages"
-                                placeholder="Total pages in a book" />
-                            <input type="submit" class="button button_main"
-                                value="Add to your book list">
-                    </form>
+            <div class="text-center">
+                <div class="col-md-12">
+                    <div class="clearfix visible-xs-block"></div>
+                            <h3>{% block header_text %} {% endblock %}</h3>
+                            <form method="POST" action="{% block form_action %} {% endblock %}">
+                                {% csrf_token %}
+                                    <input name="title" id="id_new_book"
+                                        placeholder="Title" />
+                                    <input name="current_page" id="id_current_page"
+                                        placeholder="Current page" />
+                                    <input name="total_pages" id="id_total_pages"
+                                        placeholder="Total pages in a book" />
+                                    <input type="submit" class="button button_main"
+                                        value="Add to your book list">
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-6 col-md-offset-3    ">
                 {% block book_table %}
                 {% endblock %}
                 {% block chart_js %}
                 {% endblock %}
             </div>
         </div>
+
     </div>
     </body>
 </html>
