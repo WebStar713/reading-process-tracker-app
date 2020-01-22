@@ -149,20 +149,8 @@ class NewVisitorTest(LiveServerTestCase):
 
         # User realized that text field is centered
         input_new_book_box = self.browser.find_element_by_id('id_new_book')
-        
-        self.assertAlmostEqual(input_new_book_box.location['x'] + input_new_book_box.size['width'] / 2, 420, delta=5)
-
-        # Text field after creating a new list is still centered
-        input_new_book_box = self.browser.find_element_by_id('id_new_book')
-        input_current_page_box = self.browser.find_element_by_id('id_current_page')
-        input_total_pages_box = self.browser.find_element_by_id('id_total_pages')
-        button_add_book = self.browser.find_element_by_css_selector('.button_main')
-
-        input_new_book_box.send_keys('You Look Like a Thing and I Love You')
-        input_current_page_box.send_keys(1)
-        input_total_pages_box.send_keys(272)
-        button_add_book.click()
 
         self.assertAlmostEqual(input_new_book_box.location['x'] + input_new_book_box.size['width'] / 2, 420, delta=5)
+
 
         # On the charts the user is able to see all his books with reading progress assigned to them.
