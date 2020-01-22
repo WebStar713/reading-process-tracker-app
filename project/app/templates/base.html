@@ -4,29 +4,26 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="/static/css/bootstrap.min.css" media="screen">
+        <link rel="stylesheet" href="/static/base.css" media="screen">
         <title>Reading tracker</title>
-        <div class="jumbotron">
-            <div class="text-center">
-                <h1>Your books reading progress</h1>
-            </div>
-        </div>
     </head>
     <body>
     <div class="container">
 
         <div class="row">
             <div class="text-center">
-                <div class="col-md-12">
+                <div class="col-md-12 jumbotron">
+                    <h1>Your books reading progress</h1>
                     <div class="clearfix visible-xs-block"></div>
-                            <h3>{% block header_text %} {% endblock %}</h3>
+                            <h4>{% block header_text %} {% endblock %}</h4>
                             <form method="POST" action="{% block form_action %} {% endblock %}">
                                 {% csrf_token %}
                                     <input name="title" id="id_new_book"
-                                        placeholder="Title" />
+                                        class="form-control" placeholder="Title" />
                                     <input name="current_page" id="id_current_page"
-                                        placeholder="Current page" />
+                                        class="form-control" placeholder="Current page" />
                                     <input name="total_pages" id="id_total_pages"
-                                        placeholder="Total pages in a book" />
+                                        class="form-control" placeholder="Total pages in a book" />
                                     <input type="submit" class="button button_main"
                                         value="Add to your book list">
                             </form>
