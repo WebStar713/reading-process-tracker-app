@@ -9,3 +9,5 @@ class LoginForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', )
+
+        error_messages = {'username': {'required': 'This field is required.'}}
