@@ -10,7 +10,7 @@ where you’re currently on and total page numbers of the book.
 {% endblock %}
 
 {% block book_table %}
-    <table id="id_book_table">
+    <table id="id_book_table" class="table">
         {% for book in list_of_books.book_set.all %}
             <tr><td>{{ book.title }}</td><td>{{ book.current_page }}</td><td>{{ book.total_pages }}</td></tr>
         {% endfor %}
