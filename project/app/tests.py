@@ -139,13 +139,6 @@ class NewBookTest(TestCase):
 
 class LoginTest(TestCase):
 
-    def test_login_form_can_save_POST_request(self):
-        form = LoginForm({
-            'username': 'UsernameTest1',
-            'password': 'passwordtest1',
-        })
-        
-        self.assertTrue(form.is_valid())
-        saved_form = form.save()
-        self.assertEqual(saved_form.username, 'UsernameTest1')
-        self.assertEqual(saved_form.password, 'passwordtest1')
+    def test_form_renders_login_input(self):
+        form = LoginForm()
+        self.fail(form.as_p())
