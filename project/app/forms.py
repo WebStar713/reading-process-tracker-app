@@ -7,7 +7,8 @@ class LoginForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
+        EMPTY_FIELD_ERROR = 'This field is required.'
         model = User
         fields = ('username', )
 
-        error_messages = {'username': {'required': 'This field is required.'}}
+        error_messages = {'username': {'required': EMPTY_FIELD_ERROR}}
