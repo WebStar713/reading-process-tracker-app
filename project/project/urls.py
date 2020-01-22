@@ -4,5 +4,5 @@ from app import views
 
 urlpatterns = [
     url(r'^$', views.homePage, name='homePage'),
-    url(r'^lists/', include('app.urls')),
+    url('', include('app.urls')),
 ]
