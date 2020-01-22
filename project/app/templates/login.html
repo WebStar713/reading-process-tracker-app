@@ -3,12 +3,9 @@
 {% block login %}
 <h3>Login to account</h3>
 <div id="inputbox">
-    <form method="POST">
+    <form action="." method="POST">
         {% csrf_token %}
-            <input name="username" id="id_username"
-                class="form-control" placeholder="Username" />
-            <input name="password" id="id_password"
-                class="form-control" placeholder="Password" />
+        {{ form.as_p }}
             <input type="submit" id="button" class="button button_login"
                 value="Sign in">
     </form>
