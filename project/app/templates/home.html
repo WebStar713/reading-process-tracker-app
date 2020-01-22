@@ -7,7 +7,7 @@
 {% block login %}
 <h3>Login to account</h3>
 <div id="inputbox">
-    <form method="POST" action="{% block form_action %} {% endblock %}">
+    <form method="POST">
         {% csrf_token %}
             <input name="username" id="id_username"
                 class="form-control" placeholder="Username" />
