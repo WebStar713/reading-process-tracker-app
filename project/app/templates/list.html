@@ -1,59 +1,68 @@
 {% extends 'base.html' %}
 
-{% block header_text %}
-Please type a book’s title that you’d like to track, page number
-where you’re currently on and total page numbers of the book.
-{% endblock %}
-
 {% block form_action %}
 /lists/{{ list_of_books.id}}/add_book
 {% endblock %}
 
 {% block book_table %}
     <table id="id_book_table" class="table">
+        <th style="color:#7c2784">Title</th>
+        <th style="color:#2235c1">Current page</th>
+        <th style="color:#277a96">Total number of pages</th>
         {% for book in list_of_books.book_set.all %}
-            <tr><td>{{ book.title }}</td><td>{{ book.current_page }}</td><td>{{ book.total_pages }}</td></tr>
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.current_page }}</td>
+                <td>{{ book.total_pages }}</td>
+            </tr>
         {% endfor %}
     </table>
 {% endblock %}
 
 {% block chart_js %}
     <div id="container" style="width: 75%;">
-      <canvas id="bar-chart" width="800" height="450"></canvas>
+      <canvas id="bar-chart" width="1200" height="800"></canvas>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
     <script>
-    new Chart(document.getElementById("bar-chart"), {
-      type: 'horizontalBar',
-      data: {
-        labels: {{ labels|safe }},
-        datasets: [{
-            data: {{ data|safe }},
-            label: "in percentage",
-            backgroundColor: ["#6bdde5", "#618bf4", "#a792ce", "#42afa1", "#bf56ab",
-                              "#6be5b0", "#61d4f4", "#929bce", "#42af6a", "#9d56bf",
-                              "#e56bdd", "#f4618b", "#cea792", "#a142af", "#abbf56",
-                              "#6ba0e5", "#8161f4", "#c592ce", "#4287af", "#bf5677",
-                              "#736be5", "#cb61f4", "#ce92b9", "#4251af", "#bf6956",
-                              "#e56bbe", "#f46166", "#ff8c8c", "#af42a3", "#91bf56",
-                          ]
-          }]
-      },
-      options: {
-          legend: { display: false},
-          title: { display: true, text: 'Your reading progress'},
-          scales: {
-              xAxes: [{
-                  ticks: {
-                      beginAtZero:true,
-                      min: 0,
-                      max: 100,
-                      stepSize: 5,
-                  }
+        Chart.defaults.global.defaultFontFamily = "Lato";
+        Chart.defaults.global.defaultFontColor = 'black';
+        new Chart(document.getElementById("bar-chart"), {
+          type: 'horizontalBar',
+          data: {
+            labels: {{ labels|safe }},
+            datasets: [{
+                data: {{ data|safe }},
+                label: "in percentage",
+                backgroundColor: ["#6bdde5", "#618bf4", "#a792ce", "#42afa1", "#bf56ab",
+                                  "#6be5b0", "#61d4f4", "#929bce", "#42af6a", "#9d56bf",
+                                  "#e56bdd", "#f4618b", "#cea792", "#a142af", "#abbf56",
+                                  "#6ba0e5", "#8161f4", "#c592ce", "#4287af", "#bf5677",
+                                  "#736be5", "#cb61f4", "#ce92b9", "#4251af", "#bf6956",
+                                  "#e56bbe", "#f46166", "#ff8c8c", "#af42a3", "#91bf56",
+                              ]
               }]
+          },
+          options: {
+              legend: { display: false},
+              title: {
+                  display: true,
+                  text: 'Your reading progress in percentage',
+                  fontFamily: "Lato",
+              },
+              scales: {
+                  xAxes: [{
+                      ticks: {
+                          beginAtZero:true,
+                          min: 0,
+                          max: 100,
+                          stepSize: 5,
+                          fontFamily: "Lato",
+                      }
+                  }]
+              }
           }
-      }
-    });
+        });
     </script>
 {% endblock %}
