@@ -4,3 +4,4 @@ __pycache__
 *.pyc
 .DS_Store
 project/db.sqlite3
+/static
