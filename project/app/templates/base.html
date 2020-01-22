@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Reading tracker</title>
+        <h1>Your books reading progress</h1>
+    </head>
+    <body>
+        <h3>{% block header_text %} {% endblock %}</h3>
+        <form method="POST" action="{% block form_action %} {% endblock %}">
+            {% csrf_token %}
+            <p style="text-align: center;">
+                <input name="title" id="id_new_book" placeholder="Book's title" />
+                <input name="current_page" id="id_current_page" placeholder="Current page" />
+                <input name="total_pages" id="id_total_pages" placeholder="Total pages in a book" />
+                <input type="submit" class="button button_main" value="Add to your book list">
+            </p>
+        </form>
+        {% block book_table %}
+        {% endblock %}
+        {% block chart_js %}
+        {% endblock %}
+    </body>
+</html>
