@@ -141,3 +141,16 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # ... and graph showing present progress.
         chart = self.browser.find_element_by_id('bar-chart')
         self.assertTrue(chart)
+
+    def test_user_can_sign_in(self):
+        self.browser.quit()
+        self.browser = webdriver.Chrome()
+        self.browser.get(self.live_server_url)
+
+        # User goes to main page and realizes that the login form is there
+
+        # Login form consists of inputboxes: username and password.
+
+        # After inputoboxes there is a button "Sign in"
+
+    
