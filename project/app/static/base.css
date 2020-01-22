@@ -1,0 +1,61 @@
+#container {
+    font-family: 'Lato';
+}
+
+
+h1 {
+    margin-bottom:40px;
+    font-weight:bold;
+}
+
+body {
+    padding-bottom: 40px;
+}
+
+
+#id_new_book {
+    padding:10px 10px;
+    font-size:15px;
+    width:600px;
+    float:left;
+    border-color: #9d56bf;
+    outline-color:#fff;
+}
+
+#id_current_page {
+    padding:10px 10px;
+    font-size:15px;
+    width:200px;
+    float:left;
+    border-color:#f4618b;
+    outline-color:#fff;
+}
+
+#id_total_pages {
+    padding:10px 10px;
+    font-size:15px;
+    width:200px;
+    float:left;
+    border-color:#ce92b9;
+    outline-color:#fff;
+}
+
+#button {
+    background:#a142af;
+    color:#fff;
+    outline-color:#bf56ab;
+    padding:10px 10px;
+    font-size:15px;
+    text-transform:uppercase;
+    cursor: pointer;
+    margin: 10px 4px;
+    width:250px;
+}
+
+table {
+    font-family: 'Lato';
+}
+
+#chart {
+    font-family: 'Lato';
+}
