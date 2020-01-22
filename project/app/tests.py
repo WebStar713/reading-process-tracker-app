@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 
 from app.views import homePage
 from app.models import Book, ListfOfBooks
+from app.forms import LoginForm
 
 class HomePageTest(TestCase):
 
