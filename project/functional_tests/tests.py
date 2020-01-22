@@ -1,11 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from django.test import LiveServerTestCase
-
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import unittest
 import time
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Chrome()
@@ -42,7 +41,7 @@ class NewVisitorTest(LiveServerTestCase):
         # Under the header, there are 3 input boxes.
         #  On the left, the longest input box is a textfield type to write book’s title down.
         input_new_book_box = self.browser.find_element_by_id('id_new_book')
-        self.assertEqual(input_new_book_box.get_attribute('placeholder'), 'Book\'s title')
+        self.assertEqual(input_new_book_box.get_attribute('placeholder'), 'Title')
 
         # Next to title input box there are two square digits fields.
         # On first of them, there is text “Your current page”
@@ -150,7 +149,7 @@ class NewVisitorTest(LiveServerTestCase):
         # User realized that text field is centered
         input_new_book_box = self.browser.find_element_by_id('id_new_book')
 
-        self.assertAlmostEqual(input_new_book_box.location['x'] + input_new_book_box.size['width'] / 2, 420, delta=5)
+        self.assertAlmostEqual(input_new_book_box.location['x'] + input_new_book_box.size['width'] / 2, 355, delta=5)
 
 
         # On the charts the user is able to see all his books with reading progress assigned to them.
