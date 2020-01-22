@@ -141,3 +141,15 @@ class LoginTest(TestCase):
     def test_uses_login_template(self):
         response = self.client.get('/login/')
         self.assertTemplateUsed(response, 'login.html')
+
+    def test_form_validation_for_blank_login_inputs(self):
+        form = LoginForm(data={'username': '', 'password': '',})
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors['username'], ['This field is required.'])
+
+    # def test_form_validation(self):
+    #     form = LoginForm({'username': 'Username1', 'password': 'Password1',})
+    #
+    #     saved_form = form.save()
+    #     self.assertEqual(saved_form.username, 'Username1')
+    #     self.assertEqual(saved_form.password, 'Password1')
