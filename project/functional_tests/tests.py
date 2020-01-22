@@ -147,22 +147,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         url = urljoin(self.live_server_url, '/login/')
         self.browser.get(url)
 
-        # User goes to main page and realizes that the login form is there
+        # User goes to login page and realizes that the login form is there
         expected_login_header = "Login to account"
         login_header_text = self.browser.find_element_by_tag_name('h3').text
         self.assertEqual(expected_login_header, login_header_text)
-
-        # Login form consists of inputboxes: username and password.
-        input_username_box = self.browser.find_element_by_id('id_username')
-        self.assertEqual(input_username_box.get_attribute('placeholder'), 'Username')
-
-        input_password_box = self.browser.find_element_by_id('id_password')
-        self.assertEqual(input_password_box.get_attribute('placeholder'), 'Password')
-
-        # After inputoboxes there is a button "Sign in"
-        button_login = self.browser.find_element_by_css_selector('.button_login')
-
-        # Visitor enters username and password and clicks on button to login
-        input_username_box.send_keys('User123')
-        input_password_box.send_keys('password123')
-        button_login.click()
