@@ -141,15 +141,3 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # ... and graph showing present progress.
         chart = self.browser.find_element_by_id('bar-chart')
         self.assertTrue(chart)
-
-    def test_layout_and_styling(self):
-        self.browser.get(self.live_server_url)
-        self.browser.set_window_size(1242, 795)
-
-        # User realized that text field is centered
-        input_new_book_box = self.browser.find_element_by_id('id_new_book')
-
-        self.assertAlmostEqual(input_new_book_box.location['x'] + input_new_book_box.size['width'] / 2, 355, delta=5)
-
-
-        # On the charts the user is able to see all his books with reading progress assigned to them.
