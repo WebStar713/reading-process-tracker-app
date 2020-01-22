@@ -138,6 +138,6 @@ class NewBookTest(TestCase):
         self.assertRedirects(response, f'/lists/{correct_list_of_books.id}/')
 
 class LoginTest(TestCase):
-    def test_form_validation_for_blank_inputs_for_login_form(self):
-        form = LoginForm(data={'username':'', 'password':''})
-        form.save()
+    def test_uses_login_template(self):
+        response = self.client.get('/login/')
+        self.assertTemplateUsed(response, 'login.html')
