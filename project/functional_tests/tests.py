@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from urllib.parse import urljoin
 import unittest
 import time
 
@@ -143,9 +144,8 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.assertTrue(chart)
 
     def test_user_can_sign_in(self):
-        self.browser.quit()
-        self.browser = webdriver.Chrome()
-        self.browser.get(self.live_server_url)
+        url = urljoin(self.live_server_url, '/login/')
+        self.browser.get(url)
 
         # User goes to main page and realizes that the login form is there
         expected_login_header = "Login to account"
