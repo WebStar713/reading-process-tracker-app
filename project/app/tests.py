@@ -1,7 +1,8 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.urls import resolve
 from django.http import HttpRequest
 from django.template.loader import render_to_string
+from django.contrib.auth.models import User
 
 from app.views import homePage
 from app.models import Book, ListfOfBooks
@@ -148,10 +149,3 @@ class LoginTest(TestCase):
 
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['username'], [EMPTY_FIELD_ERROR])
-
-    # def test_form_validation(self):
-    #     form = LoginForm({'username': 'Username1', 'password': 'Password1',})
-    #
-    #     saved_form = form.save()
-    #     self.assertEqual(saved_form.username, 'Username1')
-    #     self.assertEqual(saved_form.password, 'Password1')
