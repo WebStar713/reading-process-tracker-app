@@ -69,3 +69,6 @@ def userLogin(request):
         form = LoginForm()
 
     return render(request, 'login.html', {'form': form})
+
+def userLogout(request):
+    return render(request, 'logout.html')
