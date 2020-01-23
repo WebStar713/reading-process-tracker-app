@@ -141,7 +141,7 @@ class NewBookTest(TestCase):
 class LoginTest(TestCase):
     def test_uses_login_template(self):
         response = self.client.get('/login/')
-        self.assertTemplateUsed(response, 'login.html')
+        self.assertTemplateUsed(response, 'registration/login.html')
 
     def test_form_validation_for_blank_login_inputs(self):
         EMPTY_FIELD_ERROR = 'This field is required.'
