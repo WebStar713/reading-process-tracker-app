@@ -149,3 +149,8 @@ class LoginTest(TestCase):
 
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['username'], [EMPTY_FIELD_ERROR])
+
+class LogoutPageTest(TestCase):
+    def test_uses_logout_template(self):
+        response = self.client.get('/logout/')
+        self.assertTemplateUsed(response, 'logout.html')
