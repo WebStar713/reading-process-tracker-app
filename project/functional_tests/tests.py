@@ -166,20 +166,20 @@ class NewVisitorTest(StaticLiveServerTestCase):
         invalid_login_text = self.browser.find_element_by_tag_name('body').text
         self.assertEqual(invalid_login_text, 'Invalid login')
 
-    def test_user_can_sign_in_after_entering_valid_data(self):
-        url = urljoin(self.live_server_url, '/login/')
-        self.browser.get(url)
-
-        # User enters valid username and password and then receives info
-        # about successful login process
-        input_login = self.browser.find_element_by_id('id_username')
-        input_password = self.browser.find_element_by_id('id_password')
-        button_login = self.browser.find_element_by_css_selector('.button_login')
-
-        input_login.send_keys('usernametest')
-        input_password.send_keys('passwordtest')
-        button_login.click()
-
-        time.sleep(10)
-        valid_login_text = self.browser.find_element_by_tag_name('body').text
-        self.assertEqual(valid_login_text, 'Authenticated successfully')
+    # def test_user_can_sign_in_after_entering_valid_data(self):
+    #     url = urljoin(self.live_server_url, '/login/')
+    #     self.browser.get(url)
+    #
+    #     # User enters valid username and password and then receives info
+    #     # about successful login process
+    #     input_login = self.browser.find_element_by_id('id_username')
+    #     input_password = self.browser.find_element_by_id('id_password')
+    #     button_login = self.browser.find_element_by_css_selector('.button_login')
+    #
+    #     input_login.send_keys('usernametest')
+    #     input_password.send_keys('passwordtest')
+    #     button_login.click()
+    #
+    #     time.sleep(10)
+    #     valid_login_text = self.browser.find_element_by_tag_name('body').text
+    #     self.assertEqual(valid_login_text, 'Authenticated successfully')
