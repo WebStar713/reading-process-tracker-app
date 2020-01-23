@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from urllib.parse import urljoin
+
 import unittest
 import time
 
@@ -143,7 +144,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         chart = self.browser.find_element_by_id('bar-chart')
         self.assertTrue(chart)
 
-    def test_user_can_sign_in(self):
+    def test_user_cannot_sign_in_after_entering_invalid_data(self):
         url = urljoin(self.live_server_url, '/login/')
         self.browser.get(url)
 
@@ -151,3 +152,34 @@ class NewVisitorTest(StaticLiveServerTestCase):
         expected_login_header = "Login to account"
         login_header_text = self.browser.find_element_by_tag_name('h3').text
         self.assertEqual(expected_login_header, login_header_text)
+
+        # User enters invalid username and password and then receives info
+        # about invalid login process
+        input_login = self.browser.find_element_by_id('id_username')
+        input_password = self.browser.find_element_by_id('id_password')
+        button_login = self.browser.find_element_by_css_selector('.button_login')
+
+        input_login.send_keys('username')
+        input_password.send_keys('password')
+        button_login.click()
+
+        invalid_login_text = self.browser.find_element_by_tag_name('body').text
+        self.assertEqual(invalid_login_text, 'Invalid login')
+
+    def test_user_can_sign_in_after_entering_valid_data(self):
+        url = urljoin(self.live_server_url, '/login/')
+        self.browser.get(url)
+
+        # User enters valid username and password and then receives info
+        # about successful login process
+        input_login = self.browser.find_element_by_id('id_username')
+        input_password = self.browser.find_element_by_id('id_password')
+        button_login = self.browser.find_element_by_css_selector('.button_login')
+
+        input_login.send_keys('usernametest')
+        input_password.send_keys('passwordtest')
+        button_login.click()
+
+        time.sleep(10)
+        valid_login_text = self.browser.find_element_by_tag_name('body').text
+        self.assertEqual(valid_login_text, 'Authenticated successfully')
