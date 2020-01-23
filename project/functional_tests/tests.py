@@ -175,11 +175,11 @@ class NewVisitorTest(StaticLiveServerTestCase):
     #     input_login = self.browser.find_element_by_id('id_username')
     #     input_password = self.browser.find_element_by_id('id_password')
     #     button_login = self.browser.find_element_by_css_selector('.button_login')
-    #
+    # 
     #     input_login.send_keys('usernametest')
     #     input_password.send_keys('passwordtest')
     #     button_login.click()
     #
     #     time.sleep(10)
     #     valid_login_text = self.browser.find_element_by_tag_name('body').text
-    #     self.assertEqual(valid_login_text, 'Authenticated successfully')
+    #     #self.assertEqual(valid_login_text, 'Authenticated successfully')
