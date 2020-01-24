@@ -10,5 +10,5 @@ urlpatterns = [
     #url(r'^login/$', views.userLogin, name='userLogin'),
     url(r'^logout/$', views.userLogout, name='logout'),
 
-    url('login/', auth_views.LoginView.as_view(), name='login'),
+    url(r'login/$', auth_views.LoginView.as_view(), name='login'),
 ]
