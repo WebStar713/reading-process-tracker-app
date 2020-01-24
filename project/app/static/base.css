@@ -2,6 +2,13 @@
     font-family: 'Lato';
 }
 
+p {
+    font-family: 'Lato';
+}
+
+h3 {
+    font-family: 'Lato';
+}
 
 h1 {
     margin-bottom:40px;
@@ -48,9 +55,10 @@ body {
     font-size:15px;
     text-transform:uppercase;
     cursor: pointer;
-    margin: 10px 4px;
+    margin: 10px 0px;
     width:250px;
 }
+
 
 table {
     font-family: 'Lato';
@@ -58,4 +66,38 @@ table {
 
 #chart {
     font-family: 'Lato';
+}
+
+#id_username  {
+    padding:10px 10px;
+    font-size:15px;
+    width:300px;
+    border-color: #9d56bf;
+    outline-color:#fff;
+    display: block;
+    height: calc(1.5em + .75rem + 2px);
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#id_password {
+    padding:10px 10px;
+    font-size:15px;
+    width:300px;
+    border-color: #9d56bf;
+    outline-color:#fff;
+    display: block;
+    height: calc(1.5em + .75rem + 2px);
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
