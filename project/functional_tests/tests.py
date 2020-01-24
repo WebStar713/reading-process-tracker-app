@@ -164,7 +164,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         button_login.click()
 
         invalid_login_text = self.browser.find_element_by_tag_name('body').text
-        self.assertIn("Your username and password didn't match. Please try again.", invalid_login_text)
+        self.assertIn("Please enter a correct username and password", invalid_login_text)
 
     # def test_user_can_sign_in_after_entering_valid_data(self):
     #     url = urljoin(self.live_server_url, '/login/')
@@ -175,7 +175,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
     #     input_login = self.browser.find_element_by_id('id_username')
     #     input_password = self.browser.find_element_by_id('id_password')
     #     button_login = self.browser.find_element_by_css_selector('.button_login')
-    # 
+    #
     #     input_login.send_keys('usernametest')
     #     input_password.send_keys('passwordtest')
     #     button_login.click()
