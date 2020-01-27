@@ -167,17 +167,6 @@ class ListViewTest(TestCase):
             # In case lack of eliciting of full_clean(), django would save empty
             # title value and would not raise an exception
 
-
-    def test_validation_errors_end_up_on_book_list_page(self):
-        list_of_books = ListfOfBooks.objects.create()
-        response = self.client.post('/lists/%d/' % (list_of_books.id), data={
-                        'title': '', 'current_page': 125, 'total_pages': 317,})
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'list.html')
-        error = escape("These fields cannot be blank.")
-        self.assertContains(response, error)
-
     def test_displays_BookForm(self):
         list_of_books = ListfOfBooks.objects.create()
         response = self.client.get('/lists/%d/' % (list_of_books.id,))
@@ -186,3 +175,29 @@ class ListViewTest(TestCase):
         self.assertContains(response, 'name="title"')
         self.assertContains(response, 'name="current_page"')
         self.assertContains(response, 'name="total_pages"')
+
+    def post_invalid_input(self):
+        list_of_books = ListfOfBooks.objects.create()
+        return self.client.post('/lists/%d/' % (list_of_books.id), data={
+            'title': '', 'current_page': '', 'total_pages': 317,})
+
+    def test_for_invalid_input_nothing_saved_to_db(self):
+        self.post_invalid_input()
+
+        self.assertEqual(Book.objects.count(), 0)
+
+    def test_for_invalid_input_renders_list_template(self):
+        response = self.post_invalid_input()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'list.html')
+
+    def test_for_invalid_input_passes_form_to_template(self):
+        response = self.post_invalid_input()
+
+        self.assertIsInstance(response.context['form'], BookForm)
+
+    def test_for_input_shows_error_on_page(self):
+        response = self.post_invalid_input()
+
+        self.assertContains(response, escape(EMPTY_INPUT_ERROR))
