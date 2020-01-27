@@ -44,22 +44,16 @@ def viewList(request, list_of_books_id):
                                           })
 
 def newList(request):
-    list_of_books = ListfOfBooks.objects.create()
-    book = Book.objects.create(title = request.POST['title'],
-                               current_page = request.POST['current_page'],
-                               total_pages = request.POST['total_pages'],
-                               list_of_books = list_of_books
-                               )
-    try:
-        book.full_clean()
-        book.save()
-    except ValidationError or ValueError:
-        book.delete()
-        list_of_books.delete()
-        error = 'These fields cannot be blank.'
-        return render(request, 'home.html', {"error": error})
-
-    return redirect(list_of_books)
+    form = BookForm(data=request.POST)
+    if form.is_valid():
+        list_of_books = ListfOfBooks.objects.create()
+        Book.objects.create(title = request.POST['title'],
+                            current_page = request.POST['current_page'],
+                            total_pages = request.POST['total_pages'],
+                            list_of_books = list_of_books,)
+        return redirect(list_of_books)
+    else:
+        return render(request, 'home.html', {"form": form})
 
 
 def userLogin(request):
