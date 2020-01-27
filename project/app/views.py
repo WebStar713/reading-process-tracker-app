@@ -23,17 +23,23 @@ def viewList(request, list_of_books_id):
         percentage = round(book.current_page / book.total_pages * 100, 2)
         data.append(percentage)
 
-
+    error = None
     if request.method == 'POST':
-        Book.objects.create(title = request.POST['title'],
-                            current_page = request.POST['current_page'],
-                            total_pages = request.POST['total_pages'],
-                            list_of_books = list_of_books,)
-        return redirect('/lists/%d/' % (list_of_books.id,))
+        try:
+            book = Book.objects.create(title = request.POST['title'],
+                                       current_page = request.POST['current_page'],
+                                       total_pages = request.POST['total_pages'],
+                                       list_of_books = list_of_books,)
+            book.full_clean()
+            book.save()
+            return redirect('/lists/%d/' % (list_of_books.id,))
+        except ValidationError or ValueError:
+            error = 'These fields cannot be blank.'
 
     return render(request, 'list.html', {'labels': labels,
                                           'data': data,
                                           'list_of_books': list_of_books,
+                                          'error': error,
                                           })
 
 def newList(request):
