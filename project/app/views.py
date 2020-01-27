@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
+from django.core.exceptions import ValidationError
 
 from app.models import Book, ListfOfBooks
 
@@ -36,7 +37,10 @@ def newList(request):
                                total_pages = request.POST['total_pages'],
                                list_of_books = list_of_books
                                )
-    book.full_clean()
+    try:
+        book.full_clean()
+    except ValidationError:
+        pass
     return redirect(f'/lists/{list_of_books.id}/')
 
 def addBook(request, list_of_books_id):
