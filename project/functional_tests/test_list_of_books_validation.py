@@ -19,11 +19,11 @@ class BookValidationTest(FunctionalTest):
         # User tried to type empty value in input boxes
         button_add_book = self.browser.find_element_by_css_selector('.button_main')
 
-        input_new_book_box = self.get_title_input_box()
+        input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
         input_total_pages_box = self.get_total_pages_input_box()
 
-        input_new_book_box.send_keys('')
+        input_title_box.send_keys('')
         input_current_page_box.send_keys(34)
         input_total_pages_box.send_keys(45)
         button_add_book.click()
@@ -35,11 +35,11 @@ class BookValidationTest(FunctionalTest):
         # User tried once again by entering whatever values into inbput boxes
         button_add_book = self.browser.find_element_by_css_selector('.button_main')
 
-        input_new_book_box = self.get_title_input_box()
+        input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
         input_total_pages_box = self.get_total_pages_input_box()
 
-        input_new_book_box.send_keys("Secondhand: Travels in the New Global Garage Sale")
+        input_title_box.send_keys("Secondhand: Travels in the New Global Garage Sale")
         input_current_page_box.send_keys(12)
         input_total_pages_box.send_keys(320)
         button_add_book.click()
@@ -49,11 +49,11 @@ class BookValidationTest(FunctionalTest):
         # User could fix empty input boxes by entering there some text
         button_add_book = self.browser.find_element_by_css_selector('.button_main')
 
-        input_new_book_box = self.get_title_input_box()
+        input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
         input_total_pages_box = self.get_total_pages_input_box()
 
-        input_new_book_box.send_keys("1984")
+        input_title_box.send_keys("1984")
         input_current_page_box.send_keys(10)
         input_total_pages_box.send_keys(237)
         button_add_book.click()
