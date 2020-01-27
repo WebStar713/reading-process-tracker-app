@@ -131,3 +131,14 @@ class NewBookTest(TestCase):
         self.assertTemplateUsed(response, 'home.html')
         expected_error = escape("These fields cannot be blank.")
         self.assertContains(response, expected_error)
+
+        # response = self.client.post('/lists/new', data={
+        #                     'title': 'A title of some book',
+        #                     'current_page': '',
+        #                     'total_pages': '',
+        #                     })
+        #
+        # self.assertEqual(response.status_code, 200)
+        # self.assertTemplateUsed(response, 'home.html')
+        # expected_error = escape("These fields cannot be blank.")
+        # self.assertContains(response, expected_error)
