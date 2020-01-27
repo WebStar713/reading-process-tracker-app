@@ -18,7 +18,7 @@ class HomePageTest(TestCase):
 
     def test_homePage_uses_BookForm(self):
         response = self.client.get('/')
-        self.assertInstance(response.context['form'], BookForm)
+        self.assertIsInstance(response.context['form'], BookForm)
 
 
 class ListViewTest(TestCase):
