@@ -23,12 +23,19 @@ class ListViewTest(TestCase):
         response = self.client.get('/lists/%d/' % (list_of_books.id,))
         self.assertTemplateUsed(response, 'list.html')
 
+    def test_passes_correct_list_of_books_to_template(self):
+        other_list_of_books = ListfOfBooks.objects.create()
+        correct_list_of_books = ListfOfBooks.objects.create()
+        response = self.client.get('/lists/%d/' % (correct_list_of_books.id,))
+        self.assertEqual(response.context['list_of_books'], correct_list_of_books)
+
     def test_displays_only_books_for_that_list(self):
         correct_list_of_books = ListfOfBooks.objects.create()
         Book.objects.create(title = 'Title1',
                             current_page = 1,
                             total_pages = 111,
                             list_of_books = correct_list_of_books)
+        other_list_of_books = ListfOfBooks.objects.create()
         Book.objects.create(title = 'Title2',
                             current_page = 2,
                             total_pages = 222,
@@ -73,19 +80,16 @@ class ListViewTest(TestCase):
                             })
 
         new_list_of_books = ListfOfBooks.objects.first()
-        self.assertRedirects(response, f'/lists/{new_list_of_books.id}/')
+        self.assertRedirects(response, '/lists/%d/' % (new_list_of_books.id,))
 
 
-    def test_passes_correct_list_of_books_to_template(self):
-        correct_list_of_books = ListfOfBooks.objects.create()
-        response = self.client.get('/lists/%d/' % (correct_list_of_books.id,))
-        self.assertEqual(response.context['list_of_books'], correct_list_of_books)
 
-class NewBookTest(TestCase):
+
     def test_can_save_a_POST_request_to_an_existing_list(self):
         correct_list_of_books = ListfOfBooks.objects.create()
+        other_list_of_books = ListfOfBooks.objects.create()
 
-        self.client.post('/lists/%d/add_book' % (correct_list_of_books.id,),
+        self.client.post('/lists/%d/' % (correct_list_of_books.id,),
                         data={'title': 'New book title for existing list',
                               'current_page': 100,
                               'total_pages': 312,})
@@ -98,14 +102,15 @@ class NewBookTest(TestCase):
         self.assertEqual(new_book.list_of_books, correct_list_of_books)
 
     def test_redirects_to_list_view(self):
+        other_list_of_books = ListfOfBooks.objects.create() 
         correct_list_of_books = ListfOfBooks.objects.create()
 
-        response = self.client.post('/lists/%d/add_book' % (correct_list_of_books.id,),
+        response = self.client.post('/lists/%d/' % (correct_list_of_books.id,),
                         data={'title': 'New book title for existing list',
                               'current_page': 100,
                               'total_pages': 312,})
 
-        self.assertRedirects(response, f'/lists/{correct_list_of_books.id}/')
+        self.assertRedirects(response, '/lists/%d/' % (correct_list_of_books.id,))
 
     def test_cannot_save_empty_book_details(self):
         list_of_books = ListfOfBooks.objects.create()
