@@ -7,7 +7,7 @@ class ListfOfBooks(models.Model):
 
 
 class Book(models.Model):
-    title = models.TextField()
-    current_page = models.IntegerField()
-    total_pages = models.IntegerField()
+    title = models.TextField(blank=False)
+    current_page = models.IntegerField(blank=False)
+    total_pages = models.IntegerField(blank=False)
     list_of_books = models.ForeignKey(ListfOfBooks, default=None, on_delete=models.PROTECT)
