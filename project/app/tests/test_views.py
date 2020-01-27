@@ -183,6 +183,6 @@ class ListViewTest(TestCase):
         response = self.client.get('/lists/%d/' % (list_of_books.id,))
 
         self.assertIsInstance(response.contect['form'], BookForm)
-        self.assertContains(response, 'name="title"'')
-        self.assertContains(response, 'name="current_page"'')
-        self.assertContains(response, 'name="total_pages"'')
+        self.assertContains(response, 'name="title"')
+        self.assertContains(response, 'name="current_page"')
+        self.assertContains(response, 'name="total_pages"')
