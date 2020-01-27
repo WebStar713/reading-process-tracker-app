@@ -102,7 +102,7 @@ class ListViewTest(TestCase):
         self.assertEqual(new_book.list_of_books, correct_list_of_books)
 
     def test_redirects_to_list_view(self):
-        other_list_of_books = ListfOfBooks.objects.create() 
+        other_list_of_books = ListfOfBooks.objects.create()
         correct_list_of_books = ListfOfBooks.objects.create()
 
         response = self.client.post('/lists/%d/' % (correct_list_of_books.id,),
@@ -153,3 +153,13 @@ class ListViewTest(TestCase):
                          'title': '', 'current_page': 125, 'total_pages': 317,})
         self.assertEqual(ListfOfBooks.objects.count(), 0)
         self.assertEqual(Book.objects.count(), 0)
+
+    def test_validation_errors_end_up_on_book_list_page(self):
+        list_of_books = ListfOfBooks.objects.create()
+        response = self.client.post('/lists/%d/' % (list_of_books.id), data={
+                        'title': '', 'current_page': 125, 'total_pages': 317,})
+                        
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'list.html')
+        error = escape("These fields cannot be blank.")
+        self.assertContains(response, error)
