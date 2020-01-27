@@ -8,6 +8,7 @@ from django.utils.html import escape
 
 from app.views import homePage
 from app.models import Book, ListfOfBooks
+from app.forms import BookForm
 
 
 class HomePageTest(TestCase):
