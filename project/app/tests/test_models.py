@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.core.exceptions import ValidationError
 
 from app.models import Book, ListfOfBooks
 
@@ -61,3 +62,16 @@ class NewBookTest(TestCase):
                               'total_pages': 312,})
 
         self.assertRedirects(response, f'/lists/{correct_list_of_books.id}/')
+
+    def test_cannot_save_empty_book_details(self):
+        list_of_books = ListfOfBooks.objects.create()
+        book = Book()
+        book.title = "" # empty book detail (title)
+        book.current_page = "67"
+        book.total_pages = "888"
+        book.list_of_books = list_of_books
+        with self.assertRaises(ValidationError):
+            book.save()
+            book.full_clean() # fully checks empty value in TextField.
+            # In case lack of eliciting of full_clean(), django would save empty
+            # title value and would not raise an exception
