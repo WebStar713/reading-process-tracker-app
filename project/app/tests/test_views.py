@@ -16,6 +16,10 @@ class HomePageTest(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'home.html')
 
+    def test_homePage_uses_BookForm(self):
+        response = self.client.get('/')
+        self.assertInstance(response.context['form'], BookForm)
+
 
 class ListViewTest(TestCase):
     def test_uses_list_template(self):
@@ -158,7 +162,7 @@ class ListViewTest(TestCase):
         list_of_books = ListfOfBooks.objects.create()
         response = self.client.post('/lists/%d/' % (list_of_books.id), data={
                         'title': '', 'current_page': 125, 'total_pages': 317,})
-                        
+
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'list.html')
         error = escape("These fields cannot be blank.")
