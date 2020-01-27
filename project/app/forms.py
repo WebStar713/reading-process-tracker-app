@@ -1,6 +1,21 @@
 from django import forms
 
 class BookForm(forms.Form):
-    title_text = forms.CharField()
-    current_page_int = forms.IntegerField()
-    total_page_int = forms.IntegerField()
+    title_text = forms.CharField(
+        widget=forms.fields.TextInput(attrs={
+            'placeholder': 'Title',
+            'class': 'form-control input-lg',
+        }),
+    )
+    current_page_int = forms.IntegerField(
+        widget=forms.fields.NumberInput(attrs={
+            'placeholder': 'Current page',
+            'class': 'form-control input-lg',
+        }),
+    )
+    total_page_int = forms.IntegerField(
+        widget=forms.fields.NumberInput(attrs={
+            'placeholder': 'Total number of pages',
+            'class': 'form-control input-lg',
+        }),
+    )
