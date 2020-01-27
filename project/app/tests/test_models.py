@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.core.exceptions import ValidationError
+
 
 from app.models import Book, ListfOfBooks
 
