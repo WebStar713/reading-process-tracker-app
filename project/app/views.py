@@ -40,7 +40,7 @@ def newList(request):
     try:
         book.full_clean()
     except ValidationError:
-        pass
+        return render(request, 'home.html')
     return redirect(f'/lists/{list_of_books.id}/')
 
 def addBook(request, list_of_books_id):
