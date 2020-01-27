@@ -5,7 +5,7 @@ __pycache__
 .DS_Store
 project/db.sqlite3
 /static
-project/app/templates
+project/app/templates/templates_for_future
 project/app/templates/templates_for_future/login.html
 project/app/templates/registration/password_change_done.html
 project/app/templates/registration/password_change_form.html
@@ -21,3 +21,5 @@ project/app/templates/register.html
 project/project/email_host_password.txt
 project/project/email_host_user.txt
 project/app/forms1.py
+project/app/urls1.py
+project/app/templates/base1.html
