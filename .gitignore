@@ -17,3 +17,4 @@ project/app/templates/registration/logged_out.html
 project/app/templates/register.html
 project/project/email_host_password.txt
 project/project/email_host_user.txt
+project/app/forms1.py
