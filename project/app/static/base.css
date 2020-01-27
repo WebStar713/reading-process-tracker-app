@@ -16,7 +16,8 @@ h1 {
 }
 
 body {
-    padding-bottom: 40px;
+    font-family: 'Lato';
+    padding: 2rem 5rem;
 }
 
 
@@ -90,6 +91,45 @@ table {
     font-size:15px;
     width:300px;
     border-color: #9d56bf;
+    outline-color:#fff;
+    display: block;
+    height: calc(1.5em + .75rem + 2px);
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+a {
+    color: #9d56bf;
+    text-decoration: none;
+    background-color: transparent;
+}
+#id_username  {
+    padding:10px 10px;
+    font-size:15px;
+    width:300px;
+    border-color: #9d56bf;
+    outline-color:#fff;
+    display: block;
+    height: calc(1.5em + .75rem + 2px);
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#id_first_name, #id_email, #id_password2 {
+    padding:10px 10px;
+    font-size:15px;
+    width:300px;
+    border-color: #f4618b;
     outline-color:#fff;
     display: block;
     height: calc(1.5em + .75rem + 2px);
