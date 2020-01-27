@@ -117,3 +117,15 @@ class NewBookTest(TestCase):
             book.full_clean() # fully checks empty value in TextField.
             # In case lack of eliciting of full_clean(), django would save empty
             # title value and would not raise an exception
+
+    def test_validation_errors_are_sent_back_to_home_page_template(self):
+        response = self.client.post('/lists/new', data={
+                            'title': '',
+                            'current_page': 125,
+                            'total_pages': 317,
+                            })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'home.html')
+        expected_error = "This field cannot be blank."
+        self.assertContains(response, expected_error)
