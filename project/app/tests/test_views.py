@@ -8,7 +8,7 @@ from django.utils.html import escape
 
 from app.views import homePage
 from app.models import Book, ListfOfBooks
-from app.forms import BookForm
+from app.forms import BookForm, EMPTY_INPUT_ERROR
 
 
 class HomePageTest(TestCase):
@@ -19,6 +19,69 @@ class HomePageTest(TestCase):
 
     def test_homePage_uses_BookForm(self):
         response = self.client.get('/')
+        self.assertIsInstance(response.context['form'], BookForm)
+
+class NewListTest(TestCase):
+
+    def test_saving_POST_request(self):
+        response = self.client.post('/lists/new', data={
+                            'title': 'Some book',
+                            'current_page': 125,
+                            'total_pages': 317,
+                            })
+
+        self.assertEqual(Book.objects.count(), 1)
+        new_book = Book.objects.first()
+        self.assertEqual(new_book.title, 'Some book')
+        self.assertEqual(new_book.current_page, 125)
+        self.assertEqual(new_book.total_pages, 317)
+
+
+    def test_redirects_after_POST(self):
+        response = self.client.post('/lists/new', data={
+                            'title': 'Some book',
+                            'current_page': 125,
+                            'total_pages': 317,
+                            })
+
+        new_list_of_books = ListfOfBooks.objects.first()
+        self.assertRedirects(response, '/lists/%d/' % (new_list_of_books.id,))
+
+    def test_invalid_book_details_arent_saved(self):
+        self.client.post('/lists/new', data={
+                         'title': '', 'current_page': 125, 'total_pages': 317,})
+        self.assertEqual(ListfOfBooks.objects.count(), 0)
+        self.assertEqual(Book.objects.count(), 0)
+
+    def test_for_invalid_input_renders_homePage_template(self):
+        response = self.client.post('/lists/new', data={
+                            'title': '',
+                            'current_page': 125,
+                            'total_pages': 317,
+                            })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'home.html')
+
+    def test_validation_errors_are_shown_on_homePage(self):
+        response = self.client.post('/lists/new', data={
+                            'title': '',
+                            'current_page': 125,
+                            'total_pages': 317,
+                            })
+
+        self.assertContains(response, escape(EMPTY_INPUT_ERROR))
+
+        expected_error = escape("These fields cannot be blank.")
+        self.assertContains(response, expected_error)
+
+    def test_for_invalid_input_passes_form_to_template(self):
+        response = self.client.post('/lists/new', data={
+                            'title': '',
+                            'current_page': 125,
+                            'total_pages': 317,
+                            })
+
         self.assertIsInstance(response.context['form'], BookForm)
 
 
@@ -63,32 +126,6 @@ class ListViewTest(TestCase):
         self.assertNotContains(response, 'Other Title1')
         self.assertNotContains(response, 'Other Title2')
 
-    def test_saving_POST_request(self):
-        response = self.client.post('/lists/new', data={
-                            'title': 'Some book',
-                            'current_page': 125,
-                            'total_pages': 317,
-                            })
-
-        self.assertEqual(Book.objects.count(), 1)
-        new_book = Book.objects.first()
-        self.assertEqual(new_book.title, 'Some book')
-        self.assertEqual(new_book.current_page, 125)
-        self.assertEqual(new_book.total_pages, 317)
-
-
-    def test_redirects_after_POST(self):
-        response = self.client.post('/lists/new', data={
-                            'title': 'Some book',
-                            'current_page': 125,
-                            'total_pages': 317,
-                            })
-
-        new_list_of_books = ListfOfBooks.objects.first()
-        self.assertRedirects(response, '/lists/%d/' % (new_list_of_books.id,))
-
-
-
 
     def test_can_save_a_POST_request_to_an_existing_list(self):
         correct_list_of_books = ListfOfBooks.objects.create()
@@ -130,34 +167,6 @@ class ListViewTest(TestCase):
             # In case lack of eliciting of full_clean(), django would save empty
             # title value and would not raise an exception
 
-    def test_validation_errors_are_sent_back_to_home_page_template(self):
-        response = self.client.post('/lists/new', data={
-                            'title': '',
-                            'current_page': 125,
-                            'total_pages': 317,
-                            })
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'home.html')
-        expected_error = escape("These fields cannot be blank.")
-        self.assertContains(response, expected_error)
-
-        # response = self.client.post('/lists/new', data={
-        #                     'title': 'A title of some book',
-        #                     'current_page': '',
-        #                     'total_pages': '',
-        #                     })
-        #
-        # self.assertEqual(response.status_code, 200)
-        # self.assertTemplateUsed(response, 'home.html')
-        # expected_error = escape("These fields cannot be blank.")
-        # self.assertContains(response, expected_error)
-
-    def test_invalid_book_details_arent_saved(self):
-        self.client.post('/lists/new', data={
-                         'title': '', 'current_page': 125, 'total_pages': 317,})
-        self.assertEqual(ListfOfBooks.objects.count(), 0)
-        self.assertEqual(Book.objects.count(), 0)
 
     def test_validation_errors_end_up_on_book_list_page(self):
         list_of_books = ListfOfBooks.objects.create()
