@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 
-from app.forms import LoginForm
 from app.models import Book, ListfOfBooks
 
 
