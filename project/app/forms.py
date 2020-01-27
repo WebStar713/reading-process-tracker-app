@@ -1,12 +1,13 @@
 from django import forms
 
-from app.models import Book
+from app.models import Book, ListfOfBooks
 
 EMPTY_INPUT_ERROR = 'These fields cannot be blank.'
 
 class BookForm(forms.models.ModelForm):
 
     def save(self, for_list):
+        list = ListfOfBooks()
         self.instance.list = for_list
         return super().save()
 
