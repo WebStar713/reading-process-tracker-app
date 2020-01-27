@@ -5,6 +5,7 @@ from app.models import Book
 class BookForm(forms.models.ModelForm):
 
     class Meta:
+        EMPTY_INPUT_ERROR = 'These fields cannot be blank.'
         model = Book
         fields = ['title', 'current_page', 'total_pages', ]
         widgets = {
@@ -22,7 +23,7 @@ class BookForm(forms.models.ModelForm):
         }),
         }
         error_messages = {
-        'title': {'required': 'These fields cannot be blank.'},
-        'current_page': {'required': 'These fields cannot be blank.'},
-        'total_pages': {'required': 'These fields cannot be blank.'},
+        'title': {'required': EMPTY_INPUT_ERROR},
+        'current_page': {'required': EMPTY_INPUT_ERROR},
+        'total_pages': {'required': EMPTY_INPUT_ERROR},
         }
