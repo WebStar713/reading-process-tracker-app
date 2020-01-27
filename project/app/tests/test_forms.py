@@ -29,7 +29,7 @@ class BookFormTest(TestCase):
     def test_BookForm_handles_saving_to_a_ListOfBooks(self):
         list_of_books = ListfOfBooks.objects.create()
         form = BookForm(data={'title':'Some title', 'current_page': 11, 'total_pages': 56, })
-        new_book = form.save()
+        new_book = form.save(for_list=list_of_books)
 
         self.assertEqual(new_book, Book.objects.first())
         self.assertEqual(new_book.title, 'Some title')
