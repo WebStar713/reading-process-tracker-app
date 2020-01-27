@@ -7,7 +7,16 @@ from unittest import skip
 import unittest
 import time
 
-class NewVisitorTest(StaticLiveServerTestCase):
+class FunctionalTest(StaticLiveServerTestCase):
+
+    @classmethod
+    def setUp(self):
+        self.browser = webdriver.Chrome()
+        self.browser.implicitly_wait(3)
+
+    @classmethod
+    def tearDown(self):
+        self.browser.quit()
 
     def setUp(self):
         self.browser = webdriver.Chrome()
@@ -22,6 +31,8 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.assertIn(test_title, [column.text for column in columns])
         self.assertIn(str(test_current_page), [column.text for column in columns])
         self.assertIn(str(test_total_pages), [column.text for column in columns])
+
+class NewVisitorTest(FunctionalTest):
 
     def test_can_single_user_can_start_test(self):
         # After going to the website, the visitor realized that title of website
@@ -145,6 +156,8 @@ class NewVisitorTest(StaticLiveServerTestCase):
         chart = self.browser.find_element_by_id('bar-chart')
         self.assertTrue(chart)
 
+class BookValidationTest(FunctionalTest):
+    
     @skip
     def test_cannot_add_empty_book_details(self):
         pass
