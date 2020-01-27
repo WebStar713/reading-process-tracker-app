@@ -1,9 +1,11 @@
 from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
+from django.urls import reverse
 
 class ListfOfBooks(models.Model):
-    pass
+    def get_absolute_url(self):
+        return reverse('viewList', args=[self.id])
 
 
 class Book(models.Model):
