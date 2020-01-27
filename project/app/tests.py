@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 from app.views import homePage
 from app.models import Book, ListfOfBooks
-from app.forms import LoginForm
+
 
 class HomePageTest(TestCase):
 
@@ -137,20 +137,3 @@ class NewBookTest(TestCase):
                               'total_pages': 312,})
 
         self.assertRedirects(response, f'/lists/{correct_list_of_books.id}/')
-
-class LoginTest(TestCase):
-    def test_uses_login_template(self):
-        response = self.client.get('/login/')
-        self.assertTemplateUsed(response, 'registration/login.html')
-
-    def test_form_validation_for_blank_login_inputs(self):
-        EMPTY_FIELD_ERROR = 'This field is required.'
-        form = LoginForm(data={'username': '', 'password': '',})
-
-        self.assertFalse(form.is_valid())
-        self.assertEqual(form.errors['username'], [EMPTY_FIELD_ERROR])
-
-class LogoutPageTest(TestCase):
-    def test_uses_logout_template(self):
-        response = self.client.get('/logout/')
-        self.assertTemplateUsed(response, 'logout.html')
