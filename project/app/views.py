@@ -37,10 +37,13 @@ def viewList(request, list_of_books_id):
         except ValidationError or ValueError:
             error = 'These fields cannot be blank.'
 
+    form = BookForm()
+
     return render(request, 'list.html', {'labels': labels,
                                           'data': data,
                                           'list_of_books': list_of_books,
                                           'error': error,
+                                          'form': form,
                                           })
 
 def newList(request):
