@@ -78,3 +78,42 @@ class ListViewTest(TestCase):
         correct_list_of_books = ListfOfBooks.objects.create()
         response = self.client.get('/lists/%d/' % (correct_list_of_books.id,))
         self.assertEqual(response.context['list_of_books'], correct_list_of_books)
+
+class NewBookTest(TestCase):
+    def test_can_save_a_POST_request_to_an_existing_list(self):
+        correct_list_of_books = ListfOfBooks.objects.create()
+
+        self.client.post('/lists/%d/add_book' % (correct_list_of_books.id,),
+                        data={'title': 'New book title for existing list',
+                              'current_page': 100,
+                              'total_pages': 312,})
+
+        self.assertEqual(Book.objects.count(), 1)
+        new_book = Book.objects.first()
+        self.assertEqual(new_book.title, 'New book title for existing list')
+        self.assertEqual(new_book.current_page, 100)
+        self.assertEqual(new_book.total_pages, 312)
+        self.assertEqual(new_book.list_of_books, correct_list_of_books)
+
+    def test_redirects_to_list_view(self):
+        correct_list_of_books = ListfOfBooks.objects.create()
+
+        response = self.client.post('/lists/%d/add_book' % (correct_list_of_books.id,),
+                        data={'title': 'New book title for existing list',
+                              'current_page': 100,
+                              'total_pages': 312,})
+
+        self.assertRedirects(response, f'/lists/{correct_list_of_books.id}/')
+
+    def test_cannot_save_empty_book_details(self):
+        list_of_books = ListfOfBooks.objects.create()
+        book = Book()
+        book.title = "" # empty book detail (title)
+        book.current_page = "67"
+        book.total_pages = "888"
+        book.list_of_books = list_of_books
+        with self.assertRaises(ValidationError):
+            book.save()
+            book.full_clean() # fully checks empty value in TextField.
+            # In case lack of eliciting of full_clean(), django would save empty
+            # title value and would not raise an exception
