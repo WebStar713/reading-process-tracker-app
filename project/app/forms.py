@@ -2,10 +2,11 @@ from django import forms
 
 from app.models import Book
 
+EMPTY_INPUT_ERROR = 'These fields cannot be blank.'
+
 class BookForm(forms.models.ModelForm):
 
     class Meta:
-        EMPTY_INPUT_ERROR = 'These fields cannot be blank.'
         model = Book
         fields = ['title', 'current_page', 'total_pages', ]
         widgets = {
