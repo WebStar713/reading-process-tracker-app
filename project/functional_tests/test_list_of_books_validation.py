@@ -24,15 +24,21 @@ class BookValidationTest(FunctionalTest):
         input_total_pages_box = self.browser.find_element_by_id('id_total_pages')
 
         input_new_book_box.send_keys('')
-        input_current_page_box.send_keys('')
-        input_total_pages_box.send_keys('')
+        input_current_page_box.send_keys(34)
+        input_total_pages_box.send_keys(45)
         button_add_book.click()
 
         # After that, user noticed info about lack possibility to type empty value
         error = self.browser.find_element_by_css_selector('.has-error').text
-        self.assertEqual(error, "Field 'current_page' expected a number but got ''")
+        self.assertEqual(error, "These fields cannot be blank.")
 
         # User tried once again by entering whatever values into inbput boxes
+        button_add_book = self.browser.find_element_by_css_selector('.button_main')
+
+        input_new_book_box = self.browser.find_element_by_id('id_new_book')
+        input_current_page_box = self.browser.find_element_by_id('id_current_page')
+        input_total_pages_box = self.browser.find_element_by_id('id_total_pages')
+
         input_new_book_box.send_keys("Secondhand: Travels in the New Global Garage Sale")
         input_current_page_box.send_keys(12)
         input_total_pages_box.send_keys(320)
@@ -41,6 +47,12 @@ class BookValidationTest(FunctionalTest):
         self.check_for_columns_in_book_table("Secondhand: Travels in the New Global Garage Sale", 12, 320)
 
         # User could fix empty input boxes by entering there some text
+        button_add_book = self.browser.find_element_by_css_selector('.button_main')
+
+        input_new_book_box = self.browser.find_element_by_id('id_new_book')
+        input_current_page_box = self.browser.find_element_by_id('id_current_page')
+        input_total_pages_box = self.browser.find_element_by_id('id_total_pages')
+        
         input_new_book_box.send_keys("1984")
         input_current_page_box.send_keys(10)
         input_total_pages_box.send_keys(237)
