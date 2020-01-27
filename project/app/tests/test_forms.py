@@ -1,5 +1,5 @@
 from django.test import TestCase
-from app.forms import BookForm, EMPTY_INPUT_ERROR
+from app.forms import BookForm, ListfOfBooks, EMPTY_INPUT_ERROR
 
 class BookFormTest(TestCase):
 
