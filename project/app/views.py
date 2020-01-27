@@ -58,7 +58,7 @@ def newList(request):
         error = 'These fields cannot be blank.'
         return render(request, 'home.html', {"error": error})
 
-    return redirect('viewList', list_of_books.id)
+    return redirect(list_of_books)
 
 
 def userLogin(request):
