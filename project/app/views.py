@@ -24,6 +24,12 @@ def viewList(request, list_of_books_id):
         data.append(percentage)
 
 
+    if request.method == 'POST':
+        Book.objects.create(title = request.POST['title'],
+                            current_page = request.POST['current_page'],
+                            total_pages = request.POST['total_pages'],
+                            list_of_books = list_of_books,)
+        return redirect('/lists/%d/' % (list_of_books.id,))
 
     return render(request, 'list.html', {'labels': labels,
                                           'data': data,
