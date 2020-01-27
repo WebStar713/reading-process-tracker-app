@@ -27,3 +27,12 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.assertIn(test_title, [column.text for column in columns])
         self.assertIn(str(test_current_page), [column.text for column in columns])
         self.assertIn(str(test_total_pages), [column.text for column in columns])
+
+    def get_title_input_box(self):
+        return self.browser.find_element_by_id('id_title')
+
+    def get_current_page_input_box(self):
+        return self.browser.find_element_by_id('id_current_page')
+
+    def get_total_pages_input_box(self):
+        return self.browser.find_element_by_id('id_total_pages')
