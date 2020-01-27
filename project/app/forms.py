@@ -1,5 +1,7 @@
 from django import forms
 
+from app.models import Book
+
 class BookForm(forms.Form):
     title_text = forms.CharField(
         widget=forms.fields.TextInput(attrs={
