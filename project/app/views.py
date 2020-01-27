@@ -40,7 +40,7 @@ def newList(request):
     try:
         book.full_clean()
     except ValidationError:
-        error = 'This field cannot be blank.'
+        error = 'These fields cannot be blank.'
         return render(request, 'home.html', {"error": error})
 
     return redirect(f'/lists/{list_of_books.id}/')
