@@ -24,3 +24,12 @@ class BookFormTest(TestCase):
         form = BookForm(data={'title':'Some title', 'current_page': 20, 'total_pages': '', })
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['total_pages'], [EMPTY_INPUT_ERROR])
+
+    def test_BookForm_handles_saving_to_a_ListOfBooks(self):
+        list_of_books = ListfOfBooks.objects.create()
+        form = BookForm(data={'title':'Some title', 'current_page': 11, 'total_pages': 56, })
+        new_book = form.save()
+
+        self.assertEqual(new_book, Book.objects.first())
+        self.assertEqual(new_book.title, 'Some title')
+        self.assertEqual(new_book.list_of_books, list_of_books)
