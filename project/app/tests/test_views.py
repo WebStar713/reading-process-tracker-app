@@ -177,3 +177,12 @@ class ListViewTest(TestCase):
         self.assertTemplateUsed(response, 'list.html')
         error = escape("These fields cannot be blank.")
         self.assertContains(response, error)
+
+    def test_displays_BookForm(self):
+        list_of_books = ListfOfBooks.objects.create()
+        response = self.client.get('/lists/%d/' % (list_of_books.id,))
+
+        self.assertIsInstance(response.contect['form'], BookForm)
+        self.assertContains(response, 'name'='title')
+        self.assertContains(response, 'name'='current_page')
+        self.assertContains(response, 'name'='total_pages')
