@@ -171,7 +171,7 @@ class ListViewTest(TestCase):
         list_of_books = ListfOfBooks.objects.create()
         response = self.client.get('/lists/%d/' % (list_of_books.id,))
 
-        self.assertIsInstance(response.contect['form'], BookForm)
+        self.assertIsInstance(response.context['form'], BookForm)
         self.assertContains(response, 'name="title"')
         self.assertContains(response, 'name="current_page"')
         self.assertContains(response, 'name="total_pages"')
@@ -179,7 +179,7 @@ class ListViewTest(TestCase):
     def post_invalid_input(self):
         list_of_books = ListfOfBooks.objects.create()
         return self.client.post('/lists/%d/' % (list_of_books.id), data={
-            'title': '', 'current_page': '', 'total_pages': 317,})
+            'title': '', 'current_page': 56, 'total_pages': 317,})
 
     def test_for_invalid_input_nothing_saved_to_db(self):
         self.post_invalid_input()
