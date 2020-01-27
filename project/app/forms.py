@@ -21,3 +21,8 @@ class BookForm(forms.models.ModelForm):
             'class': 'form-control input-lg',
         }),
         }
+        error_messages = {
+        'title': {'required': 'These fields cannot be blank.'},
+        'current_page': {'required': 'These fields cannot be blank.'},
+        'total_pages': {'required': 'These fields cannot be blank.'},
+        }
