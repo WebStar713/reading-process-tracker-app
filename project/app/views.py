@@ -4,10 +4,11 @@ from django.contrib.auth import authenticate, login
 from django.core.exceptions import ValidationError
 
 from app.models import Book, ListfOfBooks
+from app.forms import BookForm
 
 
 def homePage(request):
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'form': BookForm()})
 
 def viewList(request, list_of_books_id):
     list_of_books = ListfOfBooks.objects.get(id=list_of_books_id)
