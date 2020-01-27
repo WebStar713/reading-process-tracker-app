@@ -142,3 +142,9 @@ class NewBookTest(TestCase):
         # self.assertTemplateUsed(response, 'home.html')
         # expected_error = escape("These fields cannot be blank.")
         # self.assertContains(response, expected_error)
+
+    def test_invalid_book_details_arent_saved(self):
+        self.client.post('/lists/new', data={
+                         'title': '', 'current_page': 125, 'total_pages': 317,})
+        self.assertEqual(ListfOfBooks.objects.count(), 0)
+        self.assertEqual(Book.objects.count(), 0)
