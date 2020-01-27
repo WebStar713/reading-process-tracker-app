@@ -14,6 +14,7 @@ project/app/templates/registration/password_reset_confirm.html
 project/app/templates/registration/password_reset_done.html
 project/app/templates/registration/password_reset_email.html
 project/app/templates/registration/password_reset_form.html
+project/app/templates/registration/login.html
 project/app/templates/register_done.html
 project/app/templates/registration/logged_out.html
 project/app/templates/register.html
