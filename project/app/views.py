@@ -39,7 +39,9 @@ def newList(request):
                                )
     try:
         book.full_clean()
+        book.save()
     except ValidationError or ValueError:
+        list_of_books.delete()
         error = 'These fields cannot be blank.'
         return render(request, 'home.html', {"error": error})
 
