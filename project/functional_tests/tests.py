@@ -144,6 +144,14 @@ class NewVisitorTest(StaticLiveServerTestCase):
         chart = self.browser.find_element_by_id('bar-chart')
         self.assertTrue(chart)
 
+    def test_cannot_add_empty_book_details(self):
+        # User tried to type empty value in input boxes
+
+        # After that, user noticed info about lack possibility to type empty value
+
+        # User tried once again by entering whatever values into inbput boxes
+
+
     # def test_user_cannot_sign_in_after_entering_invalid_data(self):
     #     url = urljoin(self.live_server_url, '/login/')
     #     self.browser.get(url)
