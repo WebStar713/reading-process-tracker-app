@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from urllib.parse import urljoin
+from unittest import skip
 
 import unittest
 import time
@@ -144,7 +145,9 @@ class NewVisitorTest(StaticLiveServerTestCase):
         chart = self.browser.find_element_by_id('bar-chart')
         self.assertTrue(chart)
 
+    @skip
     def test_cannot_add_empty_book_details(self):
+        pass
         # User tried to type empty value in input boxes
 
         # After that, user noticed info about lack possibility to type empty value
