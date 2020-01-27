@@ -19,3 +19,7 @@ class BookForm(forms.Form):
             'class': 'form-control input-lg',
         }),
     )
+
+    class Meta:
+        model = Book
+        fields = ['title', 'current_page', 'total_pages']
