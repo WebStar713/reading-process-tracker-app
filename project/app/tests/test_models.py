@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.core.urlresolvers import reverse
 
 
 from app.models import Book, ListfOfBooks
@@ -36,3 +37,7 @@ class ListfOfBooksAndBookModelTest(TestCase):
         self.assertEqual(first_saved_book.list_of_books, list_of_books)
         self.assertEqual(second_saved_book.title, 'Title of second book')
         self.assertEqual(second_saved_book.list_of_books, list_of_books)
+
+    def test_get_absolute_url(self):
+        list_of_books = ListfOfBooks.objects.create()
+        self.assertEqual(list_of_books.get_absolute_url(), '/lists/%d' % (list_of_books.id))
