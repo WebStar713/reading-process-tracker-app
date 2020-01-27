@@ -32,7 +32,7 @@ def viewList(request, list_of_books_id):
                                        list_of_books = list_of_books,)
             book.full_clean()
             book.save()
-            return redirect('/lists/%d/' % (list_of_books.id,))
+            return redirect(list_of_books)
         except ValidationError or ValueError:
             error = 'These fields cannot be blank.'
 
