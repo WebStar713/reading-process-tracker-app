@@ -1,6 +1,6 @@
 from django.test import TestCase
 from app.forms import BookForm, EMPTY_INPUT_ERROR
-from app.models improt ListfOfBooks
+from app.models import ListfOfBooks
 
 class BookFormTest(TestCase):
 
