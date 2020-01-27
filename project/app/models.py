@@ -1,7 +1,10 @@
 from django.db import models
+from django.conf import settings
+from django.utils.text import slugify
 
 class ListfOfBooks(models.Model):
     pass
+
 
 class Book(models.Model):
     title = models.TextField(default='')
