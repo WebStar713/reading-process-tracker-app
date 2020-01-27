@@ -21,12 +21,9 @@
                             <div id="inputbox">
                                 <form method="POST" action="{% block form_action %} {% endblock %}">
                                     {% csrf_token %}
-                                        <input name="title" id="id_new_book"
-                                            class="form-control" placeholder="Title" />
-                                        <input name="current_page" id="id_current_page"
-                                            class="form-control" placeholder="Current page" />
-                                        <input name="total_pages" id="id_total_pages"
-                                            class="form-control" placeholder="Total number of pages" />
+                                        {{ form.title }}
+                                        {{ form.current_page }}
+                                        {{ form.total_pages }}
                                         <input type="submit" id="button" class="button button_main"
                                             value="Add and see a chart">
                                             {% if error %}
