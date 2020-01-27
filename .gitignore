@@ -5,3 +5,15 @@ __pycache__
 .DS_Store
 project/db.sqlite3
 /static
+project/app/templates/registration/password_change_done.html
+project/app/templates/registration/password_change_form.html
+project/app/templates/registration/password_reset_complete.html
+project/app/templates/registration/password_reset_confirm.html
+project/app/templates/registration/password_reset_done.html
+project/app/templates/registration/password_reset_email.html
+project/app/templates/registration/password_reset_form.html
+project/app/templates/register_done.html
+project/app/templates/registration/logged_out.html
+project/app/templates/register.html
+project/project/email_host_password.txt
+project/project/email_host_user.txt
