@@ -129,4 +129,5 @@ class NewBookTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home.html')
         expected_error = "This field cannot be blank."
+        print(response.content.decode())
         self.assertContains(response, expected_error)
