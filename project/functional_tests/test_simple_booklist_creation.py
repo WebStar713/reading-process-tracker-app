@@ -64,7 +64,7 @@ class NewVisitorTest(FunctionalTest):
         # Quick check if visitor is able to post second books details
         input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
-        input_total_pages_box = self.get_total_pages_input_box_page_input_box()
+        input_total_pages_box = self.get_total_pages_input_box()
         button_add_book = self.browser.find_element_by_css_selector('.button_main')
 
         input_title_box.send_keys('Factfulness')
