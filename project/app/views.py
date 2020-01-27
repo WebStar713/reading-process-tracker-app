@@ -31,11 +31,12 @@ def viewList(request, list_of_books_id):
 
 def newList(request):
     list_of_books = ListfOfBooks.objects.create()
-    Book.objects.create(title = request.POST['title'],
-                        current_page = request.POST['current_page'],
-                        total_pages = request.POST['total_pages'],
-                        list_of_books = list_of_books
-                        )
+    book = Book.objects.create(title = request.POST['title'],
+                               current_page = request.POST['current_page'],
+                               total_pages = request.POST['total_pages'],
+                               list_of_books = list_of_books
+                               )
+    book.full_clean()
     return redirect(f'/lists/{list_of_books.id}/')
 
 def addBook(request, list_of_books_id):
