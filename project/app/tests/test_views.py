@@ -4,6 +4,7 @@ from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.utils.html import escape
 
 from app.views import homePage
 from app.models import Book, ListfOfBooks
@@ -110,8 +111,8 @@ class NewBookTest(TestCase):
         list_of_books = ListfOfBooks.objects.create()
         book = Book()
         book.title = "" # empty book detail (title)
-        book.current_page = "67"
-        book.total_pages = "888"
+        book.current_page = 6
+        book.total_pages = 344
         book.list_of_books = list_of_books
         with self.assertRaises(ValidationError):
             book.save()
@@ -128,6 +129,5 @@ class NewBookTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home.html')
-        expected_error = "This field cannot be blank."
-        print(response.content.decode())
+        expected_error = escape("This field cannot be blank.")
         self.assertContains(response, expected_error)
