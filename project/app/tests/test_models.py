@@ -41,3 +41,17 @@ class ListfOfBooksAndBookModelTest(TestCase):
     def test_get_absolute_url(self):
         list_of_books = ListfOfBooks.objects.create()
         self.assertEqual(list_of_books.get_absolute_url(), '/lists/%d/' % (list_of_books.id))
+
+    def test_duplicate_books_are_invalid(self):
+        list_of_books = ListfOfBooks.objects.create()
+        Book.objects.create(list_of_books = list_of_books,
+                            title = 'Duplicate',
+                            current_page = 10,
+                            total_pages = 25,)
+
+        with self.AssertRaises(ValidationError):
+            book = Book(list_of_books = list_of_books,
+                        title = 'Duplicate',
+                        current_page = 10,
+                        total_pages = 25,)
+            book.full_clean()
