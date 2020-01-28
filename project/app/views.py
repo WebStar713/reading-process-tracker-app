@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.core.exceptions import ValidationError
 
 from app.models import Book, ListfOfBooks
-from app.forms import BookForm
+from app.forms import BookForm, ExisitingBooksInList
 
 
 def homePage(request):
@@ -22,11 +22,11 @@ def viewList(request, list_of_books_id):
         percentage = round(book.current_page / book.total_pages * 100, 2)
         data.append(percentage)
 
-    form = BookForm()
+    form = ExisitingBooksInList(for_list = list_of_books)
     if request.method == 'POST':
-        form = BookForm(data=request.POST)
+        form = ExisitingBooksInList(for_list = list_of_books, data=request.POST)
         if form.is_valid():
-            form.save(for_list=list_of_books)
+            form.save()
             return redirect(list_of_books)
     return render(request, 'list.html', {'labels': labels,
                                           'data': data,
