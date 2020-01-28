@@ -125,7 +125,7 @@ class BookValidationTest(FunctionalTest):
         input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
         input_total_pages_box = self.get_total_pages_input_box()
-        
+
         input_title_box.send_keys("Fibonacci’s Rabbits")
         input_current_page_box.send_keys(10)
         input_total_pages_box.send_keys(176)
@@ -135,4 +135,4 @@ class BookValidationTest(FunctionalTest):
         self.check_for_columns_in_book_table("Fibonacci’s Rabbits", 10, 176)
 
         error = self.browser.find_element_by_css_selector('.has-error').text
-        self.assertEqual(error, "Entered book already occurs in your list")
+        self.assertEqual(error, "This book is already on your list.")

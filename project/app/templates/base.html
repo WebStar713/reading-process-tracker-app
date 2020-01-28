@@ -26,9 +26,9 @@
                                     {{ form.total_pages }}
                                     <input type="submit" id="button" class="button button_main"
                                         value="Add and see a chart">
-                                        {% if form.errors %}
+                                        {% if form.title.errors %}
                                             <div class="form-group has-error">
-                                                <div class="help-block"> {{ form.errors }} </div>
+                                                <div class="help-block"> {{ form.title.errors }} </div>
                                             </div>
                                         {% endif %}
                                 </form>
