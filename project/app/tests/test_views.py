@@ -10,7 +10,7 @@ from unittest import skip
 
 from app.views import homePage
 from app.models import Book, ListfOfBooks
-from app.forms import BookForm, EMPTY_INPUT_ERROR, DUPLICATE_INPUT_ERROR
+from app.forms import BookForm, ExisitingBooksInList, EMPTY_INPUT_ERROR, DUPLICATE_INPUT_ERROR
 
 
 class HomePageTest(TestCase):
@@ -173,7 +173,7 @@ class ListViewTest(TestCase):
         list_of_books = ListfOfBooks.objects.create()
         response = self.client.get('/lists/%d/' % (list_of_books.id,))
 
-        self.assertIsInstance(response.context['form'], BookForm)
+        self.assertIsInstance(response.context['form'], ExisitingBooksInList)
         self.assertContains(response, 'name="title"')
         self.assertContains(response, 'name="current_page"')
         self.assertContains(response, 'name="total_pages"')
@@ -197,7 +197,7 @@ class ListViewTest(TestCase):
     def test_for_invalid_input_passes_form_to_template(self):
         response = self.post_invalid_input()
 
-        self.assertIsInstance(response.context['form'], BookForm)
+        self.assertIsInstance(response.context['form'], ExisitingBooksInList)
 
     def test_for_input_shows_error_on_page(self):
         response = self.post_invalid_input()
