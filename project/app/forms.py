@@ -30,6 +30,5 @@ class BookForm(forms.models.ModelForm):
         }
 
     def save(self, for_list):
-        list = ListfOfBooks()
-        self.instance.list = for_list
+        self.instance.list_of_books = for_list
         return super().save()
