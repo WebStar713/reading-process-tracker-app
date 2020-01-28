@@ -26,10 +26,7 @@ def viewList(request, list_of_books_id):
     if request.method == 'POST':
         form = BookForm(data=request.POST)
         if form.is_valid():
-            Book.objects.create(title = request.POST['title'],
-                                current_page = request.POST['current_page'],
-                                total_pages = request.POST['total_pages'],
-                                list_of_books = list_of_books,)
+            form.save(for_list=list_of_books)
             return redirect(list_of_books)
     return render(request, 'list.html', {'labels': labels,
                                           'data': data,
