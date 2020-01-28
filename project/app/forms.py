@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 
 from app.models import Book, ListfOfBooks
 
-EMPTY_INPUT_ERROR = 'These fields cannot be blank.'
+EMPTY_INPUT_ERROR = 'This field is required.'
 DUPLICATE_INPUT_ERROR = 'This book is already on your list.'
 
 class BookForm(forms.models.ModelForm):

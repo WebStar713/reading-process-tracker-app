@@ -33,7 +33,7 @@ class BookValidationTest(FunctionalTest):
 
         # After that, user noticed info about lack possibility to type empty value
         error = self.browser.find_element_by_css_selector('.has-error').text
-        self.assertEqual(error, "These fields cannot be blank.")
+        self.assertEqual(error, "This field is required.")
 
         # User tried once again by entering whatever values into inbput boxes
         button_add_book = self.browser.find_element_by_css_selector('.button_main')
