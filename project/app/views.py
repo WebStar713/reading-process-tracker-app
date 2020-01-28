@@ -41,18 +41,7 @@ def newList(request):
     form = BookForm(data=request.POST)
     if form.is_valid():
         list_of_books = ListfOfBooks.objects.create()
-        Book.objects.create(title = request.POST['title'],
-                            current_page = request.POST['current_page'],
-                            total_pages = request.POST['total_pages'],
-                            list_of_books = list_of_books,)
+        form.save(for_list=list_of_books)
         return redirect(list_of_books)
     else:
         return render(request, 'home.html', {"form": form})
-
-
-def userLogin(request):
-    return render(request, '/login.html')
-
-
-def userLogout(request):
-    return render(request, 'logout.html')
