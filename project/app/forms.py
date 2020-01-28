@@ -3,6 +3,7 @@ from django import forms
 from app.models import Book, ListfOfBooks
 
 EMPTY_INPUT_ERROR = 'These fields cannot be blank.'
+DUPLICATE_INPUT_ERROR = 'Entered book already occurs in your list'
 
 class BookForm(forms.models.ModelForm):
 
@@ -32,3 +33,6 @@ class BookForm(forms.models.ModelForm):
     def save(self, for_list):
         self.instance.list_of_books = for_list
         return super().save()
+
+class ExisitingBooksInList(forms.models.ModelForm):
+    pass
