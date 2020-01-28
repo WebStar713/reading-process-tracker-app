@@ -35,7 +35,7 @@ class BookFormTest(TestCase):
         self.assertEqual(new_book.title, 'Some title')
         self.assertEqual(new_book.list_of_books, list_of_books)
 
-class ExisitingBooksInList(TestCase):
+class ExisitingBooksInListTest(TestCase):
 
     def test_form_renders_BookForm_fields_input(self):
         list_of_books = ListfOfBooks.objects.create()

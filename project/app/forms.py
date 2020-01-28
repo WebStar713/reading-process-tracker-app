@@ -5,11 +5,6 @@ from app.models import Book, ListfOfBooks
 EMPTY_INPUT_ERROR = 'These fields cannot be blank.'
 DUPLICATE_INPUT_ERROR = 'Entered book already occurs in your list'
 
-class ExisitingBooksInList(forms.models.ModelForm):
-
-    def __init__(self, for_list, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
 class BookForm(forms.models.ModelForm):
 
     class Meta:
@@ -38,3 +33,8 @@ class BookForm(forms.models.ModelForm):
     def save(self, for_list):
         self.instance.list_of_books = for_list
         return super().save()
+
+class ExisitingBooksInList(forms.models.ModelForm):
+
+    def __init__(self, for_list, *args, **kwargs):
+        super().__init__(*args, **kwargs)
