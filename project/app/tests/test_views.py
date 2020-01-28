@@ -74,9 +74,6 @@ class NewListTest(TestCase):
 
         self.assertContains(response, escape(EMPTY_INPUT_ERROR))
 
-        expected_error = escape("These fields cannot be blank.")
-        self.assertContains(response, expected_error)
-
     def test_for_invalid_input_passes_form_to_template(self):
         response = self.client.post('/lists/new', data={
                             'title': '',
