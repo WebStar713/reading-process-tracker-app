@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-
+from django.core.exceptions import ValidationError
 
 from app.models import Book, ListfOfBooks
 
@@ -49,7 +49,7 @@ class ListfOfBooksAndBookModelTest(TestCase):
                             current_page = 10,
                             total_pages = 25,)
 
-        with self.AssertRaises(ValidationError):
+        with self.assertRaises(ValidationError):
             book = Book(list_of_books = list_of_books,
                         title = 'Duplicate',
                         current_page = 10,
