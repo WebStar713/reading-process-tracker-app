@@ -10,7 +10,7 @@ from unittest import skip
 
 from app.views import homePage
 from app.models import Book, ListfOfBooks
-from app.forms import BookForm, EMPTY_INPUT_ERROR
+from app.forms import BookForm, EMPTY_INPUT_ERROR, DUPLICATE_INPUT_ERROR
 
 
 class HomePageTest(TestCase):
@@ -204,7 +204,6 @@ class ListViewTest(TestCase):
 
         self.assertContains(response, escape(EMPTY_INPUT_ERROR))
 
-    @skip
     def test_duplicate_book_validation_errors_end_up_on_lists_page(self):
         list_of_books1 = ListfOfBooks.objects.create()
         book1 = Book.objects.create(list_of_books = list_of_books1,
@@ -216,7 +215,7 @@ class ListViewTest(TestCase):
                                             'current_page' : 23,
                                             'total_pages' : 455,})
 
-        expected_error = escape("Entered book already occurs in your list")
+        expected_error = escape(DUPLICATE_INPUT_ERROR)
         self.assertContains(response, expected_error)
         self.assertTemplateUsed(response, 'list.html')
         self.assertEqual(Book.objects.all().count(), 1)
