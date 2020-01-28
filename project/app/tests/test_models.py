@@ -7,36 +7,20 @@ from app.models import Book, ListfOfBooks
 
 class ListfOfBooksAndBookModelTest(TestCase):
 
-    def test_saves_and_retrieves_lots_books_details(self):
-        list_of_books = ListfOfBooks()
-        list_of_books.save()
+    def test_default_book_details(self):
+        book = Book()
+        self.assertEqual([book.title, book.current_page, book.total_pages],
+                         ['', None, None])
 
-        first_book = Book()
-        first_book.title = 'Title of first book'
-        first_book.current_page = 12
-        first_book.total_pages = 300
-        first_book.list_of_books = list_of_books
-        first_book.save()
+    def test_book_is_related_to_list_of_books(self):
+        list_of_books = ListfOfBooks.objects.create()
+        book = Book(list_of_books = list_of_books,
+                    title = 'Some title',
+                    current_page = 1,
+                    total_pages = 255,)
+        book.save()
+        self.assertIn(book, list_of_books.book_set.all())
 
-        second_book = Book()
-        second_book.title = 'Title of second book'
-        second_book.current_page = 70
-        second_book.total_pages = 566
-        second_book.list_of_books = list_of_books
-        second_book.save()
-
-        saved_list_of_books = ListfOfBooks.objects.first()
-        self.assertEqual(saved_list_of_books, list_of_books)
-
-        saved_books = Book.objects.all()
-        self.assertEqual(saved_books.count(), 2)
-
-        first_saved_book = saved_books[0]
-        second_saved_book = saved_books[1]
-        self.assertEqual(first_saved_book.title, 'Title of first book')
-        self.assertEqual(first_saved_book.list_of_books, list_of_books)
-        self.assertEqual(second_saved_book.title, 'Title of second book')
-        self.assertEqual(second_saved_book.list_of_books, list_of_books)
 
     def test_get_absolute_url(self):
         list_of_books = ListfOfBooks.objects.create()
