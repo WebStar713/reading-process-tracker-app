@@ -34,6 +34,7 @@ class BookModelTest(TestCase):
                         current_page = 10,
                         total_pages = 25,)
             book.full_clean()
+            #save() $ will raise: IntegrityError: UNIQUE constraint failed: app_book.list_of_books_id, app_book.title
 
     def test_can_save_the_same_book_to_different_list(self):
         list_of_books_first = ListfOfBooks.objects.create()
