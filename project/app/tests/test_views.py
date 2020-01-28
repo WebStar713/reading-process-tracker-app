@@ -201,3 +201,19 @@ class ListViewTest(TestCase):
         response = self.post_invalid_input()
 
         self.assertContains(response, escape(EMPTY_INPUT_ERROR))
+
+    def test_duplicate_book_validation_errors_end_up_on_lists_page(self):
+        list_of_books1 = ListfOfBooks.objects.create()
+        book1 = Book.objects.create(list_of_books = list_of_books1,
+                                    title = 'Some title',
+                                    current_page = 23,
+                                    total_pages = 455,)
+        response = self.client.post('/lists/%d/' % (list_of_books1.id,),
+                                    data = {'title' : 'Some title',
+                                            'current_page' : 23,
+                                            'total_pages' : 455,})
+
+        expected_error = escape("Entered book already occurs in your list")
+        self.assertContains(response, expected_error)
+        self.assertTemplateUsed(response, 'list.html')
+        self.assertEqual(Book.objects.all().count(), 1)
