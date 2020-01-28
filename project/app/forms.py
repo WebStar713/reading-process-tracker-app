@@ -6,11 +6,6 @@ EMPTY_INPUT_ERROR = 'These fields cannot be blank.'
 
 class BookForm(forms.models.ModelForm):
 
-    def save(self, for_list):
-        list = ListfOfBooks()
-        self.instance.list = for_list
-        return super().save()
-
     class Meta:
         model = Book
         fields = ['title', 'current_page', 'total_pages', ]
@@ -33,3 +28,8 @@ class BookForm(forms.models.ModelForm):
         'current_page': {'required': EMPTY_INPUT_ERROR},
         'total_pages': {'required': EMPTY_INPUT_ERROR},
         }
+
+    def save(self, for_list):
+        list = ListfOfBooks()
+        self.instance.list = for_list
+        return super().save()
