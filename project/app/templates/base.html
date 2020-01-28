@@ -21,16 +21,16 @@
                             <div id="inputbox">
                                 <form method="POST" action="{% block form_action %} {% endblock %}">
                                     {% csrf_token %}
-                                        {{ form.title }}
-                                        {{ form.current_page }}
-                                        {{ form.total_pages }}
-                                        <input type="submit" id="button" class="button button_main"
-                                            value="Add and see a chart">
-                                            {% if form.errors %}
-                                                <div class="form-group has-error">
-                                                    <div class="help-block"> {{ form.errors }} </div>
-                                                </div>
-                                            {% endif %}
+                                    {{ form.title }}
+                                    {{ form.current_page }}
+                                    {{ form.total_pages }}
+                                    <input type="submit" id="button" class="button button_main"
+                                        value="Add and see a chart">
+                                        {% if form.errors %}
+                                            <div class="form-group has-error">
+                                                <div class="help-block"> {{ form.errors }} </div>
+                                            </div>
+                                        {% endif %}
                                 </form>
                             </div>
                         </div>
