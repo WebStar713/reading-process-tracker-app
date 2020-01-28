@@ -103,3 +103,10 @@ class BookValidationTest(FunctionalTest):
     #     time.sleep(10)
     #     valid_login_text = self.browser.find_element_by_tag_name('body').text
     #     #self.assertEqual(valid_login_text, 'Authenticated successfully')
+
+    def test_cannot_add_duplicate_books(self):
+        # User had gone to website and added first book
+
+        # After that, the user tried to type book that already was in a list
+
+        # The user received error message about potencial duplicated book
