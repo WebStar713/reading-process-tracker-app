@@ -136,3 +136,4 @@ class BookValidationTest(FunctionalTest):
 
         error = self.browser.find_element_by_css_selector('.has-error').text
         self.assertEqual(error, "This book is already on your list.")
+ 
