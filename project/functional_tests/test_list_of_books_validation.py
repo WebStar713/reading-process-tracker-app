@@ -19,21 +19,21 @@ class BookValidationTest(FunctionalTest):
     def test_cannot_add_empty_book_details(self):
         self.browser.get(self.live_server_url)
 
-        # # User tried to type empty value in input boxes
-        # button_add_book = self.browser.find_element_by_css_selector('.button_main')
-        #
-        # input_title_box = self.get_title_input_box()
-        # input_current_page_box = self.get_current_page_input_box()
-        # input_total_pages_box = self.get_total_pages_input_box()
+        # User tried to type empty value in input boxes
+        button_add_book = self.browser.find_element_by_css_selector('.button_main')
 
-        # input_title_box.send_keys('')
-        # input_current_page_box.send_keys(34)
-        # input_total_pages_box.send_keys(45)
-        # button_add_book.click()
+        input_title_box = self.get_title_input_box()
+        input_current_page_box = self.get_current_page_input_box()
+        input_total_pages_box = self.get_total_pages_input_box()
 
-        # # After that, user noticed info about lack possibility to type empty value
-        # error = self.browser.find_element_by_css_selector('.has-error').text
-        # self.assertEqual(error, "These fields cannot be blank.")
+        input_title_box.send_keys('')
+        input_current_page_box.send_keys(34)
+        input_total_pages_box.send_keys(45)
+        button_add_book.click()
+
+        # After that, user noticed info about lack possibility to type empty value
+        error = self.browser.find_element_by_css_selector('.has-error').text
+        self.assertEqual(error, "These fields cannot be blank.")
 
         # User tried once again by entering whatever values into inbput boxes
         button_add_book = self.browser.find_element_by_css_selector('.button_main')
@@ -136,4 +136,3 @@ class BookValidationTest(FunctionalTest):
 
         error = self.browser.find_element_by_css_selector('.has-error').text
         self.assertEqual(error, "This book is already on your list.")
- 
