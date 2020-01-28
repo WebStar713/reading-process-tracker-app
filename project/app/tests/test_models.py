@@ -55,3 +55,16 @@ class ListfOfBooksAndBookModelTest(TestCase):
                         current_page = 10,
                         total_pages = 25,)
             book.full_clean()
+
+    def test_can_save_the_same_book_to_different_list(self):
+        list_of_books_first = ListfOfBooks.objects.create()
+        list_of_books_second = ListfOfBooks.objects.create()
+        Book.objects.create(list_of_books = list_of_books,
+                    title = 'Duplicate',
+                    current_page = 10,
+                    total_pages = 25,)
+        book = Book(list_of_books = list_of_books_second,
+                    title = 'Duplicate',
+                    current_page = 10,
+                    total_pages = 25,)
+        book.full_clean()
