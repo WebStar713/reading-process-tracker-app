@@ -71,17 +71,26 @@ class ExisitingBooksInListTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['total_pages'], [EMPTY_INPUT_ERROR])
 
-def test_form_validation_for_duplicate_books(self):
-    list_of_books = ListfOfBooks.objects.create()
-    Book.objects.create(list_of_books = list_of_books,
-                        title = 'No duplicates!',
-                        current_page = 23,
-                        total_pages = 600,)
+    def test_form_validation_for_duplicate_books(self):
+        list_of_books = ListfOfBooks.objects.create()
+        Book.objects.create(list_of_books = list_of_books,
+                            title = 'No duplicates!',
+                            current_page = 23,
+                            total_pages = 600,)
 
-    form = ExisitingBooksInList(for_list = list_of_books, data={
-                    'title':'No duplicates!',
-                    'current_page': 23,
-                    'total_pages': 600,})
+        form = ExisitingBooksInList(for_list = list_of_books, data={
+                        'title':'No duplicates!',
+                        'current_page': 23,
+                        'total_pages': 600,})
 
-    self.assertFalse(form.is_valid())
-    self.assertEqual(form.errors['title'], [DUPLICATE_INPUT_ERROR])
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors['title'], [DUPLICATE_INPUT_ERROR])
+
+    def test_form_save(self):
+        list_of_books = ListfOfBooks.objects.create()
+        form = ExisitingBooksInList(for_list = list_of_books, data={
+                        'title':'Some tite',
+                        'current_page': 231,
+                        'total_pages': 677,})
+        new_book = form.save()
+        self.assertEqual(new_book, Book.objects.all()[0])
