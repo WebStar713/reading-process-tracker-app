@@ -19,17 +19,17 @@ class BookValidationTest(FunctionalTest):
     def test_cannot_add_empty_book_details(self):
         self.browser.get(self.live_server_url)
 
-        # User tried to type empty value in input boxes
-        button_add_book = self.browser.find_element_by_css_selector('.button_main')
+        # # User tried to type empty value in input boxes
+        # button_add_book = self.browser.find_element_by_css_selector('.button_main')
+        #
+        # input_title_box = self.get_title_input_box()
+        # input_current_page_box = self.get_current_page_input_box()
+        # input_total_pages_box = self.get_total_pages_input_box()
 
-        input_title_box = self.get_title_input_box()
-        input_current_page_box = self.get_current_page_input_box()
-        input_total_pages_box = self.get_total_pages_input_box()
-
-        input_title_box.send_keys('')
-        input_current_page_box.send_keys(34)
-        input_total_pages_box.send_keys(45)
-        button_add_book.click()
+        # input_title_box.send_keys('')
+        # input_current_page_box.send_keys(34)
+        # input_total_pages_box.send_keys(45)
+        # button_add_book.click()
 
         # # After that, user noticed info about lack possibility to type empty value
         # error = self.browser.find_element_by_css_selector('.has-error').text
@@ -106,7 +106,33 @@ class BookValidationTest(FunctionalTest):
 
     def test_cannot_add_duplicate_books(self):
         # User had gone to website and added first book
+        self.browser.get(self.live_server_url)
 
-        # After that, the user tried to type book that already was in a list
+        button_add_book = self.browser.find_element_by_css_selector('.button_main')
+        input_title_box = self.get_title_input_box()
+        input_current_page_box = self.get_current_page_input_box()
+        input_total_pages_box = self.get_total_pages_input_box()
+
+        input_title_box.send_keys("Fibonacci’s Rabbits")
+        input_current_page_box.send_keys(10)
+        input_total_pages_box.send_keys(176)
+        button_add_book.click()
+
+        self.check_for_columns_in_book_table("Fibonacci’s Rabbits", 10, 176)
+
+        # After that, the user tried to type book that already occurs in a list
+        button_add_book = self.browser.find_element_by_css_selector('.button_main')
+        input_title_box = self.get_title_input_box()
+        input_current_page_box = self.get_current_page_input_box()
+        input_total_pages_box = self.get_total_pages_input_box()
+        
+        input_title_box.send_keys("Fibonacci’s Rabbits")
+        input_current_page_box.send_keys(10)
+        input_total_pages_box.send_keys(176)
+        button_add_book.click()
 
         # The user received error message about potencial duplicated book
+        self.check_for_columns_in_book_table("Fibonacci’s Rabbits", 10, 176)
+
+        error = self.browser.find_element_by_css_selector('.has-error').text
+        self.assertEqual(error, "Entered book already occurs in your list")
