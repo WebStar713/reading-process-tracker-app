@@ -47,3 +47,6 @@ class ExisitingBooksInList(BookForm):
         except ValidationError as error:
             error.error_dict = {'title': [DUPLICATE_INPUT_ERROR]}
             self._update_errors(error)
+
+    def save(self):
+        return forms.models.ModelForm.save(self)
