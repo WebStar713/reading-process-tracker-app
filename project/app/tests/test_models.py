@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from app.models import Book, ListfOfBooks
 
 
-class ListfOfBooksAndBookModelTest(TestCase):
+class BookModelTest(TestCase):
 
     def test_default_book_details(self):
         book = Book()
@@ -20,11 +20,6 @@ class ListfOfBooksAndBookModelTest(TestCase):
                     total_pages = 255,)
         book.save()
         self.assertIn(book, list_of_books.book_set.all())
-
-
-    def test_get_absolute_url(self):
-        list_of_books = ListfOfBooks.objects.create()
-        self.assertEqual(list_of_books.get_absolute_url(), '/lists/%d/' % (list_of_books.id))
 
     def test_duplicate_books_are_invalid(self):
         list_of_books = ListfOfBooks.objects.create()
@@ -52,3 +47,9 @@ class ListfOfBooksAndBookModelTest(TestCase):
                     current_page = 10,
                     total_pages = 25,)
         book.full_clean()
+
+class ListfOfBooksModelTest(TestCase):
+
+    def test_get_absolute_url(self):
+        list_of_books = ListfOfBooks.objects.create()
+        self.assertEqual(list_of_books.get_absolute_url(), '/lists/%d/' % (list_of_books.id))
