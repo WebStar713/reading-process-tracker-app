@@ -27,3 +27,4 @@ project/app/templates/base1.html
 project/project/settings1.py
 project/project/urls1py.py
 project/app/views1.py
+project/private.py
