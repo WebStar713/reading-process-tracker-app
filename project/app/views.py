@@ -37,8 +37,11 @@ def viewList(request, list_of_books_id):
 def newList(request):
     form = BookForm(data=request.POST)
     if form.is_valid():
+        print(request.user)
         list_of_books = ListfOfBooks.objects.create()
-        form.save(for_list=list_of_books)
+        form = form.save(for_list=list_of_books)
+        form.owner = request.user
+        form = form.save()
         return redirect(list_of_books)
     else:
         return render(request, 'home.html', {"form": form})
