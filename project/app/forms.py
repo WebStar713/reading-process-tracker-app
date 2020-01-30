@@ -35,6 +35,12 @@ class BookForm(forms.models.ModelForm):
         self.instance.list_of_books = for_list
         return super().save()
 
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.owner = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
 class ExisitingBooksInList(BookForm):
 
     def __init__(self, for_list, *args, **kwargs):
