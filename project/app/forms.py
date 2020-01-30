@@ -39,9 +39,10 @@ class BookForm(forms.models.ModelForm):
 
 class ExisitingBooksInList(BookForm):
 
-    def __init__(self, for_list, *args, **kwargs):
+    def __init__(self, for_list, owner, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.instance.list_of_books = for_list
+        self.owner = owner
 
     def validate_unique(self):
         try:
