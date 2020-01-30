@@ -4,8 +4,10 @@ from django.utils.text import slugify
 from django.urls import reverse
 
 class ListfOfBooks(models.Model):
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.DO_NOTHING)
+
     def get_absolute_url(self):
-        return reverse('viewList', args=[self.id])
+        return reverse('myList', args=None)
 
 
 class Book(models.Model):
