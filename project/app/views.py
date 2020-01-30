@@ -94,3 +94,6 @@ def myList(request):
                                               })
     else:
         return render(request, 'home.html', {'form': BookForm()})
+
+def register(request):
+    pass
