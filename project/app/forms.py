@@ -10,7 +10,7 @@ class BookForm(forms.models.ModelForm):
 
     class Meta:
         model = Book
-        fields = ['title', 'current_page', 'total_pages', 'owner']
+        fields = ['title', 'current_page', 'total_pages', 'owner', 'list_of_books']
         widgets = {
         'title': forms.fields.TextInput(attrs={
             'placeholder': 'Title',
@@ -30,6 +30,7 @@ class BookForm(forms.models.ModelForm):
         'current_page': {'required': EMPTY_INPUT_ERROR},
         'total_pages': {'required': EMPTY_INPUT_ERROR},
         }
+
 
     def save(self, for_list):
         self.instance.list_of_books = for_list
