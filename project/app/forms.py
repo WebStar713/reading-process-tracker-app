@@ -33,7 +33,6 @@ class BookForm(forms.models.ModelForm):
 
     def save(self, for_list):
         self.instance.list_of_books = for_list
-        #self.instance.owner = self.request.user
         return super().save()
 
 
