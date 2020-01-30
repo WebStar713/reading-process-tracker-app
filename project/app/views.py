@@ -22,10 +22,16 @@ def viewList(request, list_of_books_id):
         percentage = round(book.current_page / book.total_pages * 100, 2)
         data.append(percentage)
 
-    form = ExisitingBooksInList(for_list = list_of_books)
+    form = ExisitingBooksInList(for_list = list_of_books, owner=request.user)
     if request.method == 'POST':
-        form = ExisitingBooksInList(for_list = list_of_books, data=request.POST)
+        form = ExisitingBooksInList(for_list = list_of_books, owner=request.user, data=request.POST)
         if form.is_valid():
+            print(form.owner)
+            print(request.user)
+            form = None
+            form = BookForm(data=request.POST)
+            form = form.save(for_list=list_of_books)
+            form.owner = request.user
             form.save()
             return redirect(list_of_books)
     return render(request, 'list.html', {'labels': labels,
