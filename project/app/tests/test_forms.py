@@ -93,10 +93,15 @@ class ExisitingBooksInListTest(TestCase):
         self.assertEqual(form.errors['title'], [DUPLICATE_INPUT_ERROR])
 
     def test_form_save(self):
+        user = User.objects.create(username='testuser')
+        user.set_password('12345test')
+        user.save()
+        Client().login(username='testuser', password='12345test')
+
         list_of_books = ListfOfBooks.objects.create()
         form = ExisitingBooksInList(for_list = list_of_books, data={
                         'title':'Some tite',
                         'current_page': 231,
-                        'total_pages': 677,})
+                        'total_pages': 677,}, owner = user)
         new_book = form.save()
         self.assertEqual(new_book, Book.objects.all()[0])
