@@ -17,7 +17,7 @@ class HomePageTest(TestCase):
 
     def test_uses_home_template(self):
         response = self.client.get('/')
-        self.assertTemplateUsed(response, 'home.html')
+        self.assertTemplateUsed(response, 'base.html')
 
     def test_homePage_uses_BookForm(self):
         response = self.client.get('/')
@@ -25,11 +25,21 @@ class HomePageTest(TestCase):
 
 class NewListTest(TestCase):
 
+    if not User.objects.filter(username='testuser').exists():
+        user = User.objects.create(username='testuser')
+        user.set_password('12345test')
+        user.save()
+    else:
+        user = User(username='testuser', password='12345test')
+
+    Client().login(username='testuser', password='12345test')
+
     def test_saving_POST_request(self):
         response = self.client.post('/lists/new', data={
                             'title': 'Some book',
                             'current_page': 125,
                             'total_pages': 317,
+                            'owner': self.user,
                             })
 
         self.assertEqual(Book.objects.count(), 1)
@@ -44,10 +54,11 @@ class NewListTest(TestCase):
                             'title': 'Some book',
                             'current_page': 125,
                             'total_pages': 317,
+                            'owner': self.user
                             })
 
         new_list_of_books = ListfOfBooks.objects.first()
-        self.assertRedirects(response, '/lists/%d/' % (new_list_of_books.id,))
+        self.assertRedirects(response, '/mylist/')
 
     def test_invalid_book_details_arent_saved(self):
         self.client.post('/lists/new', data={
@@ -86,11 +97,15 @@ class NewListTest(TestCase):
 
 class ListViewTest(TestCase):
 
-    user = User.objects.create(username='testuser')
-    user.set_password('12345test')
-    user.save()
+    if not User.objects.filter(username='testuser').exists():
+        user = User.objects.create(username='testuser')
+        user.set_password('12345test')
+        user.save()
+    else:
+        user = User(username='testuser', password='12345test')
+
     Client().login(username='testuser', password='12345test')
-    
+
     def test_uses_list_template(self):
         list_of_books = ListfOfBooks.objects.create()
         response = self.client.get('/lists/%d/' % (list_of_books.id,))
@@ -131,7 +146,6 @@ class ListViewTest(TestCase):
         self.assertNotContains(response, 'Other Title1')
         self.assertNotContains(response, 'Other Title2')
 
-
     def test_can_save_a_POST_request_to_an_existing_list(self):
         correct_list_of_books = ListfOfBooks.objects.create()
         other_list_of_books = ListfOfBooks.objects.create()
@@ -139,7 +153,9 @@ class ListViewTest(TestCase):
         self.client.post('/lists/%d/' % (correct_list_of_books.id,),
                         data={'title': 'New book title for existing list',
                               'current_page': 100,
-                              'total_pages': 312,})
+                              'total_pages': 312,
+                              'owner': self.user,
+                              })
 
         self.assertEqual(Book.objects.count(), 1)
         new_book = Book.objects.first()
@@ -155,7 +171,9 @@ class ListViewTest(TestCase):
         response = self.client.post('/lists/%d/' % (correct_list_of_books.id,),
                         data={'title': 'New book title for existing list',
                               'current_page': 100,
-                              'total_pages': 312,})
+                              'total_pages': 312,
+                              'owner': self.user,
+                              })
 
         self.assertRedirects(response, '/lists/%d/' % (correct_list_of_books.id,))
 
