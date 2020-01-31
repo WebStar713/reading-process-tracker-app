@@ -36,12 +36,20 @@ class NewListTest(TestCase):
     Client().login(username='testuser', password='12345test')
 
     def test_saving_POST_request(self):
-        response = self.client.post('/lists/new', data={
+        self.client.login(username='testuser', password='12345test')
+        session =  self.client.session
+        session['title']='Some book'
+        session.save()
+        print(session)
+        response = self.client.post('/mylist/', data={
                             'title': 'Some book',
                             'current_page': 125,
                             'total_pages': 317,
                             'owner': self.user,
                             })
+
+        print('\n','Is user authenticated:    ', self.user.is_authenticated)
+        print('NAME:   ', self.user, '\n','TYPE:   ', type(self.user))
 
         self.assertEqual(Book.objects.count(), 1)
         new_book = Book.objects.first()
