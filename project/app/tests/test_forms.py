@@ -48,7 +48,7 @@ class ExisitingBooksInListTest(TestCase):
     Client().login(username='testuser', password='12345test')
 
     def test_form_renders_BookForm_fields_input(self):
-        
+
         list_of_books = ListfOfBooks.objects.create()
         form = ExisitingBooksInList(for_list = list_of_books, owner = self.user)
 
@@ -61,7 +61,7 @@ class ExisitingBooksInListTest(TestCase):
         form = ExisitingBooksInList(for_list = list_of_books, data={
                         'title':'',
                         'current_page': 45,
-                        'total_pages': 500, })
+                        'total_pages': 500, }, owner=self.user)
 
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['title'], [EMPTY_INPUT_ERROR])
@@ -69,7 +69,7 @@ class ExisitingBooksInListTest(TestCase):
         form = ExisitingBooksInList(for_list = list_of_books, data={
                         'title':'Some title',
                         'current_page': '',
-                        'total_pages': 500, })
+                        'total_pages': 500, }, owner=self.user)
 
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['current_page'], [EMPTY_INPUT_ERROR])
@@ -77,7 +77,7 @@ class ExisitingBooksInListTest(TestCase):
         form = ExisitingBooksInList(for_list = list_of_books, data={
                         'title':'Some title',
                         'current_page': 45,
-                        'total_pages': '', })
+                        'total_pages': '', }, owner=self.user)
 
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['total_pages'], [EMPTY_INPUT_ERROR])
@@ -92,7 +92,7 @@ class ExisitingBooksInListTest(TestCase):
         form = ExisitingBooksInList(for_list = list_of_books, data={
                         'title':'No duplicates!',
                         'current_page': 23,
-                        'total_pages': 600,}, owner = user)
+                        'total_pages': 600,}, owner = self.user)
 
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['title'], [DUPLICATE_INPUT_ERROR])
@@ -102,6 +102,6 @@ class ExisitingBooksInListTest(TestCase):
         form = ExisitingBooksInList(for_list = list_of_books, data={
                         'title':'Some tite',
                         'current_page': 231,
-                        'total_pages': 677,}, owner = user)
+                        'total_pages': 677,}, owner = self.user)
         new_book = form.save()
         self.assertEqual(new_book, Book.objects.all()[0])
