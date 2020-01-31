@@ -38,9 +38,13 @@ class BookFormTest(TestCase):
 
 class ExisitingBooksInListTest(TestCase):
 
-    user = User.objects.create(username='testuser')
-    user.set_password('12345test')
-    user.save()
+    if not user:
+        user = User.objects.create(username='testuser')
+        user.set_password('12345test')
+        user.save()
+    else:
+        user = user
+        
     Client().login(username='testuser', password='12345test')
 
     def test_form_renders_BookForm_fields_input(self):
@@ -88,7 +92,7 @@ class ExisitingBooksInListTest(TestCase):
         form = ExisitingBooksInList(for_list = list_of_books, data={
                         'title':'No duplicates!',
                         'current_page': 23,
-                        'total_pages': 600,})
+                        'total_pages': 600,}, owner = user)
 
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['title'], [DUPLICATE_INPUT_ERROR])
