@@ -55,6 +55,7 @@ def newList(request):
 def myList(request):
 
     list_of_books_set_for_chart = Book.objects.filter(owner = request.user)
+
     books_set_ID = []
     list_of_books_set_ID = []
     for i in list_of_books_set_for_chart:
@@ -64,28 +65,35 @@ def myList(request):
     labels = []
     data = []
 
-    for book in list_of_books_set_for_chart:
-        labels.append(book.title)
-        percentage = round(book.current_page / book.total_pages * 100, 2)
-        data.append(percentage)
+    if list_of_books_set_ID != []:
 
-    list_of_books = ListfOfBooks.objects.get(id=list_of_books_set_ID[0])
-    form = ExisitingBooksInList(for_list = list_of_books, owner=request.user)
-    if request.method == 'POST':
-        form = ExisitingBooksInList(for_list = list_of_books, owner=request.user, data=request.POST)
-        if form.is_valid():
-            print(form.owner)
-            print(request.user)
-            form = None
-            form = BookForm(data=request.POST)
-            form = form.save(for_list=list_of_books)
-            form.owner = request.user
-            form.save()
-            return redirect(list_of_books)
-    form = ExisitingBooksInList(for_list = list_of_books, owner=request.user)
+        for book in list_of_books_set_for_chart:
+            labels.append(book.title)
+            percentage = round(book.current_page / book.total_pages * 100, 2)
+            data.append(percentage)
 
-    return render(request, 'myList.html', {'labels': labels,
-                                          'data': data,
-                                          'list_of_books': list_of_books,
-                                          'form': form,
-                                          })
+        list_of_books = ListfOfBooks.objects.get(id=list_of_books_set_ID[0])
+        form = ExisitingBooksInList(for_list = list_of_books, owner=request.user)
+        if request.method == 'POST':
+            form = ExisitingBooksInList(for_list = list_of_books, owner=request.user, data=request.POST)
+            if form.is_valid():
+                print(form.owner)
+                print(request.user)
+                form = None
+                form = BookForm(data=request.POST)
+                form = form.save(for_list=list_of_books)
+                form.owner = request.user
+                form.save()
+                return redirect(list_of_books)
+        form = ExisitingBooksInList(for_list = list_of_books, owner=request.user)
+
+        return render(request, 'myList.html', {'labels': labels,
+                                              'data': data,
+                                              'list_of_books': list_of_books,
+                                              'form': form,
+                                              })
+    else:
+        return render(request, 'home.html', {'form': BookForm()})
+
+def register(request):
+    pass

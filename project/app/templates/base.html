@@ -9,17 +9,12 @@
         <title>Reading tracker</title>
     </head>
     <body>
-        <span class="user">
-            {% if request.user.is_authenticated %}
-                Hello {{ request.user.username }},
-                Owner of list: {{ instance.owner.get_username }},
-                <a href="{% url "logout" %}">Logout</a>
-            {% else %}
-                <a href="{% url "login" %}">Login</a>
-            {% endif %}
-        </span>
-    <div class="container" id="container">
 
+    <div class="container" id="container">
+        {% if request.user.is_authenticated %}
+            Hello {{ request.user.username }},
+            <a href="{% url "logout" %}">Logout</a>
+        {% endif %}
         <div class="row">
             <div class="text-center">
                 <div class="col-md-12 jumbotron">
@@ -42,27 +37,27 @@
                                         {% endif %}
                                 </form>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        <div class="row">
-            <div class="col-md-12 mx-auto">
-                <div class="col-md-8 mx-auto" id="table">
-                    {% block book_table %}
-                    {% endblock %}
-                </div>
-                <div align="center" id="chart">
-                    {% block chart_js %}
-                    {% endblock %}
-                </div>
-                <div class="container">
-                    {% block title %}
-                    {% endblock %}
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <div class="col-md-8 mx-auto" id="table">
+                {% block book_table %}
+                {% endblock %}
+            </div>
+            <div align="center" id="chart">
+                {% block chart_js %}
+                {% endblock %}
+            </div>
+            <div class="container">
+                {% block title %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
 
     </div>
     </body>

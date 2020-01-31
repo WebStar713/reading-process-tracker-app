@@ -5,6 +5,6 @@ from app import views
 
 urlpatterns = [
     url('admin/', admin.site.urls),
-    url(r'^$', views.homePage, name='homePage'),
+    #url(r'^$', views.homePage, name='homePage'),
     url('', include('app.urls')),
 ]
