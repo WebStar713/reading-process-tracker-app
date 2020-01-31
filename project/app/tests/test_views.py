@@ -22,7 +22,6 @@ class HomePageTest(TestCase):
 
     def test_homePage_uses_AuthenticationForm(self):
         response = self.client.get('/')
-        print(type(response.context['form']))
         self.assertIsInstance(response.context['form'], AuthenticationForm)
 
 class NewListTest(TestCase):
