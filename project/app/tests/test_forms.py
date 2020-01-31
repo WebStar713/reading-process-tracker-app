@@ -38,11 +38,12 @@ class BookFormTest(TestCase):
 
 class ExisitingBooksInListTest(TestCase):
 
+    user = User.objects.create(username='testuser')
+    user.set_password('12345test')
+    user.save()
+    Client().login(username='testuser', password='12345test')
+
     def test_form_renders_BookForm_fields_input(self):
-        user = User.objects.create(username='testuser')
-        user.set_password('12345test')
-        user.save()
-        Client().login(username='testuser', password='12345test')
 
         list_of_books = ListfOfBooks.objects.create()
         form = ExisitingBooksInList(for_list = list_of_books, owner = user)
@@ -93,11 +94,6 @@ class ExisitingBooksInListTest(TestCase):
         self.assertEqual(form.errors['title'], [DUPLICATE_INPUT_ERROR])
 
     def test_form_save(self):
-        user = User.objects.create(username='testuser')
-        user.set_password('12345test')
-        user.save()
-        Client().login(username='testuser', password='12345test')
-
         list_of_books = ListfOfBooks.objects.create()
         form = ExisitingBooksInList(for_list = list_of_books, data={
                         'title':'Some tite',
