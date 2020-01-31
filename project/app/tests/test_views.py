@@ -85,6 +85,12 @@ class NewListTest(TestCase):
 
 
 class ListViewTest(TestCase):
+
+    user = User.objects.create(username='testuser')
+    user.set_password('12345test')
+    user.save()
+    Client().login(username='testuser', password='12345test')
+    
     def test_uses_list_template(self):
         list_of_books = ListfOfBooks.objects.create()
         response = self.client.get('/lists/%d/' % (list_of_books.id,))

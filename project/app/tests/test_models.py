@@ -53,4 +53,4 @@ class ListfOfBooksModelTest(TestCase):
 
     def test_get_absolute_url(self):
         list_of_books = ListfOfBooks.objects.create()
-        self.assertEqual(list_of_books.get_absolute_url(), '/lists/%d/' % (list_of_books.id))
+        self.assertEqual(list_of_books.get_absolute_url(), '/mylist/')
