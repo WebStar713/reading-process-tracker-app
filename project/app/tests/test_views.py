@@ -3,6 +3,7 @@ from django.urls import resolve
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
 from django.utils.html import escape
 
@@ -15,13 +16,14 @@ from app.forms import BookForm, ExisitingBooksInList, EMPTY_INPUT_ERROR, DUPLICA
 
 class HomePageTest(TestCase):
 
-    def test_uses_home_template(self):
+    def test_uses_base_template(self):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'base.html')
 
-    def test_homePage_uses_BookForm(self):
+    def test_homePage_uses_AuthenticationForm(self):
         response = self.client.get('/')
-        self.assertIsInstance(response.context['form'], BookForm)
+        print(type(response.context['form']))
+        self.assertIsInstance(response.context['form'], AuthenticationForm)
 
 class NewListTest(TestCase):
 
