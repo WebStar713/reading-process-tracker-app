@@ -38,19 +38,19 @@ class BookFormTest(TestCase):
 
 class ExisitingBooksInListTest(TestCase):
 
-    if not user:
+    if not User.objects.filter(username='testuser').exists():
         user = User.objects.create(username='testuser')
         user.set_password('12345test')
         user.save()
     else:
-        user = user
-        
+        user = User(username='testuser', password='12345test')
+
     Client().login(username='testuser', password='12345test')
 
     def test_form_renders_BookForm_fields_input(self):
-
+        
         list_of_books = ListfOfBooks.objects.create()
-        form = ExisitingBooksInList(for_list = list_of_books, owner = user)
+        form = ExisitingBooksInList(for_list = list_of_books, owner = self.user)
 
         self.assertIn('placeholder="Title"', form.as_p())
         self.assertIn('placeholder="Current page"', form.as_p())
