@@ -2,7 +2,6 @@ from .base import FunctionalTest
 from seleniumlogin import force_login
 from django.contrib.auth import get_user_model
 from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
 from unittest import skip
 
 from private import STAFF_EMAIL
