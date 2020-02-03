@@ -29,6 +29,14 @@ class LoginTest(FunctionalTest):
         body = self.browser.find_element_by_tag_name('body').text
         self.assertIn('Hello ' + user.username, body)
 
+        # User also sees link for logout process
+        logout_link = self.browser.find_element_by_link_text('Logout').text
+        self.assertIn('Logout', logout_link)
+
+        # After clicking on 'Logout' link the user is redirecting on logout subpage
+        self.browser.find_element_by_link_text('Logout').click()
+
+
 class ForgottenPasswordTest(FunctionalTest):
 
     def test_forgotten_password_form_on_home_page_valid_data(self):
