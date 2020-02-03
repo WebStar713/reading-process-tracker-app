@@ -35,6 +35,18 @@ class LoginTest(FunctionalTest):
 
         # After clicking on 'Logout' link the user is redirecting on logout subpage
         self.browser.find_element_by_link_text('Logout').click()
+        body = self.browser.find_element_by_tag_name('body').text
+        self.assertIn('You have been successfully logged out', body)
+
+        # On logout subpage the user realizes 'login again' link and decides to click on it
+        login_again_link = self.browser.find_element_by_link_text('login again').text
+        self.assertEqual('login again', login_again_link)
+        self.browser.find_element_by_link_text('login again').click()
+
+        # User has been redirected to login subpage that contains username and password form
+        self.browser.find_element_by_id('id_username')
+        self.browser.find_element_by_id('id_password')
+
 
 
 class ForgottenPasswordTest(FunctionalTest):
