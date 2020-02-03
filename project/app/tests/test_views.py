@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from django.urls import resolve
+from django.urls import resolve, reverse
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
@@ -26,30 +26,25 @@ class HomePageTest(TestCase):
 
 class NewListTest(TestCase):
 
-    if not User.objects.filter(username='testuser').exists():
-        user = User.objects.create(username='testuser')
-        user.set_password('12345test')
-        user.save()
-    else:
-        user = User(username='testuser', password='12345test')
+    def setUp(self):
+        self.credentials = {'username': 'testuser',
+                            'password': '12345test'}
 
-    Client().login(username='testuser', password='12345test')
+        if not User.objects.filter(username='testuser').exists():
+            self.user = User.objects.create_user(**self.credentials)
+            self.user.save()
+        else:
+            self.user = User(username='testuser', password='12345test')
+
+        self.logged_in = self.client.login(username='testuser', password='12345test')
 
     def test_saving_POST_request(self):
-        self.client.login(username='testuser', password='12345test')
-        session =  self.client.session
-        session['title']='Some book'
-        session.save()
-        print(session)
-        response = self.client.post('/mylist/', data={
+        self.client.post('/lists/new', data={
                             'title': 'Some book',
                             'current_page': 125,
                             'total_pages': 317,
-                            'owner': self.user,
                             })
 
-        print('\n','Is user authenticated:    ', self.user.is_authenticated)
-        print('NAME:   ', self.user, '\n','TYPE:   ', type(self.user))
 
         self.assertEqual(Book.objects.count(), 1)
         new_book = Book.objects.first()
@@ -58,16 +53,6 @@ class NewListTest(TestCase):
         self.assertEqual(new_book.total_pages, 317)
 
 
-    def test_redirects_after_POST(self):
-        response = self.client.post('/lists/new', data={
-                            'title': 'Some book',
-                            'current_page': 125,
-                            'total_pages': 317,
-                            'owner': self.user
-                            })
-
-        new_list_of_books = ListfOfBooks.objects.first()
-        self.assertRedirects(response, '/mylist/')
 
     def test_invalid_book_details_arent_saved(self):
         self.client.post('/lists/new', data={
@@ -106,14 +91,17 @@ class NewListTest(TestCase):
 
 class ListViewTest(TestCase):
 
-    if not User.objects.filter(username='testuser').exists():
-        user = User.objects.create(username='testuser')
-        user.set_password('12345test')
-        user.save()
-    else:
-        user = User(username='testuser', password='12345test')
+    def setUp(self):
+        self.credentials = {'username': 'testuser',
+                            'password': '12345test'}
 
-    Client().login(username='testuser', password='12345test')
+        if not User.objects.filter(username='testuser').exists():
+            self.user = User.objects.create_user(**self.credentials)
+            self.user.save()
+        else:
+            self.user = User(username='testuser', password='12345test')
+
+        self.client.login(username='testuser', password='12345test')
 
     def test_uses_list_template(self):
         list_of_books = ListfOfBooks.objects.create()
@@ -154,37 +142,6 @@ class ListViewTest(TestCase):
         self.assertContains(response, 'Title2')
         self.assertNotContains(response, 'Other Title1')
         self.assertNotContains(response, 'Other Title2')
-
-    def test_can_save_a_POST_request_to_an_existing_list(self):
-        correct_list_of_books = ListfOfBooks.objects.create()
-        other_list_of_books = ListfOfBooks.objects.create()
-
-        self.client.post('/lists/%d/' % (correct_list_of_books.id,),
-                        data={'title': 'New book title for existing list',
-                              'current_page': 100,
-                              'total_pages': 312,
-                              'owner': self.user,
-                              })
-
-        self.assertEqual(Book.objects.count(), 1)
-        new_book = Book.objects.first()
-        self.assertEqual(new_book.title, 'New book title for existing list')
-        self.assertEqual(new_book.current_page, 100)
-        self.assertEqual(new_book.total_pages, 312)
-        self.assertEqual(new_book.list_of_books, correct_list_of_books)
-
-    def test_redirects_to_list_view(self):
-        other_list_of_books = ListfOfBooks.objects.create()
-        correct_list_of_books = ListfOfBooks.objects.create()
-
-        response = self.client.post('/lists/%d/' % (correct_list_of_books.id,),
-                        data={'title': 'New book title for existing list',
-                              'current_page': 100,
-                              'total_pages': 312,
-                              'owner': self.user,
-                              })
-
-        self.assertRedirects(response, '/lists/%d/' % (correct_list_of_books.id,))
 
     def test_cannot_save_empty_book_details(self):
         list_of_books = ListfOfBooks.objects.create()
