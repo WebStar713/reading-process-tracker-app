@@ -5,6 +5,8 @@ from selenium.webdriver.common.keys import Keys
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from urllib.parse import urljoin
 from unittest import skip
+from seleniumlogin import force_login
+from django.contrib.auth import get_user_model
 
 import unittest
 import time
@@ -17,7 +19,17 @@ from selenium.webdriver.support import expected_conditions as EC
 class BookValidationTest(FunctionalTest):
 
     def test_cannot_add_empty_book_details(self):
+
+        # Uses had seen a login panel and logged in
+        # (login has been tested in test_login.py)
+        User = get_user_model()
+        user = User.objects.create_user(username='usertest', password='test12345')
+        force_login(user, webdriver.Chrome(), self.live_server_url)
         self.browser.get(self.live_server_url)
+        self.browser.find_element_by_id('id_username').send_keys('usertest')
+        self.browser.find_element_by_id('id_password').send_keys('test12345')
+        button_login_book = self.browser.find_element_by_css_selector('.button_login')
+        button_login_book.click()
 
         # User tried to type empty value in input boxes
         button_add_book = self.browser.find_element_by_css_selector('.button_main')
@@ -34,6 +46,7 @@ class BookValidationTest(FunctionalTest):
         # After that, user noticed info about lack possibility to type empty value
         error = self.browser.find_element_by_css_selector('.has-error').text
         self.assertEqual(error, "This field is required.")
+
 
         # User tried once again by entering whatever values into inbput boxes
         button_add_book = self.browser.find_element_by_css_selector('.button_main')
@@ -64,49 +77,19 @@ class BookValidationTest(FunctionalTest):
         self.check_for_columns_in_book_table("Secondhand: Travels in the New Global Garage Sale", 12, 320)
         self.check_for_columns_in_book_table("1984", 10, 237)
 
-    # def test_user_cannot_sign_in_after_entering_invalid_data(self):
-    #     url = urljoin(self.live_server_url, '/login/')
-    #     self.browser.get(url)
-    #
-    #     # User goes to login page and realizes that the login form is there
-    #     expected_login_header = "Login to account"
-    #     login_header_text = self.browser.find_element_by_tag_name('h3').text
-    #     self.assertEqual(expected_login_header, login_header_text)
-    #
-    #     # User enters invalid username and password and then receives info
-    #     # about invalid login process
-    #     input_login = self.browser.find_element_by_id('id_username')
-    #     input_password = self.browser.find_element_by_id('id_password')
-    #     button_login = self.browser.find_element_by_css_selector('.button_login')
-    #
-    #     input_login.send_keys('username')
-    #     input_password.send_keys('password')
-    #     button_login.click()
-    #
-    #     invalid_login_text = self.browser.find_element_by_tag_name('body').text
-    #     self.assertIn("Please enter a correct username and password", invalid_login_text)
-
-    # def test_user_can_sign_in_after_entering_valid_data(self):
-    #     url = urljoin(self.live_server_url, '/login/')
-    #     self.browser.get(url)
-    #
-    #     # User enters valid username and password and then receives info
-    #     # about successful login process
-    #     input_login = self.browser.find_element_by_id('id_username')
-    #     input_password = self.browser.find_element_by_id('id_password')
-    #     button_login = self.browser.find_element_by_css_selector('.button_login')
-    #
-    #     input_login.send_keys('usernametest')
-    #     input_password.send_keys('passwordtest')
-    #     button_login.click()
-    #
-    #     time.sleep(10)
-    #     valid_login_text = self.browser.find_element_by_tag_name('body').text
-    #     #self.assertEqual(valid_login_text, 'Authenticated successfully')
+        # User logged out
+        self.browser.find_element_by_link_text('Logout').click()
 
     def test_cannot_add_duplicate_books(self):
         # User had gone to website and added first book
+        User = get_user_model()
+        user = User.objects.create_user(username='usertest', password='test12345')
+        force_login(user, webdriver.Chrome(), self.live_server_url)
         self.browser.get(self.live_server_url)
+        self.browser.find_element_by_id('id_username').send_keys('usertest')
+        self.browser.find_element_by_id('id_password').send_keys('test12345')
+        button_login_book = self.browser.find_element_by_css_selector('.button_login')
+        button_login_book.click()
 
         button_add_book = self.browser.find_element_by_css_selector('.button_main')
         input_title_box = self.get_title_input_box()
@@ -136,3 +119,6 @@ class BookValidationTest(FunctionalTest):
 
         error = self.browser.find_element_by_css_selector('.has-error').text
         self.assertEqual(error, "This book is already on your list.")
+
+        # User logged out
+        self.browser.find_element_by_link_text('Logout').click()
