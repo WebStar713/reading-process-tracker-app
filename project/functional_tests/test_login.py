@@ -3,6 +3,7 @@ from seleniumlogin import force_login
 from django.contrib.auth import get_user_model
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
+from unittest import skip
 
 from private import STAFF_EMAIL
 
@@ -43,11 +44,24 @@ class ForgottenPasswordTest(FunctionalTest):
         # User types his email and clicks on button
         email = self.browser.find_element_by_id('id_email').send_keys(STAFF_EMAIL)
 
-        button_password_book = self.browser.find_element_by_css_selector('.button_login')
-        button_password_book.click()
+        button_send_email = self.browser.find_element_by_css_selector('.button_send')
+        button_send_email.click()
 
         # After that user sees information about successful reset process
         body = self.browser.find_element_by_tag_name('body').text
         self.assertIn('Instruction to set a new password has been e-mailed to your e-mail address.', body)
 
-    
+    @skip
+    def test_forgotten_password_form_on_home_page_invalid_data(self):
+        self.browser.get(self.live_server_url)
+        body = self.browser.find_element_by_tag_name('body').text
+        self.assertIn('Forgotten your password?', body)
+        self.browser.find_element_by_link_text('Forgotten your password?').click()
+
+        # User is typing invalid email
+        email = self.browser.find_element_by_id('id_email').send_keys('invalidemail.com')
+        self.browser.find_element_by_css_selector('.button_send').click()
+
+        # After that user sees information about failed reset process
+
+        # how to find popup error message?
