@@ -12,7 +12,7 @@ import time
 
 class NewVisitorTest(FunctionalTest):
 
-    def test_can_single_user_can_start_test(self):
+    def test_can_single_user_can_save_list(self):
         # After going to the website, the visitor realized that title of website
         # is “Reading books Tracker”.
         self.browser.get(self.live_server_url)
@@ -87,9 +87,20 @@ class NewVisitorTest(FunctionalTest):
         # Check if details for both books haved been saved
         self.check_for_columns_in_book_table('The Power of Habit', 129, 371)
 
-    @skip
-    def test_can_multiple_user_can_start_test(self):
+        # User logged out
+        self.browser.find_element_by_link_text('Logout').click()
+
+
+    def test_can_multiple_users_can_save_list(self):
+        User = get_user_model()
+        user = User.objects.create_user(username='usertest', password='test12345')
+        force_login(user, webdriver.Chrome(), self.live_server_url)
         self.browser.get(self.live_server_url)
+        self.browser.find_element_by_id('id_username').send_keys('usertest')
+        self.browser.find_element_by_id('id_password').send_keys('test12345')
+        button_login_book = self.browser.find_element_by_css_selector('.button_login')
+        button_login_book.click()
+
         input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
         input_total_pages_box = self.get_total_pages_input_box()
@@ -101,17 +112,22 @@ class NewVisitorTest(FunctionalTest):
         button_add_book.click()
         self.check_for_columns_in_book_table('The Power of Habit', 129, 371)
 
-
-        books_list_url = self.browser.current_url
-        self.assertRegex(books_list_url, '/lists/.+')
-
+        # User logged out
+        self.browser.find_element_by_link_text('Logout').click()
         self.browser.quit()
 
         # New user starts using the website
         self.browser = webdriver.Chrome()
+        User = get_user_model()
+        user = User.objects.create_user(username='usertest1', password='test123456')
+        force_login(user, webdriver.Chrome(), self.live_server_url)
+        self.browser.get(self.live_server_url)
+        self.browser.find_element_by_id('id_username').send_keys('usertest1')
+        self.browser.find_element_by_id('id_password').send_keys('test123456')
+        button_login_book = self.browser.find_element_by_css_selector('.button_login')
+        button_login_book.click()
 
         # New user cannot see any lists of previous user
-        self.browser.get(self.live_server_url)
         previous_user_page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('The Power of Habit', previous_user_page_text)
         self.assertNotIn('Factfulness', previous_user_page_text)
@@ -127,17 +143,16 @@ class NewVisitorTest(FunctionalTest):
         input_total_pages_box.send_keys(272)
         button_add_book.click()
 
-        # New user is receiving an unique URL address for his list
-        books_of_new_user_list_url = self.browser.current_url
-        self.assertRegex(books_of_new_user_list_url, '/lists/.+')
-        self.assertNotEqual(books_list_url, books_of_new_user_list_url)
 
-        # We check again if there is not a list of previous user
+        # And check again if there is not a list of another user
         previous_user_page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('The Power of Habit', previous_user_page_text)
-        # but we check if there is a list of new user
+        # but we check if there is a list of our new user
         self.assertIn('You Look Like a Thing and I Love You', previous_user_page_text)
 
         # ... and graph showing present progress.
         chart = self.browser.find_element_by_id('bar-chart')
         self.assertTrue(chart)
+
+        # User logged out
+        self.browser.find_element_by_link_text('Logout').click()
