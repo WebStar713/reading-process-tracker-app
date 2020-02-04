@@ -84,3 +84,15 @@ class ForgottenPasswordTest(FunctionalTest):
         # After that user sees information about failed reset process
 
         # how to find popup error message?
+
+class RegistrationTest(FunctionalTest):
+
+    def test_user_can_register(self):
+        # User notices link for creation account and clicks on it
+        self.browser.get(self.live_server_url)
+        body = self.browser.find_element_by_tag_name('body').text
+        self.assertIn('Create an account here.', body)
+        self.browser.find_element_by_link_text('Create an account here.').click()
+
+        # After it, he had been redirected for registration page
+        
