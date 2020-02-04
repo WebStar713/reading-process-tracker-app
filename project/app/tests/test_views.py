@@ -3,7 +3,7 @@ from django.urls import resolve, reverse
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserRegistrationForm
 from django.core.exceptions import ValidationError
 from django.utils.html import escape
 
@@ -206,3 +206,8 @@ class ListViewTest(TestCase):
         self.assertContains(response, expected_error)
         self.assertTemplateUsed(response, 'list.html')
         self.assertEqual(Book.objects.all().count(), 1)
+
+class RegisterTest(TestCase):
+    def test_uses_register_template(self):
+        response = self.client.get('/register/')
+        self.assertTemplateUsed(response, 'register.html')
