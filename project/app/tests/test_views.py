@@ -228,7 +228,7 @@ class RegisterTest(TestCase):
 
 
         self.assertEqual(User.objects.count(), 1)
-        new_user = Book.objects.first()
+        new_user = User.objects.first()
         self.assertEqual(new_user.username, '')
         self.assertEqual(new_user.first_name, '')
         self.assertEqual(new_user.email, '')
