@@ -26,6 +26,7 @@ class HomePageTest(TestCase):
         response = self.client.get('/')
         self.assertIsInstance(response.context['form'], AuthenticationForm)
 
+
 class NewListTest(TestCase):
 
     def setUp(self):
@@ -53,8 +54,6 @@ class NewListTest(TestCase):
         self.assertEqual(new_book.title, 'Some book')
         self.assertEqual(new_book.current_page, 125)
         self.assertEqual(new_book.total_pages, 317)
-
-
 
     def test_invalid_book_details_arent_saved(self):
         self.client.post('/lists/new', data={
@@ -89,7 +88,6 @@ class NewListTest(TestCase):
                             })
 
         self.assertIsInstance(response.context['form'], BookForm)
-
 
 class ListViewTest(TestCase):
 
@@ -234,3 +232,14 @@ class RegisterTest(TestCase):
         self.assertEqual(new_user.first_name, 'Anna')
         self.assertEqual(new_user.email, 'user@test.pl')
         check_password(new_user.password, 'password123')
+
+    def test_invalid_registration_inputs_arent_saved(self):
+        self.client.post(reverse('register'), data={
+                            'username': 'usertest',
+                            'first_name': 'Anna',
+                            'email': 'usertest.pl',
+                            'password': 'password123',
+                            'password2': 'password123',
+                            })
+
+        self.assertEqual(User.objects.count(), 0)
