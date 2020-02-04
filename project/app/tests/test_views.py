@@ -217,20 +217,20 @@ class RegisterTest(TestCase):
         response = self.client.get('/register/')
         self.assertIsInstance(response.context['form'], UserRegistrationForm)
 
-    def test_saving_POST_request(self):
-        self.client.post('/register/', data={
-                            'username': '',
-                            'first_name': '',
-                            'email': '',
-                            'password': '',
-                            'password2': '',
-                            })
-
-
-        self.assertEqual(User.objects.count(), 1)
-        new_user = User.objects.first()
-        self.assertEqual(new_user.username, '')
-        self.assertEqual(new_user.first_name, '')
-        self.assertEqual(new_user.email, '')
-        self.assertEqual(new_user.password, '')
-        self.assertEqual(new_user.password2, '')
+    # def test_saving_POST_request(self):
+    #     self.client.post('/register/', data={
+    #                         'username': '',
+    #                         'first_name': '',
+    #                         'email': '',
+    #                         'password': '',
+    #                         'password2': '',
+    #                         })
+    #
+    #
+    #     self.assertEqual(User.objects.count(), 1)
+    #     new_user = User.objects.first()
+    #     self.assertEqual(new_user.username, '')
+    #     self.assertEqual(new_user.first_name, '')
+    #     self.assertEqual(new_user.email, '')
+    #     self.assertEqual(new_user.password, '')
+    #     self.assertEqual(new_user.password2, '')
