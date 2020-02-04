@@ -60,5 +60,5 @@ class UserRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'password', 'email')
+        fields = ('username', 'first_name', 'email', 'password', 'password2')
         help_texts = {'username':None}
