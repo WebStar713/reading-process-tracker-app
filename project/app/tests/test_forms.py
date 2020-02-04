@@ -111,5 +111,7 @@ class UserRegistrationFormTest(TestCase):
     def test_form_renders_UserRegistrationForm_fields_input(self):
         form = UserRegistrationForm()
 
-        self.assertIn("label='Password'", form.as_p())
-        self.assertIn("label='Confirm password'", form.as_p())
+        self.assertIn('Username', form.as_p())
+        self.assertIn('First name', form.as_p())
+        self.assertIn('Password', form.as_p())
+        self.assertIn('Email address', form.as_p())
