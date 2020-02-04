@@ -56,6 +56,7 @@ class ExisitingBooksInList(BookForm):
         return forms.models.ModelForm.save(self)
 
 class UserRegistrationForm(forms.ModelForm):
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
 
     class Meta:
