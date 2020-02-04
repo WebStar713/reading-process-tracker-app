@@ -214,5 +214,5 @@ class RegisterTest(TestCase):
         self.assertTemplateUsed(response, 'register.html')
 
     def test_register_uses_UserRegistrationForm(self):
-        response = self.client.get('/regoster/')
+        response = self.client.get('/register/')
         self.assertIsInstance(response.context['form'], UserRegistrationForm)
