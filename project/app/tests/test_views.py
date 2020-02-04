@@ -273,7 +273,18 @@ class RegisterTest(TestCase):
                             'username': 'usertest',
                             'first_name': 'Anna',
                             'email': 'user@test.pl',
-                            'password': '123',
+                            'password': '',
+                            'password2': '',
+                            })
+
+        self.assertEqual(User.objects.count(), 0)
+
+        # not matching passwords
+        self.client.post(reverse('register'), data={
+                            'username': 'usertest',
+                            'first_name': 'Anna',
+                            'email': 'user@test.pl',
+                            'password': '1234',
                             'password2': '123',
                             })
 
