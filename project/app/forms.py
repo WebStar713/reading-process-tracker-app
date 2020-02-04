@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 
 from app.models import Book, ListfOfBooks
 
@@ -55,4 +56,8 @@ class ExisitingBooksInList(BookForm):
         return forms.models.ModelForm.save(self)
 
 class UserRegistrationForm(forms.ModelForm):
-    pass
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'email')
+        help_texts = {'username':None}
