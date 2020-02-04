@@ -234,12 +234,47 @@ class RegisterTest(TestCase):
         check_password(new_user.password, 'password123')
 
     def test_invalid_registration_inputs_arent_saved(self):
+
+        # invalid email
         self.client.post(reverse('register'), data={
                             'username': 'usertest',
                             'first_name': 'Anna',
                             'email': 'usertest.pl',
                             'password': 'password123',
                             'password2': 'password123',
+                            })
+
+        self.assertEqual(User.objects.count(), 0)
+
+        # invalid username
+        self.client.post(reverse('register'), data={
+                            'username': '',
+                            'first_name': 'Anna',
+                            'email': 'user@test.pl',
+                            'password': 'password123',
+                            'password2': 'password123',
+                            })
+
+        self.assertEqual(User.objects.count(), 0)
+
+        # invalid first_name
+        self.client.post(reverse('register'), data={
+                            'username': 'usertest',
+                            'first_name': '',
+                            'email': 'user@test.pl',
+                            'password': 'password123',
+                            'password2': 'password123',
+                            })
+
+        self.assertEqual(User.objects.count(), 0)
+
+        # invalid password
+        self.client.post(reverse('register'), data={
+                            'username': 'usertest',
+                            'first_name': 'Anna',
+                            'email': 'user@test.pl',
+                            'password': '123',
+                            'password2': '123',
                             })
 
         self.assertEqual(User.objects.count(), 0)
