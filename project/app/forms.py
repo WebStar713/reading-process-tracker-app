@@ -53,3 +53,6 @@ class ExisitingBooksInList(BookForm):
 
     def save(self):
         return forms.models.ModelForm.save(self)
+
+class UserRegistrationForm(forms.ModelForm):
+    pass
