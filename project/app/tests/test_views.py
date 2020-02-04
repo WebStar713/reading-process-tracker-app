@@ -4,6 +4,7 @@ from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.hashers import check_password
 from django.core.exceptions import ValidationError
 from django.utils.html import escape
 
@@ -217,20 +218,19 @@ class RegisterTest(TestCase):
         response = self.client.get('/register/')
         self.assertIsInstance(response.context['form'], UserRegistrationForm)
 
-    # def test_saving_POST_request(self):
-    #     self.client.post('/register/', data={
-    #                         'username': '',
-    #                         'first_name': '',
-    #                         'email': '',
-    #                         'password': '',
-    #                         'password2': '',
-    #                         })
-    #
-    #
-    #     self.assertEqual(User.objects.count(), 1)
-    #     new_user = User.objects.first()
-    #     self.assertEqual(new_user.username, '')
-    #     self.assertEqual(new_user.first_name, '')
-    #     self.assertEqual(new_user.email, '')
-    #     self.assertEqual(new_user.password, '')
-    #     self.assertEqual(new_user.password2, '')
+    def test_saving_POST_request(self):
+        self.client.post(reverse('register'), data={
+                            'username': 'usertest',
+                            'first_name': 'Anna',
+                            'email': 'user@test.pl',
+                            'password': 'password123',
+                            'password2': 'password123',
+                            })
+
+
+        self.assertEqual(User.objects.count(), 1)
+        new_user = User.objects.first()
+        self.assertEqual(new_user.username, 'usertest')
+        self.assertEqual(new_user.first_name, 'Anna')
+        self.assertEqual(new_user.email, 'user@test.pl')
+        check_password(new_user.password, 'password123')
