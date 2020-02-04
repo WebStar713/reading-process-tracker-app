@@ -100,6 +100,7 @@ def register(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
             user.save()
             return render(request, 'register_done.html', {'user': user})
     else:
