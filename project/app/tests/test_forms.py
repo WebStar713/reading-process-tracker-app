@@ -109,7 +109,7 @@ class ExisitingBooksInListTest(TestCase):
 
 class UserRegistrationFormTest(TestCase):
     def test_form_renders_UserRegistrationForm_fields_input(self):
-        form = BookForm()
+        form = UserRegistrationForm()
 
         self.assertIn("label='Password'", form.as_p())
         self.assertIn("label='Confirm password'", form.as_p())
