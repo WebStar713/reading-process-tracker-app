@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
-from app.forms import (BookForm, ExisitingBooksInList, #UserRegistrationForm,
+from app.forms import (BookForm, ExisitingBooksInList, UserRegistrationForm,
                       EMPTY_INPUT_ERROR, DUPLICATE_INPUT_ERROR)
 from app.models import ListfOfBooks, Book
 
@@ -107,5 +107,9 @@ class ExisitingBooksInListTest(TestCase):
         new_book = form.save()
         self.assertEqual(new_book, Book.objects.all()[0])
 
-# class UserRegistrationFormTest(TestCase):
-#     pass
+class UserRegistrationFormTest(TestCase):
+    def test_form_renders_UserRegistrationForm_fields_input(self):
+        form = BookForm()
+
+        self.assertIn("label='Password'", form.as_p())
+        self.assertIn("label='Confirm password'", form.as_p())
