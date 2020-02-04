@@ -96,5 +96,12 @@ def myList(request):
         return render(request, 'home.html', {'form': BookForm()})
 
 def register(request):
-    form = UserRegistrationForm(request.POST)
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+            return render(request, 'register_done.html', {'user': user})
+    else:
+        form = UserRegistrationForm()
     return render(request, 'register.html', {'form': form})
