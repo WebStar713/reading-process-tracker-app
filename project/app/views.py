@@ -96,4 +96,4 @@ def myList(request):
         return render(request, 'home.html', {'form': BookForm()})
 
 def register(request):
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'register.html')
