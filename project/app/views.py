@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.core.exceptions import ValidationError
 
 from app.models import Book, ListfOfBooks
-from app.forms import BookForm, ExisitingBooksInList
+from app.forms import BookForm, ExisitingBooksInList, UserRegistrationForm
 
 
 def homePage(request):
@@ -96,4 +96,5 @@ def myList(request):
         return render(request, 'home.html', {'form': BookForm()})
 
 def register(request):
-    return render(request, 'register.html')
+    form = UserRegistrationForm(request.POST)
+    return render(request, 'register.html', {'form': form})
