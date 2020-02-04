@@ -3,7 +3,7 @@ from django.urls import resolve, reverse
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm, UserRegistrationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
 from django.utils.html import escape
 
@@ -11,7 +11,8 @@ from unittest import skip
 
 from app.views import homePage
 from app.models import Book, ListfOfBooks
-from app.forms import BookForm, ExisitingBooksInList, EMPTY_INPUT_ERROR, DUPLICATE_INPUT_ERROR
+from app.forms import (BookForm, ExisitingBooksInList, EMPTY_INPUT_ERROR,
+                       DUPLICATE_INPUT_ERROR, UserRegistrationForm)
 
 
 class HomePageTest(TestCase):
