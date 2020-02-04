@@ -3,7 +3,7 @@ from django.urls import resolve, reverse
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm #, UserRegistrationForm
+from django.contrib.auth.forms import AuthenticationForm, UserRegistrationForm
 from django.core.exceptions import ValidationError
 from django.utils.html import escape
 
@@ -211,3 +211,7 @@ class RegisterTest(TestCase):
     def test_uses_register_template(self):
         response = self.client.get('/register/')
         self.assertTemplateUsed(response, 'register.html')
+
+    def test_register_uses_UserRegistrationForm(self):
+        response = self.client.get('/regoster/')
+        self.assertIsInstance(response.context['form'], UserRegistrationForm)
