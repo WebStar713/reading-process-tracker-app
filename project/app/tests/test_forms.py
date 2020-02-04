@@ -1,6 +1,7 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
-from app.forms import BookForm, ExisitingBooksInList, EMPTY_INPUT_ERROR, DUPLICATE_INPUT_ERROR
+from app.forms import BookForm, ExisitingBooksInList, UserRegistrationForm
+                      EMPTY_INPUT_ERROR, DUPLICATE_INPUT_ERROR
 from app.models import ListfOfBooks, Book
 
 class BookFormTest(TestCase):
@@ -105,3 +106,6 @@ class ExisitingBooksInListTest(TestCase):
                         'total_pages': 677,}, owner = self.user)
         new_book = form.save()
         self.assertEqual(new_book, Book.objects.all()[0])
+
+class UserRegistrationFormTest(TestCase):
+    pass
