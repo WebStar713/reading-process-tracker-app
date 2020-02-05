@@ -15,31 +15,29 @@
             Hello {{ request.user.username }},
             <a href="{% url "logout" %}">Logout</a>
         {% endif %}
-        <div class="row">
-            <div class="text-center">
-                <div class="col-md-12 jumbotron">
-                    <h1>Your books reading progress</h1>
-                    <div class="clearfix visible-xs-block"></div>
-                            <h4>Please type details of the book
-                                of which progress you'd like to track.</h4>
-                            <div id="inputbox">
-                                <form method="POST" action="{% block form_action %} {% endblock %}">
-                                    {% csrf_token %}
-                                    {{ form.title }}
-                                    {{ form.current_page }}
-                                    {{ form.total_pages }}
-                                    <input type="submit" id="button" class="button button_main"
-                                        value="Add and see a chart">
-                                        {% if form.title.errors %}
-                                            <div class="form-group has-error">
-                                                <div class="help-block"> {{ form.title.errors }} </div>
-                                            </div>
-                                        {% endif %}
-                                </form>
-                            </div>
-                </div>
-            </div>
-        </div>
+        <div class="content">
+            <div class="jumbotron">
+                <div class="col-md-12">
+                    <h1 id="header">Your books reading progress</h1>
+                    <h4>Please type details of the book of which progress you'd like to track.</h4>
+                        <div id="inputbox">
+                                    <form method="POST" action="{% block form_action %} {% endblock %}">
+                                        {% csrf_token %}
+                                        {{ form.title }}
+                                        {{ form.current_page }}
+                                        {{ form.total_pages }}
+                                        <input type="submit" id="button" class="button button_main"
+                                            value="Add and see a chart">
+                                            {% if form.title.errors %}
+                                                <div class="form-group has-error">
+                                                    <div class="help-block"> {{ form.title.errors }} </div>
+                                                </div>
+                                            {% endif %}
+                                    </form>
+                                </div>
+                </div> <!-- end of class="col-md-12" -->
+            </div> <!-- end of class="jumbotron" -->
+        </div> <!-- end of class="content" -->
     </div> <!-- end of id="welcome" -->
 
 
