@@ -59,9 +59,8 @@ class ExisitingBooksInList(BookForm):
 class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(label='First name', required=True, widget=forms.TextInput)
     email = forms.EmailField(label='Email', widget=forms.EmailInput)
-    password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ('username',)
+        fields = ('username', 'first_name', 'email', 'password1', 'password2')
         help_texts = {'username': None}
