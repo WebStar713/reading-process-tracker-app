@@ -95,4 +95,22 @@ class RegistrationTest(FunctionalTest):
         self.browser.find_element_by_link_text('Create an account here.').click()
 
         # After it, he had been redirected for registration page
-        
+        body = self.browser.find_element_by_tag_name('body').text
+        self.assertIn('Create an account', body)
+
+        # User realizes registration form that contains:
+        # usename, first name, email, password and password confirmation
+        # Visitor tries to type his inputs in this form and clicks on button
+        self.browser.find_element_by_id('id_username').send_keys('usertest')
+        self.browser.find_element_by_id('id_first_name').send_keys('User')
+        self.browser.find_element_by_id('id_email').send_keys(STAFF_EMAIL)
+        self.browser.find_element_by_id('id_password1').send_keys('test12345')
+        self.browser.find_element_by_id('id_password2').send_keys('test12345')
+
+        button_create_account = self.browser.find_element_by_css_selector('.button_login')
+        button_create_account.click()
+
+        # After that, user had been redirected to page
+        # confirming successful registration on which there is welcoming text
+        body = self.browser.find_element_by_tag_name('body').text
+        self.assertIn('Welcome User!', body)
