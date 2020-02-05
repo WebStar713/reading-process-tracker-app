@@ -86,7 +86,7 @@ table {
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-#id_password1 {
+#id_password, #id_password1 {
     padding:10px 10px;
     font-size:15px;
     width:300px;
