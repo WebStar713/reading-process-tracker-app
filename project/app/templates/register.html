@@ -3,10 +3,9 @@
 {% block content %}
     <h1>Create an account</h1>
     <p>Please, sign up using the following form:</p>
-    <form action="." method="post">
+    <form method="POST" action=".">
         {{ form.as_p }}
         {% csrf_token %}
-        <input type="submit" id="button" class="button button_login"
-        value="Create my account">
+        <input type="submit" class="button" value="Create my account">
     </form>
 {% endblock %}
