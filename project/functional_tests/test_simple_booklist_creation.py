@@ -32,7 +32,7 @@ class NewVisitorTest(FunctionalTest):
         self.browser.get(self.live_server_url)
         self.browser.find_element_by_id('id_username').send_keys('usertest')
         self.browser.find_element_by_id('id_password').send_keys('test12345')
-        button_login_book = self.browser.find_element_by_css_selector('.button_login')
+        button_login_book = self.browser.find_element_by_class_name('button')
         button_login_book.click()
 
 
@@ -58,7 +58,7 @@ class NewVisitorTest(FunctionalTest):
         self.assertEqual(input_total_pages_box.get_attribute('placeholder'), 'Total number of pages')
 
         # Below the input boxes, there is a button “Save and see a chart”.
-        button_add_book = self.browser.find_element_by_css_selector('.button_main')
+        button_add_book = self.browser.find_element_by_class_name('button_base')
 
         # The visitor is typying values in all three input boxes
         # After pressing button the user is redirecting to another site.
@@ -74,7 +74,7 @@ class NewVisitorTest(FunctionalTest):
         input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
         input_total_pages_box = self.get_total_pages_input_box()
-        button_add_book = self.browser.find_element_by_css_selector('.button_main')
+        button_add_book = self.browser.find_element_by_class_name('button_base')
 
         input_title_box.send_keys('Factfulness')
         input_current_page_box.send_keys(0)
@@ -98,13 +98,13 @@ class NewVisitorTest(FunctionalTest):
         self.browser.get(self.live_server_url)
         self.browser.find_element_by_id('id_username').send_keys('usertest')
         self.browser.find_element_by_id('id_password').send_keys('test12345')
-        button_login_book = self.browser.find_element_by_css_selector('.button_login')
+        button_login_book = self.browser.find_element_by_class_name('button')
         button_login_book.click()
 
         input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
         input_total_pages_box = self.get_total_pages_input_box()
-        button_add_book = self.browser.find_element_by_css_selector('.button_main')
+        button_add_book = self.browser.find_element_by_class_name('button_base')
 
         input_title_box.send_keys('The Power of Habit')
         input_current_page_box.send_keys(129)
@@ -124,7 +124,7 @@ class NewVisitorTest(FunctionalTest):
         self.browser.get(self.live_server_url)
         self.browser.find_element_by_id('id_username').send_keys('usertest1')
         self.browser.find_element_by_id('id_password').send_keys('test123456')
-        button_login_book = self.browser.find_element_by_css_selector('.button_login')
+        button_login_book = self.browser.find_element_by_class_name('button')
         button_login_book.click()
 
         # New user cannot see any lists of previous user
@@ -136,7 +136,7 @@ class NewVisitorTest(FunctionalTest):
         input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
         input_total_pages_box = self.get_total_pages_input_box()
-        button_add_book = self.browser.find_element_by_css_selector('.button_main')
+        button_add_book = self.browser.find_element_by_class_name('button_base')
 
         input_title_box.send_keys('You Look Like a Thing and I Love You')
         input_current_page_box.send_keys(1)
