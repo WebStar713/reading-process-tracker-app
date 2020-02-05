@@ -240,8 +240,8 @@ class RegisterTest(TestCase):
                             'username': 'usertest',
                             'first_name': 'Anna',
                             'email': 'usertest.pl',
-                            'password1': 'password123',
-                            'password2': 'password123',
+                            'password1': 'password123P()',
+                            'password2': 'password123P()',
                             })
 
         self.assertEqual(User.objects.count(), 0)
@@ -251,8 +251,8 @@ class RegisterTest(TestCase):
                             'username': '',
                             'first_name': 'Anna',
                             'email': 'user@test.pl',
-                            'password1': 'password123',
-                            'password2': 'password123',
+                            'password1': 'password123P()',
+                            'password2': 'password123P()',
                             })
 
         self.assertEqual(User.objects.count(), 0)
@@ -262,19 +262,19 @@ class RegisterTest(TestCase):
                             'username': 'usertest',
                             'first_name': '',
                             'email': 'user@test.pl',
-                            'password': 'password123',
-                            'password2': 'password123',
+                            'password': 'password123P()',
+                            'password2': 'password123P()',
                             })
 
         self.assertEqual(User.objects.count(), 0)
 
-        # invalid password1
+        # invalid password1 (too short)
         self.client.post(reverse('register'), data={
                             'username': 'usertest',
                             'first_name': 'Anna',
                             'email': 'user@test.pl',
-                            'password1': '',
-                            'password2': '',
+                            'password1': '123',
+                            'password2': '123',
                             })
 
         self.assertEqual(User.objects.count(), 0)
@@ -284,8 +284,8 @@ class RegisterTest(TestCase):
                             'username': 'usertest',
                             'first_name': 'Anna',
                             'email': 'user@test.pl',
-                            'password1': '1234',
-                            'password2': '123',
+                            'password1': 'password123P()',
+                            'password2': 'password123p()',
                             })
 
         self.assertEqual(User.objects.count(), 0)
