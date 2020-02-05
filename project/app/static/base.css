@@ -79,3 +79,9 @@ body {
 a {
     color: #5841A3;
 }
+
+/* styling for NAME in: Hello NAME, Logout */
+b {
+    color: #2235c1;
+    font-size:18px;
+}
