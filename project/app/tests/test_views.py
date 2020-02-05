@@ -209,6 +209,7 @@ class ListViewTest(TestCase):
         self.assertEqual(Book.objects.all().count(), 1)
 
 class RegisterTest(TestCase):
+
     def test_uses_register_template(self):
         response = self.client.get('/register/')
         self.assertTemplateUsed(response, 'register.html')
@@ -319,3 +320,12 @@ class RegisterTest(TestCase):
         expected_error = escape(DUPLICATE_USERS_ERROR)
         self.assertContains(response, expected_error)
         self.assertEqual(User.objects.all().count(), 1)
+
+    def test_displays_UserRegistrationForm(self):
+        response = self.client.get(reverse('register'))
+
+        self.assertIsInstance(response.context['form'], UserRegistrationForm)
+        self.assertContains(response, 'name="username"')
+        self.assertContains(response, 'name="email"')
+        self.assertContains(response, 'name="password1"')
+        self.assertContains(response, 'name="password2"')
