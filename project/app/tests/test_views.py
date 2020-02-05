@@ -13,7 +13,8 @@ from unittest import skip
 from app.views import homePage
 from app.models import Book, ListfOfBooks
 from app.forms import (BookForm, ExisitingBooksInList, EMPTY_INPUT_ERROR,
-                       DUPLICATE_INPUT_ERROR, UserRegistrationForm)
+                       DUPLICATE_INPUT_ERROR, DUPLICATE_USERS_ERROR,
+                       UserRegistrationForm)
 
 
 class HomePageTest(TestCase):
@@ -300,3 +301,21 @@ class RegisterTest(TestCase):
                             })
 
         self.assertContains(response, escape(EMPTY_INPUT_ERROR))
+
+    def test_duplicate_users_validation_errors(self):
+        self.credentials = {'username': 'testuser',
+                            'password': '12345test'}
+        self.user = User.objects.create_user(**self.credentials)
+        self.user.save()
+
+        response = self.client.post(reverse('register'), data={
+                            'username': 'testuser',
+                            'first_name': 'Anna',
+                            'email': 'user@test.pl',
+                            'password1': 'password123P()',
+                            'password2': 'password123P()',
+                            })
+
+        expected_error = escape(DUPLICATE_USERS_ERROR)
+        self.assertContains(response, expected_error)
+        self.assertEqual(User.objects.all().count(), 1)
