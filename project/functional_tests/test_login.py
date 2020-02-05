@@ -1,6 +1,6 @@
 from .base import FunctionalTest
-from seleniumlogin import force_login
 from django.contrib.auth import get_user_model
+from django.test import Client
 from selenium import webdriver
 from unittest import skip
 
@@ -13,7 +13,7 @@ class LoginTest(FunctionalTest):
     def test_login_on_home_page(self):
         User = get_user_model()
         user = User.objects.create_user(username='usertest', password='test12345')
-        force_login(user, webdriver.Chrome(), self.live_server_url)
+        Client().force_login(user)
 
         # User goes to the website and realizes login form.
         # Enters correct data in login form and is redirecting to /mylist/ subpage
