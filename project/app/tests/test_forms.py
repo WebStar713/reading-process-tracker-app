@@ -126,3 +126,7 @@ class UserRegistrationFormTest(TestCase):
                                           })
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['username'], [EMPTY_INPUT_ERROR])
+        self.assertEqual(form.errors['first_name'], [EMPTY_INPUT_ERROR])
+        self.assertEqual(form.errors['email'], [EMPTY_INPUT_ERROR])
+        self.assertEqual(form.errors['password1'], [EMPTY_INPUT_ERROR])
+        self.assertEqual(form.errors['password2'], [EMPTY_INPUT_ERROR])
