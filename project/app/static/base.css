@@ -1,18 +1,8 @@
-p {
-    font-family: 'Lato';
-}
-
-h3 {
-    font-family: 'Lato';
-}
-
-
 body {
     font-family: 'Lato';
     padding: 2rem 5rem;
 }
 .content {
-    font-family: 'Lato';
     text-align: center;
 }
 
@@ -63,7 +53,6 @@ body {
 
 
 #chart {
-    font-family: 'Lato';
     display: flex;
     align-items: center;
     justify-content: center;
