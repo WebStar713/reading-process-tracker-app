@@ -117,12 +117,12 @@ class UserRegistrationFormTest(TestCase):
         self.assertIn('Password confirmation', form.as_p())
         self.assertIn('Email', form.as_p())
 
-    # def test_validation_for_blank_user_inputs(self):
-    #     form = UserRegistrationForm(data={'username':'',
-    #                                       'first_name': '',
-    #                                       'password': '',
-    #                                       'password2':'',
-    #                                       'email': '',
-    #                                       })
-    #     self.assertFalse(form.is_valid())
-    #     self.assertEqual(form.errors['username'], [EMPTY_INPUT_ERROR])
+    def test_validation_for_blank_user_inputs(self):
+        form = UserRegistrationForm(data={'username':'',
+                                          'first_name': '',
+                                          'password1': '',
+                                          'password2':'',
+                                          'email': '',
+                                          })
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors['username'], [EMPTY_INPUT_ERROR])
