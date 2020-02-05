@@ -58,6 +58,11 @@ body {
     justify-content: center;
 }
 
+#bar-chart {
+    width: 1200;
+    height: 800;
+}
+
 #id_username  {
     padding:10px 10px;
     font-size:15px;
