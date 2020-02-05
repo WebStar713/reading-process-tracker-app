@@ -10,16 +10,19 @@ h3 {
     font-family: 'Lato';
 }
 
-h1 {
-    margin-bottom:40px;
-    font-weight:bold;
-}
 
 body {
     font-family: 'Lato';
     padding: 2rem 5rem;
 }
+.content {
+    text-align: center;
+}
 
+#header {
+    margin-bottom:40px;
+    font-weight:bold;
+}
 
 #id_title {
     padding:10px 10px;
