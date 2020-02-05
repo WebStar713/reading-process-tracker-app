@@ -289,3 +289,14 @@ class RegisterTest(TestCase):
                             })
 
         self.assertEqual(User.objects.count(), 0)
+
+    def test_validation_errors_are_shown_on_register_page(self):
+        response = self.client.post(reverse('register'), data={
+                            'username': '',
+                            'first_name': 'Anna',
+                            'email': 'user@test.pl',
+                            'password1': 'password123P()',
+                            'password2': 'password123P()',
+                            })
+
+        self.assertContains(response, escape(EMPTY_INPUT_ERROR))
