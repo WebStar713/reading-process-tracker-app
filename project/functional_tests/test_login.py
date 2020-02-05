@@ -114,3 +114,14 @@ class RegistrationTest(FunctionalTest):
         # confirming successful registration on which there is welcoming text
         body = self.browser.find_element_by_tag_name('body').text
         self.assertIn('Welcome User!', body)
+        self.assertIn('Thank you taking time to register. Your account has been successfully created.', body)
+        self.assertIn('We hope you will enjoy our Reading Process Tracker.', body)
+
+        # User sees link for login process
+        login_link = self.browser.find_element_by_link_text('login').text
+        self.assertIn('login', login_link)
+
+        # After clicking on 'login' link the user is redirecting on login subpage
+        self.browser.find_element_by_link_text('login').click()
+        body = self.browser.find_element_by_tag_name('body').text
+        self.assertIn('Login to account', body) # login form had been testes earlier
