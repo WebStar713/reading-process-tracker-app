@@ -1,7 +1,3 @@
-#container {
-    font-family: 'Lato';
-}
-
 p {
     font-family: 'Lato';
 }
@@ -16,8 +12,10 @@ body {
     padding: 2rem 5rem;
 }
 .content {
+    font-family: 'Lato';
     text-align: center;
 }
+
 
 #header {
     margin-bottom:40px;
@@ -64,12 +62,11 @@ body {
 }
 
 
-table {
-    font-family: 'Lato';
-}
-
 #chart {
     font-family: 'Lato';
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #id_username  {
