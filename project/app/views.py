@@ -3,9 +3,9 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.core.exceptions import ValidationError
 
+
 from app.models import Book, ListfOfBooks
 from app.forms import BookForm, ExisitingBooksInList, UserRegistrationForm
-
 
 def homePage(request):
     return render(request, 'home.html', {'form': BookForm()})
@@ -100,7 +100,6 @@ def register(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])
             user.save()
             return render(request, 'register_done.html', {'user': user})
     else:
