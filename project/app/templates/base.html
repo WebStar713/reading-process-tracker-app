@@ -19,20 +19,22 @@
             <div class="jumbotron">
                 <div class="col-md-12">
                     <h1 id="header">Your books reading progress</h1>
-                    <h4>Please type details of the book of which progress you'd like to track.</h4>
-                    <div class="inputbox">
-                        <form method="POST" action="{% block form_action %} {% endblock %}">
-                            {% csrf_token %}
-                            {{ form.title }}
-                            {{ form.current_page }}
-                            {{ form.total_pages }}
-                            <input type="submit" class="button_base" value="Add and see a chart">
-                            {% if form.title.errors %}
-                                <div class="form-group has-error">
-                                    <div class="help-block"> {{ form.title.errors }} </div>
-                                </div>
-                            {% endif %}
-                        </form>
+                    {% if request.user.is_authenticated %}
+                        <h4>Please type details of the book of which progress you'd like to track.</h4>
+                        <div class="inputbox">
+                            <form method="POST" action="{% block form_action %} {% endblock %}">
+                                {% csrf_token %}
+                                {{ form.title }}
+                                {{ form.current_page }}
+                                {{ form.total_pages }}
+                                <input type="submit" class="button_base" value="Add and see a chart">
+                                {% if form.title.errors %}
+                                    <div class="form-group has-error">
+                                        <div class="help-block"> {{ form.title.errors }} </div>
+                                    </div>
+                                {% endif %}
+                            </form>
+                        {% endif %}
                     </div> <!-- end of class="inputbox" -->
                 </div> <!-- end of class="col-md-12" -->
             </div> <!-- end of class="jumbotron" -->
