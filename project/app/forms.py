@@ -7,6 +7,7 @@ from app.models import Book, ListfOfBooks
 
 EMPTY_INPUT_ERROR = 'This field is required.'
 DUPLICATE_INPUT_ERROR = 'This book is already on your list.'
+DUPLICATE_USERS_ERROR = 'A user with that username already exists.'
 
 class BookForm(forms.models.ModelForm):
 
