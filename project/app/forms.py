@@ -1,6 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 from app.models import Book, ListfOfBooks
 
@@ -55,18 +56,12 @@ class ExisitingBooksInList(BookForm):
     def save(self):
         return forms.models.ModelForm.save(self)
 
-class UserRegistrationForm(forms.ModelForm):
+class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(label='First name', required=True, widget=forms.TextInput)
-    password = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
+    email = forms.EmailField(label='Email', widget=forms.EmailInput)
+    password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'email', 'password', 'password2')
-        help_texts = {'username':None}
-
-        def clean_password2(self):
-            cd = self.cleaned_data
-            if cd['password'] != cd['password2']:
-                raise forms.ValidationError('Passwords don\'t match.')
-            return cd['password2']
+        fields = ('username',)
+        help_texts = {'username': None}
