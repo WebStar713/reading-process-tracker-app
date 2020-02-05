@@ -221,8 +221,8 @@ class RegisterTest(TestCase):
                             'username': 'usertest',
                             'first_name': 'Anna',
                             'email': 'user@test.pl',
-                            'password': 'password123',
-                            'password2': 'password123',
+                            'password1': 'password123P()',
+                            'password2': 'password123P()',
                             })
 
 
@@ -231,7 +231,7 @@ class RegisterTest(TestCase):
         self.assertEqual(new_user.username, 'usertest')
         self.assertEqual(new_user.first_name, 'Anna')
         self.assertEqual(new_user.email, 'user@test.pl')
-        check_password(new_user.password, 'password123')
+        check_password(new_user.password, 'password123P()')
 
     def test_invalid_registration_inputs_arent_saved(self):
 
@@ -240,7 +240,7 @@ class RegisterTest(TestCase):
                             'username': 'usertest',
                             'first_name': 'Anna',
                             'email': 'usertest.pl',
-                            'password': 'password123',
+                            'password1': 'password123',
                             'password2': 'password123',
                             })
 
@@ -251,7 +251,7 @@ class RegisterTest(TestCase):
                             'username': '',
                             'first_name': 'Anna',
                             'email': 'user@test.pl',
-                            'password': 'password123',
+                            'password1': 'password123',
                             'password2': 'password123',
                             })
 
@@ -268,12 +268,12 @@ class RegisterTest(TestCase):
 
         self.assertEqual(User.objects.count(), 0)
 
-        # invalid password
+        # invalid password1
         self.client.post(reverse('register'), data={
                             'username': 'usertest',
                             'first_name': 'Anna',
                             'email': 'user@test.pl',
-                            'password': '',
+                            'password1': '',
                             'password2': '',
                             })
 
@@ -284,7 +284,7 @@ class RegisterTest(TestCase):
                             'username': 'usertest',
                             'first_name': 'Anna',
                             'email': 'user@test.pl',
-                            'password': '1234',
+                            'password1': '1234',
                             'password2': '123',
                             })
 
