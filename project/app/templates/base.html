@@ -20,7 +20,7 @@
                 <div class="col-md-12">
                     <h1 id="header">Your books reading progress</h1>
                     <h4>Please type details of the book of which progress you'd like to track.</h4>
-                    <div id="inputbox_for_books">
+                    <div class="inputbox">
                         <form method="POST" action="{% block form_action %} {% endblock %}">
                             {% csrf_token %}
                             {{ form.title }}
@@ -33,7 +33,7 @@
                                 </div>
                             {% endif %}
                         </form>
-                    </div> <!-- end of id="inputbox_for_books" -->
+                    </div> <!-- end of class="inputbox" -->
                 </div> <!-- end of class="col-md-12" -->
             </div> <!-- end of class="jumbotron" -->
         </div> <!-- end of class="content" -->
