@@ -28,11 +28,11 @@ class BookValidationTest(FunctionalTest):
         self.browser.get(self.live_server_url)
         self.browser.find_element_by_id('id_username').send_keys('usertest')
         self.browser.find_element_by_id('id_password').send_keys('test12345')
-        button_login_book = self.browser.find_element_by_css_selector('.button_login')
+        button_login_book = self.browser.find_element_by_class_name('button')
         button_login_book.click()
 
         # User tried to type empty value in input boxes
-        button_add_book = self.browser.find_element_by_css_selector('.button_main')
+        button_add_book = self.browser.find_element_by_class_name('button_base')
 
         input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
@@ -49,7 +49,7 @@ class BookValidationTest(FunctionalTest):
 
 
         # User tried once again by entering whatever values into inbput boxes
-        button_add_book = self.browser.find_element_by_css_selector('.button_main')
+        button_add_book = self.browser.find_element_by_class_name('button_base')
 
         input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
@@ -63,7 +63,7 @@ class BookValidationTest(FunctionalTest):
         self.check_for_columns_in_book_table("Secondhand: Travels in the New Global Garage Sale", 12, 320)
 
         # User could fix empty input boxes by entering there some text
-        button_add_book = self.browser.find_element_by_css_selector('.button_main')
+        button_add_book = self.browser.find_element_by_class_name('button_base')
 
         input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
@@ -88,10 +88,10 @@ class BookValidationTest(FunctionalTest):
         self.browser.get(self.live_server_url)
         self.browser.find_element_by_id('id_username').send_keys('usertest')
         self.browser.find_element_by_id('id_password').send_keys('test12345')
-        button_login_book = self.browser.find_element_by_css_selector('.button_login')
+        button_login_book = self.browser.find_element_by_class_name('button')
         button_login_book.click()
 
-        button_add_book = self.browser.find_element_by_css_selector('.button_main')
+        button_add_book = self.browser.find_element_by_class_name('button_base')
         input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
         input_total_pages_box = self.get_total_pages_input_box()
@@ -104,7 +104,7 @@ class BookValidationTest(FunctionalTest):
         self.check_for_columns_in_book_table("Fibonacci’s Rabbits", 10, 176)
 
         # After that, the user tried to type book that already occurs in a list
-        button_add_book = self.browser.find_element_by_css_selector('.button_main')
+        button_add_book = self.browser.find_element_by_class_name('button_base')
         input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
         input_total_pages_box = self.get_total_pages_input_box()
