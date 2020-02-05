@@ -20,13 +20,13 @@ class LoginTest(FunctionalTest):
         self.browser.get(self.live_server_url)
         self.browser.find_element_by_id('id_username').send_keys('usertest')
         self.browser.find_element_by_id('id_password').send_keys('test12345')
-        button_login_book = self.browser.find_element_by_css_selector('.button_login')
+        button_login_book = self.browser.find_element_by_class_name('button')
 
         button_login_book.click()
 
         # User is able to see that he has been logged in
         body = self.browser.find_element_by_tag_name('body').text
-        self.assertIn('Hello ' + user.username, body)
+        self.assertIn('Hello', body)
 
         # User also sees link for logout process
         logout_link = self.browser.find_element_by_link_text('Logout').text
@@ -63,7 +63,7 @@ class ForgottenPasswordTest(FunctionalTest):
         # User types his email and clicks on button
         email = self.browser.find_element_by_id('id_email').send_keys(STAFF_EMAIL)
 
-        button_send_email = self.browser.find_element_by_css_selector('.button_send')
+        button_send_email = self.browser.find_element_by_class_name('button')
         button_send_email.click()
 
         # After that user sees information about successful reset process
@@ -79,7 +79,7 @@ class ForgottenPasswordTest(FunctionalTest):
 
         # User is typing invalid email
         email = self.browser.find_element_by_id('id_email').send_keys('invalidemail.com')
-        self.browser.find_element_by_css_selector('.button_send').click()
+        self.browser.find_element_by_class_name('button').click()
 
         # After that user sees information about failed reset process
 
@@ -107,7 +107,7 @@ class RegistrationTest(FunctionalTest):
         self.browser.find_element_by_id('id_password1').send_keys('test12345')
         self.browser.find_element_by_id('id_password2').send_keys('test12345')
 
-        button_create_account = self.browser.find_element_by_css_selector('.button_login')
+        button_create_account = self.browser.find_element_by_class_name('button')
         button_create_account.click()
 
         # After that, user had been redirected to page
