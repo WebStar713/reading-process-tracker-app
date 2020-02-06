@@ -12,7 +12,7 @@ import time
 
 class NewVisitorTest(FunctionalTest):
 
-    def test_can_single_user_can_save_list(self):
+    def test_1can_single_user_can_save_list(self):
         # After going to the website, the visitor realized that title of website
         # is “Reading books Tracker”.
         self.browser.get(self.live_server_url)
@@ -91,7 +91,7 @@ class NewVisitorTest(FunctionalTest):
         self.browser.find_element_by_link_text('Logout').click()
 
 
-    def test_can_multiple_users_can_save_list(self):
+    def test_2can_multiple_users_can_save_list(self):
         User = get_user_model()
         user = User.objects.create_user(username='usertest', password='test12345')
         force_login(user, webdriver.Chrome(), self.live_server_url)
