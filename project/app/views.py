@@ -26,8 +26,6 @@ def viewList(request, list_of_books_id):
     if request.method == 'POST':
         form = ExisitingBooksInList(for_list = list_of_books, owner=request.user, data=request.POST)
         if form.is_valid():
-            print(form.owner)
-            print(request.user)
             form = None
             form = BookForm(data=request.POST)
             form = form.save(for_list=list_of_books)
@@ -105,3 +103,24 @@ def register(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'register.html', {'form': form})
+
+def updateBook(request):
+    book = Book.objects.get()
+    form = BookForm(instance=book)
+
+    if request.method == 'POST':
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+
+    return render(request, 'myList.html', {'form': form})
+
+def deleteBook(request, id):
+    book = Book.objects.get(id=id)
+
+    if request.method == 'POST':
+        book.delete()
+        return redirect('/')
+
+    return render(request, 'myList.html', {'form': form})
