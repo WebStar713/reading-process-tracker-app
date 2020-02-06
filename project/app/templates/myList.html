@@ -10,12 +10,14 @@
         <th style="color:#2235c1">Current page</th>
         <th style="color:#277a96">Total number of pages</th>
         <th style="color:#7c2784">Update</th>
-        <th style="color:#2235c1">Remove</th>
+        <th style="color:#2235c1">Delete</th>
         {% for book in list_of_books.book_set.all %}
             <tr>
                 <td>{{ book.title }}</td>
                 <td>{{ book.current_page }}</td>
                 <td>{{ book.total_pages }}</td>
+                <td><a class="btn btn-sm btn-info" href="{% url 'updateBook' %}"></td>
+                <td><a class="btn btn-sm btn-info" href="{% url 'deleteBook' %}"></td>
             </tr>
         {% endfor %}
     </table>
