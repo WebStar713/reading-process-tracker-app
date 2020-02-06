@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load static %}
+
 
 {% block content%}
     <h3>Login to account</h3>
@@ -11,4 +13,14 @@
             <p><a href="{% url "password_reset" %}">Forgotten your password?</a></p>
         </form>
     </div> <!-- end of class="inputbox" -->
+{% endblock %}
+{% block file %}
+    <h6>Interested in what is inside?</h6>
+    <video id="film" controls loop muted autoplay width='740' height= '450'>
+        <source src="{% static 'tracker.mov' type='video/mov' %}">
+    </video>
+    <script>
+        var v = document.getElementById("film");
+        v.playbackRate = 2.0;
+    </script>
 {% endblock %}
