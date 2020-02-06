@@ -2,9 +2,6 @@
 
 {% block content%}
     <h3>Login to account</h3>
-    {% if form.errors %}
-        <p>Your username and password didn't match.Please try again.</p>
-    {% endif %}
     <div class="inputbox">
         <form method="POST" action="{% url 'login' %}">
             {{ form.as_p }}
