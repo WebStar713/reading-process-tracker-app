@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.core.exceptions import ValidationError
@@ -75,8 +75,6 @@ def myList(request):
         if request.method == 'POST':
             form = ExisitingBooksInList(for_list = list_of_books, owner=request.user, data=request.POST)
             if form.is_valid():
-                print(form.owner)
-                print(request.user)
                 form = None
                 form = BookForm(data=request.POST)
                 form = form.save(for_list=list_of_books)
@@ -90,9 +88,6 @@ def myList(request):
                                               'list_of_books': list_of_books,
                                               'form': form,
                                               })
-        if (request.GET.get('button_delete')):
-            Book.objects.filter(id = request.GET.get('button_delete')).delete()
-            return redirect('/')
     else:
         return render(request, 'home.html', {'form': BookForm()})
 
@@ -106,3 +101,11 @@ def register(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'register.html', {'form': form})
+
+def bookDelete(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    if request.method == 'POST':
+        book.delete()
+        return redirect('/mylist/')
+
+    return render(request, 'myList.html', {'book': book})
