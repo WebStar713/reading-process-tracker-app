@@ -13,8 +13,17 @@ body {
 }
 
 #sidebar {
+    position:absolute;
     width: 400px;
     top: 0px;
+}
+
+#video {
+    float: right;
+}
+
+#film {
+    border: 2px outset #2235c1;
 }
 
 #id_total_pages, #id_current_page, #id_title {
@@ -39,8 +48,7 @@ body {
     border-color:#ce92b9;
 }
 
-.button {
-    background:#a142af;
+.button, .button_add_book {
     color:#fff;
     outline-color:#bf56ab;
     padding:10px 10px;
@@ -49,6 +57,14 @@ body {
     cursor: pointer;
     margin: 10px 0px;
     width:250px;
+}
+
+.button_add_book {
+    background:#5959D1;
+}
+
+.button {
+    background:#AF5FA2;
 }
 
 
@@ -83,10 +99,11 @@ body {
 /* href styling */
 a {
     color: #5841A3;
+    font-size:18px;
 }
 
 /* styling for NAME in: Hello NAME, Logout */
 b {
-    color: #2235c1;
+    color: #5959D1;
     font-size:18px;
 }
