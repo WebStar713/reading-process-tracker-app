@@ -9,6 +9,8 @@
         <th style="color:#7c2784">Title</th>
         <th style="color:#2235c1">Current page</th>
         <th style="color:#277a96">Total number of pages</th>
+        <th style="color:#7c2784">Update</th>
+        <th style="color:#2235c1">Remove</th>
         {% for book in list_of_books.book_set.all %}
             <tr>
                 <td>{{ book.title }}</td>
