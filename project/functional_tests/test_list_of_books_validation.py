@@ -18,7 +18,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class BookValidationTest(FunctionalTest):
 
-    def test_cannot_add_empty_book_details(self):
+    def test_1cannot_add_empty_book_details(self):
 
         # Uses had seen a login panel and logged in
         # (login has been tested in test_login.py)
@@ -80,7 +80,7 @@ class BookValidationTest(FunctionalTest):
         # User logged out
         self.browser.find_element_by_link_text('Logout').click()
 
-    def test_cannot_add_duplicate_books(self):
+    def test_2cannot_add_duplicate_books(self):
         # User had gone to website and added first book
         User = get_user_model()
         user = User.objects.create_user(username='usertest', password='test12345')
