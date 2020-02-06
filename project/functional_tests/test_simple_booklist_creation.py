@@ -110,6 +110,7 @@ class NewVisitorTest(FunctionalTest):
         input_current_page_box.send_keys(129)
         input_total_pages_box.send_keys(371)
         button_add_book.click()
+        time.sleep(10)
         self.check_for_columns_in_book_table('The Power of Habit', 129, 371)
 
         # User logged out
