@@ -90,6 +90,9 @@ def myList(request):
                                               'list_of_books': list_of_books,
                                               'form': form,
                                               })
+        if (request.GET.get('button_delete')):
+            Book.objects.filter(id = request.GET.get('button_delete')).delete()
+            return redirect('/')
     else:
         return render(request, 'home.html', {'form': BookForm()})
 
@@ -103,24 +106,3 @@ def register(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'register.html', {'form': form})
-
-def updateBook(request):
-    book = Book.objects.get()
-    form = BookForm(instance=book)
-
-    if request.method == 'POST':
-        form = BookForm(request.POST, instance=book)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-
-    return render(request, 'myList.html', {'form': form})
-
-def deleteBook(request, id):
-    book = Book.objects.get(id=id)
-
-    if request.method == 'POST':
-        book.delete()
-        return redirect('/')
-
-    return render(request, 'myList.html', {'form': form})
