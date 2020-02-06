@@ -12,6 +12,11 @@ body {
     font-weight:bold;
 }
 
+#sidebar {
+    width: 400px;
+    top: 0px;
+}
+
 #id_total_pages, #id_current_page, #id_title {
     padding:10px 10px;
     font-size:15px;
