@@ -2,6 +2,7 @@ from django.test import TestCase, Client
 from django.urls import resolve, reverse
 from django.http import HttpRequest
 from django.template.loader import render_to_string
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.hashers import check_password
@@ -209,7 +210,22 @@ class ListViewTest(TestCase):
         self.assertEqual(Book.objects.all().count(), 1)
 
     def test_delete_added_books(self):
-        pass
+        User = get_user_model()
+        user = User.objects.create_user(username='usertest', password='test12345')
+        Client().force_login(user)
+
+        response = self.client.get('/mylist/')
+        list_of_books = ListfOfBooks.objects.create()
+        book = Book.objects.create(list_of_books = list_of_books,
+                                         title = 'Some title',
+                                         current_page = 23,
+                                         total_pages = 455,)
+
+        self.assertEqual(Book.objects.all().count(), 1)
+
+        self.client.post(reverse('bookDelete', kwargs={'pk': book.id}))
+        self.assertEqual(Book.objects.all().count(), 0)
+
 
 class RegisterTest(TestCase):
 
