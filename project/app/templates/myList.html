@@ -18,7 +18,7 @@
                 <td>
                     <form method="POST" action="{% url 'bookDelete' book.id %}">
                         {% csrf_token %}
-                        <input type="image" id="delete_button" src="https://img.icons8.com/windows/22/000000/delete-forever.png" value="Delete">
+                        <input type="image" class="delete_button" src="https://img.icons8.com/windows/22/000000/delete-forever.png" value="Delete">
                     </form>
                 </td>
             </tr>
