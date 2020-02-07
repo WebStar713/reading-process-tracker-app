@@ -193,12 +193,12 @@ class ListViewTest(TestCase):
         self.assertContains(response, escape(EMPTY_INPUT_ERROR))
 
     def test_duplicate_book_validation_errors_end_up_on_lists_page(self):
-        list_of_books1 = ListfOfBooks.objects.create()
-        book1 = Book.objects.create(list_of_books = list_of_books1,
+        list_of_books = ListfOfBooks.objects.create()
+        book1 = Book.objects.create(list_of_books = list_of_books,
                                     title = 'Some title',
                                     current_page = 23,
                                     total_pages = 455,)
-        response = self.client.post('/lists/%d/' % (list_of_books1.id,),
+        response = self.client.post('/lists/%d/' % (list_of_books.id,),
                                     data = {'title' : 'Some title',
                                             'current_page' : 23,
                                             'total_pages' : 455,})
@@ -207,6 +207,9 @@ class ListViewTest(TestCase):
         self.assertContains(response, expected_error)
         self.assertTemplateUsed(response, 'list.html')
         self.assertEqual(Book.objects.all().count(), 1)
+
+    def test_delete_added_books(self):
+        pass
 
 class RegisterTest(TestCase):
 
