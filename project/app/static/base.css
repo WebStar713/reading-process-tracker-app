@@ -17,18 +17,18 @@ body {
 #sidebar {
     width: 300px;
     float: left;
+    display: inline-block;
 }
 
 #video {
-    float: right;
+    float: none;
+    max-width: calc(100% - 300px);
+    min-width: 300px;
     width: auto;
     display: inline-block;
 }
 
 
-#film {
-    border: 2px outset #2235c1;
-}
 
 #id_total_pages, #id_current_page, #id_title {
     padding:10px 10px;
