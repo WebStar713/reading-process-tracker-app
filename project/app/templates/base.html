@@ -15,9 +15,9 @@
             {% if request.user.is_authenticated %}
                 Hello <b>{{ request.user.username }}</b>,
                 <br />
-                <a href="{% url "logout" %}">Logout</a>
+                <a class="links_on_the_right" href="{% url "logout" %}">Logout</a>
                 <br />
-                <a href="{% url "password_change" %}">Change your password</a>
+                <a class="links_on_the_right" href="{% url "password_change" %}">Change your password</a>
             {% endif %}
         </div>
         <div class="content">
