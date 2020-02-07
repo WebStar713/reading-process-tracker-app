@@ -10,7 +10,7 @@ import time
 
 class LoginTest(FunctionalTest):
 
-    def test_1login_on_home_page(self):
+    def test_login_on_home_page(self):
         User = get_user_model()
         user = User.objects.create_user(username='usertest', password='test12345')
         Client().force_login(user)
@@ -50,7 +50,7 @@ class LoginTest(FunctionalTest):
 
 class ForgottenPasswordTest(FunctionalTest):
 
-    def test_2forgotten_password_form_on_home_page_valid_data(self):
+    def test_forgotten_password_form_on_home_page_valid_data(self):
         # User realizes that home page contains "Forgotten your password?" form
         self.browser.get(self.live_server_url)
         body = self.browser.find_element_by_tag_name('body').text
@@ -70,8 +70,7 @@ class ForgottenPasswordTest(FunctionalTest):
         body = self.browser.find_element_by_tag_name('body').text
         self.assertIn('Instruction to set a new password has been e-mailed to your e-mail address.', body)
 
-    @skip
-    def test_3forgotten_password_form_on_home_page_invalid_data(self):
+    def test_forgotten_password_form_on_home_page_invalid_data(self):
         self.browser.get(self.live_server_url)
         body = self.browser.find_element_by_tag_name('body').text
         self.assertIn('Forgotten your password?', body)
@@ -81,13 +80,10 @@ class ForgottenPasswordTest(FunctionalTest):
         email = self.browser.find_element_by_id('id_email').send_keys('invalidemail.com')
         self.browser.find_element_by_class_name('button').click()
 
-        # After that user sees information about failed reset process
-
-        # how to find popup error message?
 
 class RegistrationTest(FunctionalTest):
 
-    def test_4user_can_register(self):
+    def test_user_can_register(self):
         # User notices link for creation account and clicks on it
         self.browser.get(self.live_server_url)
         body = self.browser.find_element_by_tag_name('body').text
@@ -128,7 +124,7 @@ class RegistrationTest(FunctionalTest):
 
 class ChangePasswordTest(FunctionalTest):
 
-    def test_5login_on_home_page(self):
+    def test_login_on_home_page(self):
         User = get_user_model()
         user = User.objects.create_user(username='usertest', password='test12345')
         Client().force_login(user)
