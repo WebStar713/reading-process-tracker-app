@@ -14,6 +14,11 @@ body {
     height: 100%;
 }
 
+#welcome {
+    margin-bottom:40px;
+}
+
+
 #sidebar {
     width: 300px;
     float: left;
@@ -102,11 +107,13 @@ body {
 /* href styling */
 a {
     color: #5841A3;
-    font-size:18px;
 }
 
 /* styling for NAME in: Hello NAME, Logout */
 b {
     color: #5959D1;
-    font-size:18px;
+}
+
+.links_on_the_right {
+    float: right;
 }
