@@ -214,7 +214,7 @@ class ListViewTest(TestCase):
         user = User.objects.create_user(username='usertest', password='test12345')
         Client().force_login(user)
 
-        response = self.client.get('/mylist/')
+        self.client.get('/mylist/')
         list_of_books = ListfOfBooks.objects.create()
         book = Book.objects.create(list_of_books = list_of_books,
                                          title = 'Some title',
