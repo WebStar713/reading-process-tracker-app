@@ -18,7 +18,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class BookValidationTest(FunctionalTest):
 
-    def test_1cannot_add_empty_book_details(self):
+    def test_cannot_add_empty_book_details(self):
 
         # Uses had seen a login panel and logged in
         # (login has been tested in test_login.py)
@@ -28,8 +28,8 @@ class BookValidationTest(FunctionalTest):
         self.browser.get(self.live_server_url)
         self.browser.find_element_by_id('id_username').send_keys('usertest')
         self.browser.find_element_by_id('id_password').send_keys('test12345')
-        button_login_book = self.browser.find_element_by_class_name('button')
-        button_login_book.click()
+        button_login = self.browser.find_element_by_class_name('button')
+        button_login.click()
 
         # User tried to type empty value in input boxes
         button_add_book = self.browser.find_element_by_class_name('button_add_book')
@@ -80,7 +80,7 @@ class BookValidationTest(FunctionalTest):
         # User logged out
         self.browser.find_element_by_link_text('Logout').click()
 
-    def test_2cannot_add_duplicate_books(self):
+    def test_cannot_add_duplicate_books(self):
         # User had gone to website and added first book
         User = get_user_model()
         user = User.objects.create_user(username='usertest', password='test12345')
@@ -88,8 +88,8 @@ class BookValidationTest(FunctionalTest):
         self.browser.get(self.live_server_url)
         self.browser.find_element_by_id('id_username').send_keys('usertest')
         self.browser.find_element_by_id('id_password').send_keys('test12345')
-        button_login_book = self.browser.find_element_by_class_name('button')
-        button_login_book.click()
+        button_login = self.browser.find_element_by_class_name('button')
+        button_login.click()
 
         button_add_book = self.browser.find_element_by_class_name('button_add_book')
         input_title_box = self.get_title_input_box()
@@ -122,3 +122,32 @@ class BookValidationTest(FunctionalTest):
 
         # User logged out
         self.browser.find_element_by_link_text('Logout').click()
+
+    def test_can_delete_book(self):
+        # User had gone to website and added first book
+        User = get_user_model()
+        user = User.objects.create_user(username='usertest', password='test12345')
+        force_login(user, webdriver.Chrome(), self.live_server_url)
+        self.browser.get(self.live_server_url)
+        self.browser.find_element_by_id('id_username').send_keys('usertest')
+        self.browser.find_element_by_id('id_password').send_keys('test12345')
+        button_login = self.browser.find_element_by_class_name('button')
+        button_login.click()
+
+        button_add_book = self.browser.find_element_by_class_name('button_add_book')
+        input_title_box = self.get_title_input_box()
+        input_current_page_box = self.get_current_page_input_box()
+        input_total_pages_box = self.get_total_pages_input_box()
+
+        input_title_box.send_keys("Fibonacci’s Rabbits")
+        input_current_page_box.send_keys(10)
+        input_total_pages_box.send_keys(176)
+        button_add_book.click()
+
+        # After that, the user tried to remove book that already occurs in a list
+        delete_button = self.browser.find_element_by_class_name('delete_button')
+        delete_button.click()
+
+        # User realized that previous book had disappeared from his book list
+        body = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn("Fibonacci’s Rabbits", body)
