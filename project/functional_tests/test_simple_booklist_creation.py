@@ -58,7 +58,7 @@ class NewVisitorTest(FunctionalTest):
         self.assertEqual(input_total_pages_box.get_attribute('placeholder'), 'Total number of pages')
 
         # Below the input boxes, there is a button “Save and see a chart”.
-        button_add_book = self.browser.find_element_by_class_name('button')
+        button_add_book = self.browser.find_element_by_class_name('button_add_book')
 
         # The visitor is typying values in all three input boxes
         # After pressing button the user is redirecting to another site.
@@ -74,7 +74,7 @@ class NewVisitorTest(FunctionalTest):
         input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
         input_total_pages_box = self.get_total_pages_input_box()
-        button_add_book = self.browser.find_element_by_class_name('button')
+        button_add_book = self.browser.find_element_by_class_name('button_add_book')
 
         input_title_box.send_keys('Factfulness')
         input_current_page_box.send_keys(0)
@@ -104,13 +104,12 @@ class NewVisitorTest(FunctionalTest):
         input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
         input_total_pages_box = self.get_total_pages_input_box()
-        button_add_book = self.browser.find_element_by_class_name('button')
+        button_add_book = self.browser.find_element_by_class_name('button_add_book')
 
         input_title_box.send_keys('The Power of Habit')
         input_current_page_box.send_keys(129)
         input_total_pages_box.send_keys(371)
         button_add_book.click()
-        time.sleep(10)
         self.check_for_columns_in_book_table('The Power of Habit', 129, 371)
 
         # User logged out
@@ -137,7 +136,7 @@ class NewVisitorTest(FunctionalTest):
         input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
         input_total_pages_box = self.get_total_pages_input_box()
-        button_add_book = self.browser.find_element_by_class_name('button')
+        button_add_book = self.browser.find_element_by_class_name('button_add_book')
 
         input_title_box.send_keys('You Look Like a Thing and I Love You')
         input_current_page_box.send_keys(1)
