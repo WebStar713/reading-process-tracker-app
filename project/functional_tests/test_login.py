@@ -125,3 +125,40 @@ class RegistrationTest(FunctionalTest):
         self.browser.find_element_by_link_text('login').click()
         body = self.browser.find_element_by_tag_name('body').text
         self.assertIn('Login to account', body) # login form had been testes earlier
+
+class ChangePasswordTest(FunctionalTest):
+
+    def test_5login_on_home_page(self):
+        User = get_user_model()
+        user = User.objects.create_user(username='usertest', password='test12345')
+        Client().force_login(user)
+
+        self.browser.get(self.live_server_url)
+        self.browser.find_element_by_id('id_username').send_keys('usertest')
+        self.browser.find_element_by_id('id_password').send_keys('test12345')
+        button_login_book = self.browser.find_element_by_class_name('button')
+        button_login_book.click()
+
+        # User noticed link for password change
+        password_change_link = self.browser.find_element_by_link_text('Change your password').text
+        self.assertIn('Change your password', password_change_link)
+
+        # After clicking on 'Change your password' link
+        # the user is redirecting on "change your password" subpage
+        self.browser.find_element_by_link_text('Change your password').click()
+        body = self.browser.find_element_by_tag_name('body').text
+        self.assertIn('Use the form below to change your password.', body)
+
+        # User noticed form for password change that contains:
+        # old password, new password and confirmation for new password
+        # User is filling them:
+        self.browser.find_element_by_id('id_old_password').send_keys('test12345')
+        self.browser.find_element_by_id('id_new_password1').send_keys('newtest12345')
+        self.browser.find_element_by_id('id_new_password2').send_keys('newtest12345')
+
+        button_change = self.browser.find_element_by_class_name('button')
+        button_change.click()
+
+        # User sees confirmation about successful password change
+        body = self.browser.find_element_by_tag_name('body').text
+        self.assertIn('Your password has been successfully changed.', body)
