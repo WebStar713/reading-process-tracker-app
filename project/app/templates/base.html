@@ -2,10 +2,12 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="cache-control" content="no-cache" />
         <link rel="stylesheet" href="/static/css/bootstrap.min.css" media="screen">
         <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
         <link rel="stylesheet" href="/static/base.css?{% now "U" %}" media="screen">
+        <link rel="stylesheet" href="/static/base.css?{% now "U" %}"/>
         <title>Reading tracker</title>
     </head>
     <body>
@@ -58,6 +60,10 @@
                 </div>
                 <div id="video">
                     {% block file %}
+                    {% endblock %}
+                </div>
+                <div id="content_password_change">
+                    {% block content_password_change %}
                     {% endblock %}
                 </div>
             </div> <!-- end of class="col-md-12 mx-auto" -->
