@@ -43,13 +43,17 @@ class BookValidationTest(FunctionalTest):
         input_total_pages_box.send_keys(45)
         button_add_book.click()
 
-        # After that, user noticed info about lack possibility to type empty value
-        error = self.browser.find_element_by_css_selector('.has-error').text
-        self.assertEqual(error, "This field is required.")
+        # User realized that book hadn't been added
+        body = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('34', body)
+        # 34 is the page of book without title that user wanted to enter
 
 
         # User tried once again by entering whatever values into inbput boxes
         button_add_book = self.browser.find_element_by_class_name('button_add_book')
+
+        input_current_page_box.clear()
+        input_total_pages_box.clear()
 
         input_title_box = self.get_title_input_box()
         input_current_page_box = self.get_current_page_input_box()
