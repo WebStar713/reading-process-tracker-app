@@ -5,15 +5,6 @@ __pycache__
 .DS_Store
 project/db.sqlite3
 /static
-project/app/templates/login1.html
-project/app/templates/templates_for_future
-project/app/templates/templates_for_future/login.html
 project/project/email_host_password.txt
 project/project/email_host_user.txt
-project/app/forms1.py
-project/app/urls1.py
-project/app/templates/base1.html
-project/project/settings1.py
-project/project/urls1py.py
-project/app/views1.py
 project/private.py
