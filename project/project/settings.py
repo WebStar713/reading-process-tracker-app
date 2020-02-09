@@ -1,5 +1,4 @@
 import os
-import django_heroku
 from private import SECRET_KEY
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -15,7 +14,7 @@ SECRET_KEY = SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -127,5 +126,3 @@ EMAIL_HOST_PASSWORD = open('project/email_host_password.txt','r').read()
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-
-django_heroku.settings(locals())
