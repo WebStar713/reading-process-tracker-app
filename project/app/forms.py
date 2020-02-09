@@ -29,7 +29,8 @@ class BookForm(forms.models.ModelForm):
         }),
         }
         error_messages = {
-        'title': {'required': EMPTY_INPUT_ERROR},
+        'title': {'required': EMPTY_INPUT_ERROR,
+                  'unique_together': DUPLICATE_INPUT_ERROR},
         'current_page': {'required': EMPTY_INPUT_ERROR},
         'total_pages': {'required': EMPTY_INPUT_ERROR},
         }
