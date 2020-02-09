@@ -81,6 +81,8 @@ def myList(request):
                 form.owner = request.user
                 form.save()
                 return redirect(list_of_books)
+            else:
+                messages.error(request, DUPLICATE_INPUT_ERROR)
         form = ExisitingBooksInList(for_list = list_of_books, owner=request.user)
 
         return render(request, 'myList.html', {'labels': labels,
