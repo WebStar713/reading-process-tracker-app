@@ -123,6 +123,3 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = open('project/email_host_user.txt','r').read()
 EMAIL_HOST_PASSWORD = open('project/email_host_password.txt','r').read()
-
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
