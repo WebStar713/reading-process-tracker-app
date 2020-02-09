@@ -1,4 +1,5 @@
 import os
+from private import SECRET_KEY
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -8,12 +9,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'f$um9hujwhjy_uo-5-urs6g3p-58h%$0pey^3gj@wkg0ch*_7f'
+SECRET_KEY = SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.herokuapp.com']
 
 
 # Application definition
@@ -119,3 +120,6 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = open('project/email_host_user.txt','r').read()
 EMAIL_HOST_PASSWORD = open('project/email_host_password.txt','r').read()
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
