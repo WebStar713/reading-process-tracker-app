@@ -38,6 +38,13 @@
                                         <div class="help-block"> {{ form.title.errors }} </div>
                                     </div>
                                 {% endif %}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="form-group has-error">
+                                            <div class="help-block"> {{ message }} </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
                             </form>
                         {% endif %}
                     </div> <!-- end of class="inputbox" -->
