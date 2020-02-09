@@ -126,3 +126,5 @@ EMAIL_HOST_PASSWORD = open('project/email_host_password.txt','r').read()
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
+django_heroku.settings(locals())
