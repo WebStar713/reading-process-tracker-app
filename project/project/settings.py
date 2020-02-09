@@ -1,4 +1,5 @@
 import os
+import django_heroku
 from private import SECRET_KEY
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
