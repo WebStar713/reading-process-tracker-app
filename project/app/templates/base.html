@@ -33,7 +33,7 @@
                                 {{ form.current_page }}
                                 {{ form.total_pages }}
                                 <input type="submit" class="button_add_book" value="Add and see a chart">
-                                {% if form.title.errors %}
+                                {% if form.errors %}
                                     <div class="form-group has-error">
                                         <div class="help-block"> {{ form.title.errors }} </div>
                                     </div>
