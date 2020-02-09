@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.core.exceptions import ValidationError
-from django.contrib import messages 
+from django.contrib import messages
 
 
 from app.models import Book, ListfOfBooks
-from app.forms import BookForm, ExisitingBooksInList, UserRegistrationForm
+from app.forms import BookForm, ExisitingBooksInList, UserRegistrationForm, DUPLICATE_INPUT_ERROR
 
 def homePage(request):
     return render(request, 'home.html', {'form': BookForm()})
