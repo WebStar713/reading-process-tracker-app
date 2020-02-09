@@ -29,7 +29,7 @@ body {
 #video {
     float: none;
     max-width: calc(100% - 310px);
-    min-width: 300px;
+    min-width: 250px;
     width: auto;
     display: inline-block;
 }
@@ -90,7 +90,7 @@ body {
 #id_first_name, #id_email, #id_password2, #id_password, #id_password1, #id_username, #id_new_password1, #id_new_password2, #id_old_password {
     padding:10px 10px;
     font-size:15px;
-    width:300px;
+    width:250px;
     border-color: #9d56bf;
     outline-color:#fff;
     display: block;
