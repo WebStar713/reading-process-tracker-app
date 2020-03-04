@@ -55,9 +55,9 @@ and they are checking for validation of login, forgotten password process, regis
             ├── test_forms.py
             ├── test_models.py
 ```
-that contains 39 unit tests.
+that contains 39 unit tests. All tests pass.
 
 ## **Status**:
-The project is finished. All tests pass.
+The project is finished. 
 
  
