@@ -58,6 +58,6 @@ and they are checking for validation of login, forgotten password process, regis
 that contains 39 unit tests.
 
 ## **Status**:
-The project is finished.
+The project is finished. All tests pass.
 
  
