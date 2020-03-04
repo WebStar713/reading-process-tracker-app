@@ -1,5 +1,5 @@
 # Reading Tracker App 
-#### Django app that helps users with tracking their reading progress and reduce number of unfinished books which is the main purpose of this app.
+#### Django app that helps users with tracking their reading progress and reduce number of unfinished books. 
 
 
 <img src="tracker.gif" width="700" >
@@ -39,8 +39,25 @@ The app is deployed on [readingtracker.pythonanywhere.com](http://readingtracker
 
  ## **Testing**:
 
-The app has been tested by functional tests and unit tests. **Functional tests** are located in project/functional_tests in 4 files that test login, 
+The app has been tested by functional tests and unit tests. **Functional tests** are located in:
+```bash
+├── project
+    ├── functional_tests
+```
+and they are checking for validation of login, forgotten password process, registration and changing password. Moreover, tests are checking if user cannot add title that already had been added before or cannot add position with empty title and incorrect data format.
 
+**Unit tests** are located in:
+```bash
+├── project
+    ├── app
+        ├── tests
+            ├── test_views.py
+            ├── test_forms.py
+            ├── test_models.py
+```
+that contains 39 unit tests.
 
+## **Status**:
+The project is finished.
 
  
